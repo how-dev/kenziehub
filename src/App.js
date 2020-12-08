@@ -1,16 +1,8 @@
 import "./App.css";
-import styled from "styled-components";
+import { Container } from "./globalStyles";
 
 const App = () => {
-  return (
-    <Container>
-
-    </Container>
-  );
+  return <Container></Container>;
 };
 
 export default App;
-
-const Container = styled.div`
-  text-align: center;
-`
