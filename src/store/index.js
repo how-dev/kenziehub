@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 import reducer from "./reducers/reducer";
 
 const globalReducer = combineReducers ({
-    reducer: reducer,
+    key: reducer,
 })
 
 const store = createStore(globalReducer, applyMiddleware(thunk))
