@@ -2,7 +2,7 @@ const theToken = {
     key: localStorage.getItem("token") || "",
 };
 
-const setToken = (state = theToken, action) => {
+const tokenReducer = (state = theToken, action) => {
     switch(action.type) {
         case "@TOKEN/newToken":
             const { token } = action;
@@ -12,4 +12,4 @@ const setToken = (state = theToken, action) => {
     };
 };
 
-export default setToken;
+export default tokenReducer;
