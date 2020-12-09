@@ -112,7 +112,6 @@ export default function SignUp() {
                 id="Name"
                 inputRef={register}
                 label="Nome Completo"
-                autoComplete="name"
               />
             </Grid>
             <Grid item xs={12}>
