@@ -1,8 +1,7 @@
 import "./App.css";
-import { Container } from "./globalStyles";
-
+import FormInput from "./components/form/index";
 const App = () => {
-  return <Container></Container>;
+  return <FormInput />;
 };
 
 export default App;
