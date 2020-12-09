@@ -1,12 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import reducer from "./reducers/reducer";
+import tokenReducer from "./modules/token/reducer";
 
-const globalReducer = combineReducers ({
-    key: reducer,
+const reducers = combineReducers ({
+    key: tokenReducer,
 })
 
-const store = createStore(globalReducer, applyMiddleware(thunk))
+const store = createStore(reducers, applyMiddleware(thunk))
 
 export default store;
