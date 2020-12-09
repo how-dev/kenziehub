@@ -1,7 +1,7 @@
 import "./App.css";
-import FormInput from "./components/form/index";
+import SignUp from "./pages/signUp/index";
 const App = () => {
-  return <FormInput />;
+  return <SignUp />;
 };
 
 export default App;
