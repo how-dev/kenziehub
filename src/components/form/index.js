@@ -59,15 +59,12 @@ export default function SignUp() {
 
   const handleSignUp = async (data) => {
     //colocar thunk para passar o objeto do form
-    console.log("teste" + data);
-    debugger;
   };
 
   const handleChange = (event) => {
     setModules({ [event.target.name]: event.target.checked });
     register({ modules: event.target.value });
     setModuleValue(event.target.value);
-    console.log("modules " + moduleValue);
   };
 
   return (
