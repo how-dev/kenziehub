@@ -1,13 +1,7 @@
 import "./App.css";
-import { Container } from "./globalStyles";
-import Login from "./pages/login/index";
-
+import FormInput from "./components/form/index";
 const App = () => {
-  return (
-    <Container>
-      <Login></Login>
-    </Container>
-  );
+  return <FormInput />;
 };
 
 export default App;
