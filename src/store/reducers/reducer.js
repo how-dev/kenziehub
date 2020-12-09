@@ -1,13 +1,15 @@
-const defaultState = [{ key: "value" }];
+const theToken = {
+    key: localStorage.getItem("token") || "",
+};
 
-const newState = (state = defaultState, action) => {
+const setToken = (state = theToken, action) => {
     switch(action.type) {
-        case "test":
-            const { newValue } = action;
-            return [...state, newValue];
+        case "@TOKEN/newToken":
+            const { token } = action;
+            return { key: token };
         default:
             return state;
     };
 };
 
-export default newState;
+export default setToken;

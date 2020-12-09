@@ -1,1 +1,1 @@
-export const setNewValue = (value) => ({ type: "test", value })
+export const getToken = (token) => ({ type: "@TOKEN/newToken", token })
