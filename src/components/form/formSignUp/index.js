@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { FormData, theme, schema_Signup } from "../../helper";
+import { FormData, theme, schema_Signup } from "../../../helper";
 import { useState } from "react";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -58,16 +58,14 @@ export default function SignUp() {
   });
 
   const handleSignUp = async (data) => {
+    data.module = moduleValue;
     //colocar thunk para passar o objeto do form
-    console.log("teste" + data);
-    debugger;
   };
 
   const handleChange = (event) => {
     setModules({ [event.target.name]: event.target.checked });
     register({ modules: event.target.value });
     setModuleValue(event.target.value);
-    console.log("modules " + moduleValue);
   };
 
   return (
@@ -115,7 +113,6 @@ export default function SignUp() {
                 id="Name"
                 inputRef={register}
                 label="Nome Completo"
-                autoComplete="name"
               />
             </Grid>
             <Grid item xs={12}>
@@ -132,19 +129,11 @@ export default function SignUp() {
             <Grid item xs={12}>
               <FormControl required error={error} component="fieldset">
                 <FormLabel component="legend">Selecione seu Quarter</FormLabel>
-                <TextField
-                  variant="outlined"
-                  //required
-                  disabled={true}
-                  id="module"
-                  value={moduleValue}
-                  inputRef={register}
-                  name="module"
-                />
                 <FormGroup>
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleOne}
                         onChange={handleChange}
                         name="moduleOne"
@@ -156,6 +145,7 @@ export default function SignUp() {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleTwo}
                         onChange={handleChange}
                         name="moduleTwo"
@@ -167,6 +157,7 @@ export default function SignUp() {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleThree}
                         onChange={handleChange}
                         name="moduleThree"
@@ -178,6 +169,7 @@ export default function SignUp() {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleFour}
                         onChange={handleChange}
                         name="moduleFour"
@@ -191,6 +183,7 @@ export default function SignUp() {
               </FormControl>
             </Grid>
           </Grid>
+
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
           </Button>
