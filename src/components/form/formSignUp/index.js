@@ -17,6 +17,8 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 
+import { signUpRequest } from "../../../requests/"
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -46,6 +48,8 @@ export default function SignUp() {
     moduleThree: false,
     moduleFour: false,
   });
+  const [response, setResponse] = useState("teste");
+  const [responseError, setError] = useState("teste");
 
   const { moduleOne, moduleTwo, moduleThree, moduleFour } = modules;
 
@@ -57,9 +61,9 @@ export default function SignUp() {
     //resolver: yupResolver(schema_Signup),
   });
 
-  const handleSignUp = async (data) => {
-    data.module = moduleValue;
-    //colocar thunk para passar o objeto do form
+  const handleSignUp = (data) => {
+    data.course_module = moduleValue;
+    signUpRequest(data, setResponse, setError)
   };
 
   const handleChange = (event) => {
@@ -106,11 +110,11 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
-                name="Name"
+                name="name"
                 variant="outlined"
                 //required
                 fullWidth
-                id="Name"
+                id="name"
                 inputRef={register}
                 label="Nome Completo"
               />
@@ -124,6 +128,17 @@ export default function SignUp() {
                 inputRef={register}
                 label="Descrição breve"
                 name="bio"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                //required
+                fullWidth
+                id="contact"
+                inputRef={register}
+                label="Contato"
+                name="contact"
               />
             </Grid>
             <Grid item xs={12}>
