@@ -16,7 +16,7 @@ const Router = () => {
       <Route exact path="/login">
         <Login />
       </Route>
-      <Route exact path="/sign-up">
+      <Route exact path="/signup">
         <SignUp />
       </Route>
       <Route exact path="/users-list"></Route>

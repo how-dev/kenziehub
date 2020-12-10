@@ -14,8 +14,10 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import { FormData, theme, schema_Signup } from "../../../helper";
+import { signUpSchema } from "../../../helper";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { signUpRequest } from "../../../requests/";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,8 +49,8 @@ export default function SignUp() {
     moduleThree: false,
     moduleFour: false,
   });
-  const [response, setResponse] = useState("teste");
-  const [responseError, setError] = useState("teste");
+  const [response, setResponse] = useState("");
+  const [responseError, setError] = useState("");
 
   const { moduleOne, moduleTwo, moduleThree, moduleFour } = modules;
 
@@ -57,7 +59,7 @@ export default function SignUp() {
     1;
   const [moduleValue, setModuleValue] = useState("");
   const { register, handleSubmit, errors } = useForm({
-    //resolver: yupResolver(schema_Signup),
+    resolver: yupResolver(signUpSchema),
   });
 
   const handleSignUp = (data) => {
@@ -92,6 +94,9 @@ export default function SignUp() {
                 autoComplete="email"
                 inputRef={register}
               />
+              <FormHelperText error={errors}>
+                {errors.email?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -105,6 +110,9 @@ export default function SignUp() {
                 inputRef={register}
                 autoComplete="current-password"
               />
+              <FormHelperText error={errors}>
+                {errors.password?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -117,6 +125,9 @@ export default function SignUp() {
                 inputRef={register}
                 label="Nome Completo"
               />
+              <FormHelperText error={errors}>
+                {errors.name?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -128,6 +139,9 @@ export default function SignUp() {
                 label="Descrição breve"
                 name="bio"
               />
+              <FormHelperText error={errors}>
+                {errors.bio?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -139,6 +153,9 @@ export default function SignUp() {
                 label="Contato"
                 name="contact"
               />
+              <FormHelperText error={errors}>
+                {errors.contact?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <FormControl required error={error} component="fieldset">
