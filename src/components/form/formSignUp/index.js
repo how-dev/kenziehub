@@ -4,7 +4,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Grid,
   Typography,
   Container,
@@ -17,7 +16,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
 import { FormData, theme, schema_Signup } from "../../../helper";
 import { useState } from "react";
-
 import { signUpRequest } from "../../../requests/";
 
 const useStyles = makeStyles((theme) => ({
@@ -199,17 +197,9 @@ export default function SignUp() {
               </FormControl>
             </Grid>
           </Grid>
-
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item xs={12}>
-              <Link href="#" variant="paginadologin">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
     </Container>

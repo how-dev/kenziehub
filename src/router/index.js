@@ -1,14 +1,14 @@
 import { Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "../pages/login";
+import SignUp from "../pages/signUp";
 
 const Router = () => {
-  const key = useSelector((state) => state.key);
+  const key = useSelector((state) => state.key.key);
   return key ? (
     <Switch>
-      <Route exact path="/authenticated"></Route>
       <Route exact path="/users-list"></Route>
-      <Route exact path="/:user"></Route>
+      <Route exact path="/user/:id"></Route>
       <Route exact path="/settings"></Route>
     </Switch>
   ) : (
@@ -16,10 +16,11 @@ const Router = () => {
       <Route exact path="/login">
         <Login />
       </Route>
-      <Route exact path="/sign-up"></Route>
-      <Route exact path="/feed"></Route>
+      <Route exact path="/sign-up">
+        <SignUp />
+      </Route>
       <Route exact path="/users-list"></Route>
-      <Route exact path="/:user"></Route>
+      <Route exact path="/user/:id"></Route>
     </Switch>
   );
 };
