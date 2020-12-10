@@ -1,7 +1,8 @@
 import "./App.css";
-import FormInput from "./components/form/index";
+import Router from "./router";
+
 const App = () => {
-  return <FormInput />;
+  return <Router></Router>;
 };
 
 export default App;
