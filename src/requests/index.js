@@ -2,8 +2,9 @@ import axios from "axios";
 
 const baseUrl = "https://kenziehub.me/";
 
-export const signUpRequest = ({ data, setResponse }) => {
+export const signUpRequest = (data, setResponse, setError) => {
+  console.log(data)
   axios.post(`${baseUrl}users`, data).then((res) => {
-    setResponse(res.id);
+    res.id ? setResponse(res.id) : setError(res.message)
   });
 };

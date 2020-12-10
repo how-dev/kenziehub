@@ -10,12 +10,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { FormData, theme, schema_Signup } from "../../helper";
+import { FormData, theme, schema_Signup } from "../../../helper";
 import { useState } from "react";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+
+import { signUpRequest } from "../../../requests/"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,6 +48,8 @@ export default function SignUp() {
     moduleThree: false,
     moduleFour: false,
   });
+  const [response, setResponse] = useState("teste");
+  const [responseError, setError] = useState("teste");
 
   const { moduleOne, moduleTwo, moduleThree, moduleFour } = modules;
 
@@ -57,17 +61,15 @@ export default function SignUp() {
     //resolver: yupResolver(schema_Signup),
   });
 
-  const handleSignUp = async (data) => {
-    //colocar thunk para passar o objeto do form
-    data.module = moduleValue;
-    console.log(data);
+  const handleSignUp = (data) => {
+    data.course_module = moduleValue;
+    signUpRequest(data, setResponse, setError)
   };
 
   const handleChange = (event) => {
     setModules({ [event.target.name]: event.target.checked });
     register({ modules: event.target.value });
     setModuleValue(event.target.value);
-    console.log("modules " + moduleValue);
   };
 
   return (
@@ -108,14 +110,13 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
-                name="Name"
+                name="name"
                 variant="outlined"
                 //required
                 fullWidth
-                id="Name"
+                id="name"
                 inputRef={register}
                 label="Nome Completo"
-                autoComplete="name"
               />
             </Grid>
             <Grid item xs={12}>
@@ -130,21 +131,24 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                //required
+                fullWidth
+                id="contact"
+                inputRef={register}
+                label="Contato"
+                name="contact"
+              />
+            </Grid>
+            <Grid item xs={12}>
               <FormControl required error={error} component="fieldset">
                 <FormLabel component="legend">Selecione seu Quarter</FormLabel>
-                <TextField
-                  variant="outlined"
-                  //required
-                  disabled={true}
-                  id="module"
-                  value={moduleValue}
-                  inputRef={register}
-                  name="module"
-                />
                 <FormGroup>
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleOne}
                         onChange={handleChange}
                         name="moduleOne"
@@ -156,6 +160,7 @@ export default function SignUp() {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleTwo}
                         onChange={handleChange}
                         name="moduleTwo"
@@ -167,6 +172,7 @@ export default function SignUp() {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleThree}
                         onChange={handleChange}
                         name="moduleThree"
@@ -178,6 +184,7 @@ export default function SignUp() {
                   <FormControlLabel
                     control={
                       <Checkbox
+                        id="module"
                         checked={moduleFour}
                         onChange={handleChange}
                         name="moduleFour"
@@ -191,6 +198,7 @@ export default function SignUp() {
               </FormControl>
             </Grid>
           </Grid>
+
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
           </Button>
