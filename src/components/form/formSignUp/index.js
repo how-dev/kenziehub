@@ -49,7 +49,9 @@ export default function SignUp() {
     moduleThree: false,
     moduleFour: false,
   });
+
   const [response, setResponse] = useState("");
+
   const [responseError, setError] = useState("");
 
   const { moduleOne, moduleTwo, moduleThree, moduleFour } = modules;
@@ -57,7 +59,9 @@ export default function SignUp() {
   const error =
     [moduleOne, moduleTwo, moduleThree, moduleFour].filter((v) => v).length !==
     1;
+
   const [moduleValue, setModuleValue] = useState("");
+
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(signUpSchema),
   });
@@ -78,7 +82,7 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign Up
         </Typography>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <Grid container spacing={2}>
@@ -209,7 +213,6 @@ export default function SignUp() {
                     }
                     label="Quarto módulo (Backend Avançado)"
                   />
-                  <FormHelperText>Selecione uma opção</FormHelperText>
                 </FormGroup>
               </FormControl>
             </Grid>
