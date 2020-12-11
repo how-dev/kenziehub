@@ -4,7 +4,7 @@ import SignUp from "../pages/signUp";
 import Settings from "../pages/settingsEdit";
 
 const Router = () => {
-  const key = window.localStorage.getItem("key");
+  const key = window.localStorage.getItem("token");
   return key ? (
     <Switch>
       <Route exact path="/users-list">
