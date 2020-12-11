@@ -1,7 +1,8 @@
 import "./App.css";
-import FormInput from "./components/form/formSignUp";
+// import FormInput from "./components/form/formSignUp";
+import UserPage from "./pages/userPage"
 const App = () => {
-  return <FormInput />;
+  return <UserPage />;
 };
 
 export default App;
