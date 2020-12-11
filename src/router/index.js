@@ -2,7 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import Login from "../pages/login";
 import SignUp from "../pages/signUp";
 import Settings from "../pages/settingsEdit";
-import UserList from "../pages/userList/"
+import UserList from "../pages/userList";
 
 const Router = () => {
   const key = window.localStorage.getItem("token");
