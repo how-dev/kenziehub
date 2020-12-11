@@ -8,7 +8,7 @@ const Router = () => {
   const key = useSelector((state) => state.key.key);
   return key ? (
     <Switch>
-      <Route exact path="/userslist">
+      <Route exact path="/users-list">
         <UserList />
       </Route>
       <Route exact path="/user/:id"></Route>
@@ -19,10 +19,10 @@ const Router = () => {
       <Route exact path="/login">
         <Login />
       </Route>
-      <Route exact path="/signup">
+      <Route exact path="/sign-up">
         <SignUp />
       </Route>
-      <Route exact path="/userslist">
+      <Route exact path="/users-list">
         <UserList />
       </Route>
       <Route exact path="/user/:id"></Route>

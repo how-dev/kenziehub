@@ -68,7 +68,7 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/userslist")}>
+          <MenuItem onClick={() => handleClose("/users-list")}>
             Lista de alunos
           </MenuItem>
           {key && (
@@ -83,7 +83,9 @@ const KenzieAppBar = () => {
             <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
           )}
           {!key && (
-            <MenuItem onClick={() => handleClose("/signup")}>Cadastro</MenuItem>
+            <MenuItem onClick={() => handleClose("/sign-up")}>
+              Cadastro
+            </MenuItem>
           )}
         </Menu>
       </Toolbar>
