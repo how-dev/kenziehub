@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 const UserCard = ({ user }) => {
   const classes = useStyles();
 
-  const { name, avatar_url, email } = user;
+  const { name, avatar_url } = user;
 
   const history = useHistory();
 
@@ -36,16 +36,13 @@ const UserCard = ({ user }) => {
         <CardMedia
           component="img"
           alt={name}
-          height="140"
+          height="200"
           src={avatar_url ? avatar_url : tomateSkatista}
           title="Tomate Radical"
         />
         <CardContent>
-          <Typography gutterBottom variant="h6">
+          <Typography gutterBottom variant="h6" style={{ margin: "0 auto" }}>
             {name}
-          </Typography>
-          <Typography variant="body3" color="textSecondary" component="p">
-            {email}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -54,7 +51,7 @@ const UserCard = ({ user }) => {
           size="small"
           color="primary"
           onClick={GoPageUser}
-          style={{ marginLeft: "10px" }}
+          style={{ margin: "0 auto" }}
         >
           Ver Página
         </Button>
