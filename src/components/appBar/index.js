@@ -14,20 +14,20 @@ import logo from "../../img/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
     fontSize: "1.5em",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   logo: {
     height: "2em",
-    margin: "1em"
-  }
+    margin: "1em",
+  },
 }));
 
 const KenzieAppBar = () => {
@@ -68,7 +68,7 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/users-list")}>
+          <MenuItem onClick={() => handleClose("/userslist")}>
             Lista de alunos
           </MenuItem>
           {key && (
@@ -83,9 +83,7 @@ const KenzieAppBar = () => {
             <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
           )}
           {!key && (
-            <MenuItem onClick={() => handleClose("/sign-up")}>
-              Cadastro
-            </MenuItem>
+            <MenuItem onClick={() => handleClose("/signup")}>Cadastro</MenuItem>
           )}
         </Menu>
       </Toolbar>
