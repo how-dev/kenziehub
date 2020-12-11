@@ -3,24 +3,25 @@ import FormProfileUpdate from "../../components/form/formProfileUpdate";
 import FormTechsUpdate from "../../components/form/formTechsUpdate";
 import FormWorksUpdate from "../../components/form/formWorksUpdate";
 import { Container } from "../../globalStyles";
+import "./index.css";
 
-const Settings = ({ id }) => {
-  let user; //redux vai trazer o state global dos usuarios da lista e vai comparar o id com o id gravado no response do feedback do login parar definir os dados atuais do usuario logado
+const Settings = ({ user }) => {
   return (
     <Container>
       <div id="header">
-        <Link to="/users-list">Return to all devs</Link>
-        {/* <h1>{user.name}</h1> */}
-        {/* <img alt={defaultImage}/> */}
+        <Link to="/users-list" className="link">
+          Return to all batatas
+        </Link>
+        <h1>Batata</h1>
+        <img
+          alt="{defaultImage}"
+          src="https://img.freepik.com/fotos-gratis/batata-no-fundo-branco_1205-509.jpg?size=626&ext=jpg"
+        />
       </div>
-      <div id="generalForm">
-        <FormProfileUpdate user={user} />
-      </div>
-      <div id="techsUpdate">
-        <FormTechsUpdate techs={user.techs} />
-      </div>
-      <div id="jobsUpdate">
-        <FormWorksUpdate works={user.works} />
+      <div id="forms">
+        <FormProfileUpdate /**user.infos**/ />
+        <FormTechsUpdate /**user.infos**/ />
+        <FormWorksUpdate /**user.infos**/ />
       </div>
     </Container>
   );
