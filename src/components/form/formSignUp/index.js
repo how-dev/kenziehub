@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import { FormData, theme, schema_Signup } from "../../../helper";
 import { useState } from "react";
 import { signUpRequest } from "../../../requests/";
 
@@ -47,6 +46,7 @@ export default function SignUp() {
     moduleThree: false,
     moduleFour: false,
   });
+
   const [response, setResponse] = useState("teste");
   const [responseError, setError] = useState("teste");
 
