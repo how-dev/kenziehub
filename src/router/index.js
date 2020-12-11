@@ -7,7 +7,9 @@ const Router = () => {
   const key = window.localStorage.getItem("token");
   return key ? (
     <Switch>
-      <Route exact path="/users-list"></Route>
+      <Route exact path="/users-list">
+        <UserList />
+      </Route>
       <Route exact path="/user/:id"></Route>
       <Route exact path="/settings">
         <Settings />
@@ -21,7 +23,9 @@ const Router = () => {
       <Route exact path="/sign-up">
         <SignUp />
       </Route>
-      <Route exact path="/users-list"></Route>
+      <Route exact path="/users-list">
+        <UserList />
+      </Route>
       <Route exact path="/user/:id"></Route>
     </Switch>
   );
