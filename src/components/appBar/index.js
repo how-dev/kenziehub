@@ -14,20 +14,20 @@ import logo from "../../img/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
     fontSize: "1.5em",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   logo: {
     height: "2em",
-    margin: "1em"
-  }
+    margin: "1em",
+  },
 }));
 
 const KenzieAppBar = () => {
