@@ -1,20 +1,13 @@
 import UserCard from "../../components/userCard/index";
 import { useState, useEffect } from "react";
 import { Container } from "./style.js";
-import axios from "axios";
+import { usersRequest } from "../../requests";
 
 const UsersList = () => {
   const [list, setList] = useState([]);
 
-  const usersRequest = () => {
-    const baseURL = "https://kenziehub.me/users?perPage=15";
-    axios.get(`${baseURL}`).then((response) => {
-      setList(response.data);
-    });
-  };
-
   const requestUsers = () => {
-    usersRequest();
+    usersRequest(setList);
   };
 
   useEffect(() => {
