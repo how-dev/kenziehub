@@ -14,8 +14,11 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import { FormData, theme, schema_Signup } from "../../../helper";
+import { signUpSchema } from "../../../helper";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useHistory } from "react-router-dom";
+
 import { signUpRequest } from "../../../requests/";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,28 +44,35 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
+  const history = useHistory();
+
   const [modules, setModules] = useState({
     moduleOne: false,
     moduleTwo: false,
     moduleThree: false,
     moduleFour: false,
   });
-  const [response, setResponse] = useState("teste");
-  const [responseError, setError] = useState("teste");
+
+  const [response, setResponse] = useState("");
+
+  const [responseError, setError] = useState("");
 
   const { moduleOne, moduleTwo, moduleThree, moduleFour } = modules;
 
   const error =
     [moduleOne, moduleTwo, moduleThree, moduleFour].filter((v) => v).length !==
     1;
+
   const [moduleValue, setModuleValue] = useState("");
+
   const { register, handleSubmit, errors } = useForm({
-    //resolver: yupResolver(schema_Signup),
+    resolver: yupResolver(signUpSchema),
   });
 
   const handleSignUp = (data) => {
     data.course_module = moduleValue;
     signUpRequest(data, setResponse, setError);
+    history.push("/login");
   };
 
   const handleChange = (event) => {
@@ -76,7 +86,7 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign Up
         </Typography>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <Grid container spacing={2}>
@@ -84,7 +94,6 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 id="email"
                 label="Endereço de E-mail"
@@ -92,11 +101,13 @@ export default function SignUp() {
                 autoComplete="email"
                 inputRef={register}
               />
+              <FormHelperText error={errors}>
+                {errors.email?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 name="password"
                 label="Senha"
@@ -105,40 +116,49 @@ export default function SignUp() {
                 inputRef={register}
                 autoComplete="current-password"
               />
+              <FormHelperText error={errors}>
+                {errors.password?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
                 name="name"
                 variant="outlined"
-                //required
                 fullWidth
                 id="name"
                 inputRef={register}
                 label="Nome Completo"
               />
+              <FormHelperText error={errors}>
+                {errors.name?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 id="bio"
                 inputRef={register}
                 label="Descrição breve"
                 name="bio"
               />
+              <FormHelperText error={errors}>
+                {errors.bio?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 id="contact"
                 inputRef={register}
                 label="Contato"
                 name="contact"
               />
+              <FormHelperText error={errors}>
+                {errors.contact?.message}
+              </FormHelperText>
             </Grid>
             <Grid item xs={12}>
               <FormControl required error={error} component="fieldset">
@@ -192,7 +212,6 @@ export default function SignUp() {
                     }
                     label="Quarto módulo (Backend Avançado)"
                   />
-                  <FormHelperText>Selecione uma opção</FormHelperText>
                 </FormGroup>
               </FormControl>
             </Grid>
