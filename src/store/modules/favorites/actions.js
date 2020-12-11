@@ -1,0 +1,1 @@
+export const addFav = (user) => ({ type:"@FAVORITE/newFav", user})
