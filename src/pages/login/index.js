@@ -25,7 +25,7 @@ const Login = () => {
         </Button>
         <div>
           Ainda não tem uma conta?{" "}
-          <Link onClick={() => history.push("/signup")}>Cadastre-se</Link>
+          <Link onClick={() => history.push("/sign-up")}>Cadastre-se</Link>
         </div>
       </LoginHolder>
     </Holder>

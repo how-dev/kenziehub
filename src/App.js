@@ -1,8 +1,14 @@
 import "./App.css";
-// import FormInput from "./components/form/formSignUp";
-import UserPage from "./pages/userPage"
+import KenzieAppBar from "./components/appBar";
+import Router from "./router";
+
 const App = () => {
-  return <UserPage />;
+  return (
+    <>
+      <KenzieAppBar />
+      <Router />
+    </>
+  );
 };
 
 export default App;
