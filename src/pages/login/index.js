@@ -31,11 +31,13 @@ const Login = () => {
   const tryLogin = (data) => {
     console.log(data)
     axios.post("https://kenziehub.me/sessions", {...data})
-    .then((res) => console.log(res))
+    .then((res) => {
+      localStorage.setItem("userData", JSON.stringify(res.data.user))
+      localStorage.setItem("token", res.data.token)
+    })
     .catch((err) =>
         setError("password", {message: "Email ou senha inválido"})
     )
-
   };
 
   return (
