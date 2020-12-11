@@ -1,6 +1,6 @@
 import UserCard from "../../components/userCard/index";
 import { useState, useEffect } from "react";
-import { Container } from "../../globalStyles";
+import { Container } from "./style.js";
 import axios from "axios";
 
 const UsersList = () => {

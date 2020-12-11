@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { signUpSchema } from "../../../helper";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useHistory } from "react-router-dom";
 
 import { signUpRequest } from "../../../requests/";
 
@@ -42,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+
+  const history = useHistory();
 
   const [modules, setModules] = useState({
     moduleOne: false,
@@ -69,6 +72,7 @@ export default function SignUp() {
   const handleSignUp = (data) => {
     data.course_module = moduleValue;
     signUpRequest(data, setResponse, setError);
+    history.push("/login");
   };
 
   const handleChange = (event) => {
@@ -90,7 +94,6 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 id="email"
                 label="Endereço de E-mail"
@@ -105,7 +108,6 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 name="password"
                 label="Senha"
@@ -123,7 +125,6 @@ export default function SignUp() {
                 autoComplete="fname"
                 name="name"
                 variant="outlined"
-                //required
                 fullWidth
                 id="name"
                 inputRef={register}
@@ -136,7 +137,6 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 id="bio"
                 inputRef={register}
@@ -150,7 +150,6 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                //required
                 fullWidth
                 id="contact"
                 inputRef={register}
