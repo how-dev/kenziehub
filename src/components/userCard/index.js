@@ -1,9 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
-  CardActionArea,
-  CardActions,
-  CardContent,
   CardMedia,
   Button,
   Typography,

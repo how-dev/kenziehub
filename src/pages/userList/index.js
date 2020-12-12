@@ -37,9 +37,8 @@ const UsersList = () => {
           ? list.filter((user) =>
               user.name
                 ?.toLowerCase()
-                .includes(searchInput)
+                .includes(searchInput))
                 .map((user, index) => <UserCard key={index} user={user} />)
-            )
           : list.map((user, index) => <UserCard key={index} user={user} />)}
       </Container>
     </>
