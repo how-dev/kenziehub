@@ -1,10 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Paper,
-  CardMedia,
-  Button,
-  Typography,
-} from "@material-ui/core";
+import { Paper, CardMedia, Button, Typography } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../store/modules/users/actions";
 import { useHistory } from "react-router-dom";
@@ -15,6 +10,20 @@ const useStyles = makeStyles({
     width: 230,
     margin: 10,
     marginTop: 20,
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: "50%",
+    margin: 10,
+    marginLeft: 40,
+  },
+  name: {
+    textAlign: "center",
+    margin: 10,
+  },
+  button: {
+    marginLeft: 70,
   },
 });
 
@@ -33,15 +42,19 @@ const UserCard = ({ user }) => {
 
   return (
     <Paper className={classes.root} elevation={3}>
-      <CardMedia
-        component="img"
+      <img
         alt={name}
-        height="200"
         src={avatar_url ? avatar_url : tomateSkatista}
         title="Tomate Radical"
+        className={classes.avatar}
       />
 
-      <Typography gutterBottom variant="h6" style={{ margin: "0 auto" }}>
+      <Typography
+        gutterBottom
+        variant="h6"
+        style={{ margin: "0 auto" }}
+        className={classes.name}
+      >
         {name}
       </Typography>
 
@@ -49,7 +62,7 @@ const UserCard = ({ user }) => {
         size="small"
         color="primary"
         onClick={GoPageUser}
-        style={{ margin: "0 auto" }}
+        className={classes.button}
       >
         Ver Página
       </Button>
