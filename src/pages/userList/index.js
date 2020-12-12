@@ -14,7 +14,7 @@ const UsersList = () => {
   };
 
   const requestUsers = () => {
-    usersRequest(list, setList, page, setHaveNext);
+    usersRequest(list, setList, page, haveNext, setHaveNext);
   };
   const handlePage = () => {
     setPage(page + 1);
@@ -22,6 +22,7 @@ const UsersList = () => {
 
   useEffect(() => {
     requestUsers();
+    console.log("ta true? " + haveNext);
   }, [page]);
 
   return (

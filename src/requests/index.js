@@ -9,16 +9,17 @@ export const signUpRequest = (data, setResponse, setResponseError) => {
   });
 };
 
-export const usersRequest = (list, setList, page, setHaveNext) => {
-  axios.get(`${baseUrl}users?perPage=10&page=${page}`).then((response) => {
+export const usersRequest = (list, setList, page, haveNext, setHaveNext) => {
+  axios.get(`${baseUrl}users?perPage=20&page=${page}`).then((response) => {
     setList([...list, ...response.data]);
     console.log(
       "vendo header " + response.headers.nexturl,
-      " resposta " + response.data
+      " resposta " + response.data.length
     );
-    if (response.data === []) {
-      setHaveNext(false);
+
+    if (response.data.length < 20) {
+      console.log("ta aqui");
+      setHaveNext(!haveNext);
     }
-    setHaveNext(true);
   });
 };
