@@ -9,8 +9,8 @@ export const signUpRequest = (data, setResponse, setResponseError) => {
   });
 };
 
-export const usersRequest = (setList) => {
-  axios.get(`${baseUrl}users?perPage=50`).then((response) => {
+export const usersRequest = (setList, page) => {
+  axios.get(`${baseUrl}users?perPage=${page}`).then((response) => {
     setList(response.data);
   });
 };
