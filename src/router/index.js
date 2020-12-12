@@ -3,6 +3,9 @@ import Login from "../pages/login";
 import SignUp from "../pages/signUp";
 import Settings from "../pages/settingsEdit";
 import UserList from "../pages/userList";
+import UserPage from "../pages/userPage";
+
+
 
 const Router = () => {
   const key = window.localStorage.getItem("token");
@@ -27,7 +30,9 @@ const Router = () => {
       <Route exact path="/users-list">
         <UserList />
       </Route>
-      <Route exact path="/user/:id"></Route>
+      <Route exact path="/user/:id">
+        <UserPage />
+      </Route>
     </Switch>
   );
 };
