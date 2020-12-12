@@ -1,5 +1,5 @@
 const favoriteList = {
-  favorite: JSON.parse(localStorage.getItem("favoriteList")) || [],
+  favorite: JSON.parse(localStorage.getItem("@kenzieHub/favoriteList")) || [],
 };
 
 const tokenReducer = (state = favoriteList, action) => {
