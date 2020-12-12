@@ -72,7 +72,6 @@ export default function SignUp() {
   const handleSignUp = (data) => {
     data.course_module = moduleValue;
     signUpRequest(data, setResponse, setError);
-    history.push("/login");
   };
 
   const handleChange = (event) => {
