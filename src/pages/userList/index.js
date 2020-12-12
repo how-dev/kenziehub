@@ -7,13 +7,17 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const UsersList = () => {
   const [list, setList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [page, setPage] = useState(15);
+  const [page, setPage] = useState(1);
+  const [haveNext, setHaveNext] = useState(true);
   const handleSearch = (e) => {
     setSearchInput(e.target.value.toLowerCase());
   };
 
   const requestUsers = () => {
-    usersRequest(setList, page);
+    usersRequest(list, setList, page, setHaveNext);
+  };
+  const handlePage = () => {
+    setPage(page + 1);
   };
 
   useEffect(() => {
@@ -35,12 +39,12 @@ const UsersList = () => {
 
       <InfiniteScroll
         dataLength={list.length}
-        next={() => setPage(page + 15)}
-        hasMore={true}
+        next={handlePage}
+        hasMore={haveNext}
         loader={<h4>Loading...</h4>}
         endMessage={
           <p style={{ textAlign: "center" }}>
-            <b>Isso é tudo pessoal</b>
+            <b>that's all folks!</b>
           </p>
         }
       >

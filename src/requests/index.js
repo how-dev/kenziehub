@@ -9,8 +9,16 @@ export const signUpRequest = (data, setResponse, setResponseError) => {
   });
 };
 
-export const usersRequest = (setList, page) => {
-  axios.get(`${baseUrl}users?perPage=${page}`).then((response) => {
-    setList(response.data);
+export const usersRequest = (list, setList, page, setHaveNext) => {
+  axios.get(`${baseUrl}users?perPage=10&page=${page}`).then((response) => {
+    setList([...list, ...response.data]);
+    console.log(
+      "vendo header " + response.headers.nexturl,
+      " resposta " + response.data
+    );
+    if (response.data === []) {
+      setHaveNext(false);
+    }
+    setHaveNext(true);
   });
 };
