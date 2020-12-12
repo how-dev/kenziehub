@@ -10,7 +10,7 @@ export const signUpRequest = (data, setResponse, setResponseError) => {
 };
 
 export const usersRequest = (setList) => {
-  axios.get(`${baseUrl}users?perPage=150`).then((response) => {
+  axios.get(`${baseUrl}users?perPage=50`).then((response) => {
     setList(response.data);
   });
 };
