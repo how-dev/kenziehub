@@ -24,4 +24,12 @@ export const StyledPaper = styled(Paper)`
   ${({ height }) => css`
     height: ${height}vh;
   `}
+  ${({ width }) => css`
+    width: ${width}vw;
+  `}
+`;
+
+export const StyledError = styled.p`
+  color: red;
+  font-size: x-small;
 `;

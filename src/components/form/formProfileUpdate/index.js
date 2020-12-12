@@ -1,7 +1,13 @@
 import { TextField, Button, FormControl } from "@material-ui/core";
 import { StyledPaper } from "../../../globalStyles";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const FormUpdateProfile = () => {
+  const { register, unregister, handleSubmit, errors } = useForm({
+    resolver: yupResolver(/**  **/),
+  });
+
   return (
     <FormControl>
       <StyledPaper elevation={2} heigth={"40vh"}>
