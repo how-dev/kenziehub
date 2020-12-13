@@ -69,7 +69,7 @@ const KenzieAppBar = () => {
         >
           <MenuItem onClick={() => handleClose("/")}>Lista de alunos</MenuItem>
           {key && (
-            <MenuItem onClick={() => handleClose("/my-account")}>
+            <MenuItem onClick={() => handleClose("/settings")}>
               Minha conta
             </MenuItem>
           )}

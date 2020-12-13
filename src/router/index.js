@@ -9,20 +9,19 @@ const Router = () => {
   const key = window.localStorage.getItem("token");
   return (
     <Switch>
-      {key && (
+      {key ? (
         <Route exact path="/settings">
           <Settings />
         </Route>
-      )}
-      {!key && (
-        <Route exact path="/login">
-          <Login />
-        </Route>
-      )}
-      {!key && (
-        <Route exact path="/sign-up">
-          <SignUp />
-        </Route>
+      ) : (
+        <>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/sign-up">
+            <SignUp />
+          </Route>
+        </>
       )}
       <Route exact path="/user/:id">
         <UserPage />
