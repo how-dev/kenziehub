@@ -9,7 +9,7 @@ const Settings = ({ user }) => {
   return (
     <Container>
       <div id="header">
-        <Link to="/users-list" className="link">
+        <Link to="/" className="link">
           Return to all batatas
         </Link>
         <h1>Batata</h1>
