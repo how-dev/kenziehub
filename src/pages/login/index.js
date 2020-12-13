@@ -34,6 +34,7 @@ const Login = () => {
     .then((res) => {
       localStorage.setItem("userData", JSON.stringify(res.data.user))
       localStorage.setItem("token", res.data.token)
+      history.push("/users-list")
     })
     .catch((err) =>
         setError("password", {message: "Email ou senha inválido"})
