@@ -1,4 +1,5 @@
 import { Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Login from "../pages/login";
 import SignUp from "../pages/signUp";
 import Settings from "../pages/settingsEdit";
@@ -6,7 +7,7 @@ import UserList from "../pages/userList";
 import UserPage from "../pages/userPage";
 
 const Router = () => {
-  const key = window.localStorage.getItem("token");
+  const key = useSelector((state) => state.key.key);
   return (
     <Switch>
       {key ? (

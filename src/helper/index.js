@@ -7,7 +7,7 @@ export const loginSchema = yup.object().shape({
     .required("Please, inform the email"),
   password: yup
     .string("The password format is invalid")
-    .min(6, "The password must have at least 6 charactes"),
+    .min(6, "The password must have at least 6 charactes")
 });
 
 export const signUpSchema = yup.object().shape({
@@ -64,7 +64,5 @@ export const settingsSchema = yup.object().shape({
   description: yup
     .string("O formato da descrição é inválido")
     .required("Por favor, informe a descrição"),
-  deploy_url: yup
-    .url("O formato da url é inválido")
+  deploy_url: yup.string().url("O formato da url é inválido")
 });
-
