@@ -67,9 +67,7 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/users-list")}>
-            Lista de alunos
-          </MenuItem>
+          <MenuItem onClick={() => handleClose("/")}>Lista de alunos</MenuItem>
           {key && (
             <MenuItem onClick={() => handleClose("/my-account")}>
               Minha conta

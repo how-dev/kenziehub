@@ -5,33 +5,30 @@ import Settings from "../pages/settingsEdit";
 import UserList from "../pages/userList";
 import UserPage from "../pages/userPage";
 
-
-
 const Router = () => {
   const key = window.localStorage.getItem("token");
-  return key ? (
+  return (
     <Switch>
-      <Route exact path="/users-list">
-        <UserList />
-      </Route>
-      <Route exact path="/user/:id"></Route>
-      <Route exact path="/settings">
-        <Settings />
-      </Route>
-    </Switch>
-  ) : (
-    <Switch>
-      <Route exact path="/login">
-        <Login />
-      </Route>
-      <Route exact path="/sign-up">
-        <SignUp />
-      </Route>
-      <Route exact path="/users-list">
-        <UserList />
-      </Route>
+      {key && (
+        <Route exact path="/settings">
+          <Settings />
+        </Route>
+      )}
+      {!key && (
+        <Route exact path="/login">
+          <Login />
+        </Route>
+      )}
+      {!key && (
+        <Route exact path="/sign-up">
+          <SignUp />
+        </Route>
+      )}
       <Route exact path="/user/:id">
         <UserPage />
+      </Route>
+      <Route exact path="/">
+        <UserList />
       </Route>
     </Switch>
   );
