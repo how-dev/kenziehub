@@ -67,23 +67,26 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/")}>Lista de alunos</MenuItem>
-          {key && (
-            <MenuItem onClick={() => handleClose("/settings")}>
+          <MenuItem onClick={() => handleClose("/users-list")}>
+            Lista de alunos
+          </MenuItem>
+          {key ? 
+          <>
+            <MenuItem onClick={() => handleClose("/my-account")}>
               Minha conta
             </MenuItem>
-          )}
-          {key && (
-            <MenuItem onClick={() => handleClose("/logout")}>Logout</MenuItem>
-          )}
-          {!key && (
+            <MenuItem onClick={() => {
+              localStorage.clear()
+              handleClose("/login")
+            }}>Logout</MenuItem>
+            </>
+          :
+          <>
             <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
-          )}
-          {!key && (
             <MenuItem onClick={() => handleClose("/sign-up")}>
               Cadastro
             </MenuItem>
-          )}
+          </>}
         </Menu>
       </Toolbar>
     </AppBar>
