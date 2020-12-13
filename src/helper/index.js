@@ -32,5 +32,5 @@ export const signUpSchema = yup.object().shape({
     .string("O formato do contato é inválido")
     .url("O formato do contato é inválido")
     .required("Por favor, informe um contato"),
-  course_module: yup.string().required("Please, inform your course module"),
+  course_module: yup.string("formato inválido")
 });

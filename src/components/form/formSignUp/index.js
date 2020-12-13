@@ -28,9 +28,11 @@ const FormSignUp = () => {
 
   const handleSignUp = (data) => {
     data.course_module = module;
-    // signUpRequest(data, setResponse, setResponseError);
-    // history.push("/login");
-    console.log(data);
+    if(module) {
+      // signUpRequest(data, setResponse, setResponseError);
+      history.push("/login");
+      console.log(data);
+    }
   };
 
   const handleChange = (event) => {
