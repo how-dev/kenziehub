@@ -4,6 +4,7 @@ import { Container } from "./style.js";
 import { usersRequest } from "../../requests";
 import { TextField } from "@material-ui/core";
 import InfiniteScroll from "react-infinite-scroll-component";
+
 const UsersList = () => {
   const [list, setList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
