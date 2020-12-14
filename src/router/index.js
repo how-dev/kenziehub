@@ -12,7 +12,7 @@ const Router = () => {
     <Switch>
       {key ? (
         <>
-          <Route exact path="/settings">
+          <Route exact path="/my-account">
             <Settings />
           </Route>
           <Route exact path="/login">
