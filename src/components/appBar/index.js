@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -10,28 +10,30 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import logo from "../../img/logo.png";
+import { removeToken } from "../../store/modules/token/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginLeft: theme.spacing(2),
+    marginLeft: theme.spacing(2)
   },
   title: {
     flexGrow: 1,
     fontSize: "1.5em",
-    textTransform: "uppercase",
+    textTransform: "uppercase"
   },
   logo: {
     height: "2em",
-    margin: "1em",
-  },
+    margin: "1em"
+  }
 }));
 
 const KenzieAppBar = () => {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const key = useSelector((state) => state.key.key);
 
@@ -44,11 +46,17 @@ const KenzieAppBar = () => {
     history.push(path);
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    handleClose("/login");
+    dispatch(removeToken());
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <img src={logo} className={classes.logo} />
-        <Typography variant="h6" className={classes.title}>
+        <img alt="" src={logo} className={classes.logo} onClick={() => history.push("/")} style={{cursor: "pointer"}}/>
+        <Typography variant="h6" className={classes.title} onClick={() => history.push("/")} style={{cursor: "pointer"}}>
           Hub
         </Typography>
         <IconButton
@@ -67,24 +75,21 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/users-list")}>
-            Lista de alunos
-          </MenuItem>
-          {key && (
-            <MenuItem onClick={() => handleClose("/my-account")}>
-              Minha conta
-            </MenuItem>
-          )}
-          {key && (
-            <MenuItem onClick={() => handleClose("/logout")}>Logout</MenuItem>
-          )}
-          {!key && (
-            <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
-          )}
-          {!key && (
-            <MenuItem onClick={() => handleClose("/sign-up")}>
-              Cadastro
-            </MenuItem>
+          <MenuItem onClick={() => handleClose("/")}>Lista de alunos</MenuItem>
+          {key ? (
+            <>
+              <MenuItem onClick={() => handleClose("/my-account")}>
+                Minha conta
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
+              <MenuItem onClick={() => handleClose("/sign-up")}>
+                Cadastro
+              </MenuItem>
+            </>
           )}
         </Menu>
       </Toolbar>

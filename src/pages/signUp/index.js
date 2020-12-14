@@ -1,21 +1,16 @@
 import FormSignUp from "../../components/form/formSignUp/index";
-import { useHistory } from "react-router-dom";
 import signUpLogo from "../../img/signUpLogo.svg";
 import styled from "styled-components";
 
 const SignUp = () => {
-  const history = useHistory();
   return (
     <StyledContainer>
-      <div className="title">
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center",justifyContent:"center", width: "100%"}}>
         <h1>KENZIE HUB</h1>
-        <img alt="signUpLogo" src={signUpLogo} />
+        <img alt="signUpLogo" src={signUpLogo} style={{width: "400px",}}/>
       </div>
       <FormContainer>
         <FormSignUp />
-        <button className="signInButton" onClick={() => history.push("/login")}>
-          Already have an account? Sign in
-        </button>
       </FormContainer>
     </StyledContainer>
   );
@@ -26,7 +21,7 @@ export default SignUp;
 const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
-
+  height: 700px;
   img {
     width: 30vw;
   }
@@ -36,12 +31,14 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 25vw;
-  height: 99vh;
+  align-items: center;
+  width: 600px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
   background-color: #f2cc8f;
-  padding-left: 230px;
-  position: relative;
   margin-bottom: -150px;
+  overflow: hidden;
 
   .signInButton {
     width: 15vw;
