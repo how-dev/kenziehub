@@ -132,7 +132,7 @@ const KenzieAppBar = () => {
           className={classes.tabs}
         >
           <Tab value="/" label="Lista de Devs" />}
-          {key && <Tab value="/settings" label="Minha conta" />}
+          {key && <Tab value="/my-account" label="Minha conta" />}
           {key && <Tab onClick={handleLogout} label="Logout" />}
           {!key && <Tab value="/login" label="Login" />}
           {!key && <Tab value="/sign-up" label="Cadastro" />}
