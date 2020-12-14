@@ -1,0 +1,2 @@
+export const addAutoFillEmail = (autoFillEmail) => ({ type:"@autoFill/ADDAUTOFILLEMAIL", autoFillEmail})
+export const addAutoFillPswd = (autoFillPswd) => ({ type:"@autoFill/ADDAUTOFILLPSWD", autoFillPswd})

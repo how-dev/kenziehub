@@ -7,11 +7,13 @@ import {
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { signUpSchema } from "../../../helper";
 import { signUpRequest } from "../../../requests/";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { withStyles } from "@material-ui/core/styles";
+import {addAutoFillEmail, addAutoFillPswd} from "../../../store/modules/autoFill/actions"
 
 const LoginButton = withStyles({
   root: {
@@ -93,6 +95,9 @@ const SignUpButton = withStyles({
 })(Button);
 
 const FormSignUp = () => {
+  const dispatch = useDispatch()
+  const autoFillEmail = useSelector((state) => state.autoFillEmail)
+  const autoFillPswd = useSelector((state) => state.autoFillPswd)
   const history = useHistory();
 
   const [response, setResponse] = useState("");
@@ -153,6 +158,8 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
+          onChange={(e) => dispatch(addAutoFillEmail(e.target.value))}
+          value={autoFillEmail}
           id="outlined-basic"
           label="Email"
           name="email"
@@ -165,6 +172,8 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
+          onChange={(e) => dispatch(addAutoFillPswd(e.target.value))}
+          value={autoFillPswd}
           id="outlined-basic"
           label="Senha"
           type="password"
