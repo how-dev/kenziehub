@@ -17,4 +17,4 @@ Use the correct branch and always before you merge the master,
 make a meeting to be sure.
 
 
-## This project has been without conflict for `6` days
+## This project has been without conflict for `7` days
