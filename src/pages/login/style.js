@@ -28,7 +28,8 @@ export const FormContainer = styled.div`
   overflow: hidden;
 
   #outlined-basic{
-    background-color: #f4f1de
+    background-color: #f4f1de;
+    border-radius: 5px;
   }
 
   .loginButton {
@@ -39,6 +40,7 @@ export const FormContainer = styled.div`
   .signupButton {
     width: 150px;
     height: 5vh;
+  }
 `;
 export const Form = styled.div`
   display:flex;

@@ -95,7 +95,7 @@ const SignUpButton = withStyles({
 const FormSignUp = () => {
   const history = useHistory();
 
-  const [response, setResponse] = useState("");
+  const [, setResponse] = useState("");
   const [responseError, setResponseError] = useState("");
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
@@ -123,7 +123,7 @@ const FormSignUp = () => {
     <div
       style={{
         width: "90%",
-        height: "80%",
+        height: "90%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -140,6 +140,7 @@ const FormSignUp = () => {
         }}
         onSubmit={handleSubmit(handleSignUp)}
       >
+        {responseError}
         <TextField
           id="outlined-basic"
           label="Nome"
@@ -229,6 +230,7 @@ const FormSignUp = () => {
         <LoginButton onClick={() => history.push("/login")}>
           Já tem uma conta? Faça o Login
         </LoginButton>
+        
       </form>
     </div>
   );

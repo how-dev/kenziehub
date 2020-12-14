@@ -44,11 +44,12 @@ const FormContainer = styled.div`
   width: 600px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 10vh;
-  height: 95vh;
+  padding-bottom: 5%;
+  height: 100%;
   background-color: #f2cc8f;
   margin-bottom: -150px;
   overflow: hidden;
+  /* transform: translateY(10%); */
 
   .signInButton {
     width: 15vw;
