@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
@@ -17,7 +19,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
   menuButton: {
-    marginLeft: theme.spacing(2)
+    marginLeft: theme.spacing(2),
+    [theme.breakpoints.up("lg")]: {
+      display: "none"
+    }
+  },
+  tabs: {
+    [theme.breakpoints.down("lg")]: { display: "none" },
+    [theme.breakpoints.up("lg")]: { display: "block" }
   },
   title: {
     flexGrow: 1,
@@ -34,8 +43,14 @@ const KenzieAppBar = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [tabValue, setTabValue] = useState("");
   const key = useSelector((state) => state.key.key);
+
+  useEffect(() => {
+    setTabValue(location.pathname);
+  }, [location.pathname]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -52,11 +67,28 @@ const KenzieAppBar = () => {
     dispatch(removeToken());
   };
 
+  const handleTabChange = (e, value) => {
+    setTabValue(value);
+    history.push(value);
+    console.log(location.pathname);
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <img alt="" src={logo} className={classes.logo} onClick={() => history.push("/")} style={{cursor: "pointer"}}/>
-        <Typography variant="h6" className={classes.title} onClick={() => history.push("/")} style={{cursor: "pointer"}}>
+        <img
+          alt=""
+          src={logo}
+          className={classes.logo}
+          onClick={() => history.push("/")}
+          style={{ cursor: "pointer" }}
+        />
+        <Typography
+          variant="h6"
+          className={classes.title}
+          onClick={() => history.push("/")}
+          style={{ cursor: "pointer" }}
+        >
           Hub
         </Typography>
         <IconButton
@@ -75,23 +107,36 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/")}>Lista de alunos</MenuItem>
-          {key ? (
-            <>
-              <MenuItem onClick={() => handleClose("/my-account")}>
-                Minha conta
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </>
-          ) : (
-            <>
-              <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
-              <MenuItem onClick={() => handleClose("/sign-up")}>
-                Cadastro
-              </MenuItem>
-            </>
+          <MenuItem onClick={() => handleClose("/users-list")}>
+            Lista de alunos
+          </MenuItem>
+          {key && (
+            <MenuItem onClick={() => handleClose("/my-account")}>
+              Minha conta
+            </MenuItem>
+          )}
+          {key && <MenuItem onClick={handleLogout}>Logout</MenuItem>}
+          {!key && (
+            <MenuItem onClick={() => handleClose("/login")}>Login</MenuItem>
+          )}
+          {!key && (
+            <MenuItem onClick={() => handleClose("/sign-up")}>
+              Cadastro
+            </MenuItem>
           )}
         </Menu>
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          aria-label="simple tabs example"
+          className={classes.tabs}
+        >
+          <Tab value="/" label="Lista de Devs" />}
+          {key && <Tab value="/my-account" label="Minha conta" />}
+          {key && <Tab onClick={handleLogout} label="Logout" />}
+          {!key && <Tab value="/login" label="Login" />}
+          {!key && <Tab value="/sign-up" label="Cadastro" />}
+        </Tabs>
       </Toolbar>
     </AppBar>
   );

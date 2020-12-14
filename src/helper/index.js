@@ -7,7 +7,7 @@ export const loginSchema = yup.object().shape({
     .required("Please, inform the email"),
   password: yup
     .string("The password format is invalid")
-    .min(6, "The password must have at least 6 charactes")
+    .min(6, "The password must have at least 6 charactes"),
 });
 
 export const signUpSchema = yup.object().shape({
@@ -30,9 +30,8 @@ export const signUpSchema = yup.object().shape({
     .required("Por favor, fale um pouco sobre você"),
   contact: yup
     .string("O formato do contato é inválido")
-    .url("O formato do contato é inválido")
     .required("Por favor, informe um contato"),
-  course_module: yup.string("formato inválido")
+  course_module: yup.string("formato inválido"),
 });
 
 export const settingsSchema = yup.object().shape({
@@ -55,7 +54,6 @@ export const settingsSchema = yup.object().shape({
     .required("Por favor, fale um pouco sobre você"),
   contact: yup
     .string("O formato do contato é inválido")
-    .url("O formato do contato é inválido")
     .required("Por favor, informe um contato"),
   course_module: yup.string("formato inválido"),
   title: yup
@@ -64,5 +62,5 @@ export const settingsSchema = yup.object().shape({
   description: yup
     .string("O formato da descrição é inválido")
     .required("Por favor, informe a descrição"),
-  deploy_url: yup.string().url("O formato da url é inválido")
+  deploy_url: yup.string().url("O formato da url é inválido"),
 });
