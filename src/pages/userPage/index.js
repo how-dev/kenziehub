@@ -66,13 +66,6 @@ const useStyles = makeStyles((theme) => ({
         width: 400,
         padding: 0,
     },
-    Loading: {
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
     buttonBack: {
         fontSize: 10,
         marginBottom: 50,
@@ -136,8 +129,8 @@ const UserPage = () => {
         )
     } else {
         return (
-        <div className={classes.Loading}>
-            <BounceLoader color="#3D405B"/>
+        <div style={{position: "absolute", top: "50%", left: "50%"}}>
+            <BounceLoader color="#E07A5F"/>
         </div>
         )
     }

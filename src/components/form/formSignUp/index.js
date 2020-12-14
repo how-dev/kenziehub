@@ -225,10 +225,10 @@ const FormSignUp = () => {
             Quarto módulo (Backend Avançado)
           </MenuItem>
         </Select>
+        <SignUpButton type="submit">Cadastrar</SignUpButton>
         <LoginButton onClick={() => history.push("/login")}>
           Já tem uma conta? Faça o Login
         </LoginButton>
-        <SignUpButton type="submit">Cadastrar</SignUpButton>
       </form>
     </div>
   );

@@ -27,43 +27,47 @@ const UsersList = () => {
     console.log("ta true? " + haveNext);
   }, [page]);
 
-  return (
-    <>
-      <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-        
-        <TextField
-          id="search"
-          variant="outlined"
-          type="search"
-          onChange={handleSearch}
-          value={searchInput}
-          margin="dense"
-          label={<span style={{display: "flex", alignItems: "center"}}><SearchIcon />Buscar</span>}
-        />
-      </div>
-
-      <InfiniteScroll
-        dataLength={list.length}
-        next={handlePage}
-        hasMore={haveNext}
-        loader={<BounceLoader color="#3D405B"/>}
-        endMessage={
-          <p style={{ textAlign: "center" }}>
-            <b>that's all folks!</b>
-          </p>
-        }
-      >
-        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
-          {searchInput
-            ? list
-                .filter((user) =>
-                  user.name?.toLowerCase().includes(searchInput)
-                )
-                .map((user, index) => <UserCard key={index} user={user} />)
-            : list.map((user, index) => <UserCard key={index} user={user} />)}
+  if(list.length !== 0) {
+    return (
+      <>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          
+          <TextField
+            id="search"
+            variant="outlined"
+            type="search"
+            onChange={handleSearch}
+            value={searchInput}
+            margin="dense"
+            label={<span style={{display: "flex", alignItems: "center"}}><SearchIcon />Buscar</span>}
+          />
         </div>
-      </InfiniteScroll>
-    </>
-  );
+
+        <InfiniteScroll
+          dataLength={list.length}
+          next={handlePage}
+          hasMore={haveNext}
+          loader={<div style={{margin: 50, display: "flex", justifyContent: "center"}}><BounceLoader color="#E07A5F" /></div>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>that's all folks!</b>
+            </p>
+          }
+        >
+          <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
+            {searchInput
+              ? list
+                  .filter((user) =>
+                    user.name?.toLowerCase().includes(searchInput)
+                  )
+                  .map((user, index) => <UserCard key={index} user={user} />)
+              : list.map((user, index) => <UserCard key={index} user={user} />)}
+          </div>
+        </InfiniteScroll>
+      </>
+    );
+  } else {
+    return <div style={{position: "absolute", top: "50%", left: "50%"}}><BounceLoader color="#E07A5F" /></div>
+  }
 };
 export default UsersList;
