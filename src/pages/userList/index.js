@@ -4,7 +4,7 @@ import { usersRequest } from "../../requests";
 import { TextField } from "@material-ui/core";
 import { BounceLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from "@material-ui/icons/Search";
 
 const UsersList = () => {
   const [list, setList] = useState([]);
@@ -27,11 +27,16 @@ const UsersList = () => {
     console.log("ta true? " + haveNext);
   }, [page]);
 
-  if(list.length !== 0) {
+  if (list.length !== 0) {
     return (
       <>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-          
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
           <TextField
             id="search"
             variant="outlined"
@@ -39,7 +44,13 @@ const UsersList = () => {
             onChange={handleSearch}
             value={searchInput}
             margin="dense"
-            label={<span style={{display: "flex", alignItems: "center"}}><SearchIcon />Buscar</span>}
+            label={
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <SearchIcon />
+                Buscar
+              </span>
+            }
+            style={{ minWidth: "30vw", margin: "1.5em" }}
           />
         </div>
 
@@ -47,14 +58,26 @@ const UsersList = () => {
           dataLength={list.length}
           next={handlePage}
           hasMore={haveNext}
-          loader={<div style={{margin: 50, display: "flex", justifyContent: "center"}}><BounceLoader color="#E07A5F" /></div>}
+          loader={
+            <div
+              style={{ margin: 50, display: "flex", justifyContent: "center" }}
+            >
+              <BounceLoader color="#E07A5F" />
+            </div>
+          }
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>that's all folks!</b>
             </p>
           }
         >
-          <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center"
+            }}
+          >
             {searchInput
               ? list
                   .filter((user) =>
@@ -67,7 +90,11 @@ const UsersList = () => {
       </>
     );
   } else {
-    return <div style={{position: "absolute", top: "50%", left: "50%"}}><BounceLoader color="#E07A5F" /></div>
+    return (
+      <div style={{ position: "absolute", top: "50%", left: "50%" }}>
+        <BounceLoader color="#E07A5F" />
+      </div>
+    );
   }
 };
 export default UsersList;

@@ -5,8 +5,8 @@ export const StyledContainer = styled.div`
   justify-content: space-between;
   height: 75vh;
   overflow: hidden;
-  h1{
-    margin-right: 15%
+  h1 {
+    margin-right: 15%;
   }
   img {
     width: 30vw;
@@ -19,16 +19,14 @@ export const FormContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 100%;
+  min-width: 40vw;
+  height: 88vh;
   background-color: #f2cc8f;
-  margin-bottom: -150px;
   overflow: hidden;
 
-  #outlined-basic{
-    background-color: #f4f1de
+  #outlined-basic {
+    background-color: #f4f1de;
+    border-radius: 4px;
   }
 
   .loginButton {
@@ -40,11 +38,12 @@ export const FormContainer = styled.div`
     width: 150px;
     height: 5vh;
 `;
+
 export const Form = styled.div`
-  display:flex;
+  display: flex;
   height: 250px;
+  width: 100%;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  
 `;
