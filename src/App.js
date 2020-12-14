@@ -9,12 +9,12 @@ const useStyles = makeStyles({
   page: {
     position: "relative",
     minHeight: "80vh",
-    paddingBottom: "20vh"
+    paddingBottom: "10vh",
   },
   wave: {
     position: "absolute",
     bottom: 0,
-    marginBottom: -5
+    marginBottom: -5,
   }
 });
 
@@ -29,7 +29,7 @@ const App = () => {
         fill="#3d405b"
         paused={false}
         options={{
-          height: 70,
+          height: 60,
           amplitude: 20,
           speed: 0.09,
           points: 8

@@ -1,4 +1,5 @@
 import { Box, Container, makeStyles, Button } from "@material-ui/core";
+import { BounceLoader } from "react-spinners";
 import Paper from '@material-ui/core/Paper';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
@@ -10,41 +11,49 @@ const useStyles = makeStyles((theme) => ({
     allData: {
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        // alignItems: "flex-end",
+        width: "100%",
     },
     datas: {
       padding: theme.spacing(2),
-      margin: theme.spacing(2),
       color: theme.palette.text.secondary,
-      height: 400,
       width: 400,
       lineHeight: 1.5,
+      background: "#F4F1DE",
+      display: "flex",
+      flexDirection: "column",
+      margin: 0,
     },
     sampleDatas: {
         display: "flex",
-        justifyContent: "center",
+        marginTop: 30,
+        padding: 0,
     },
     hardSkills: {
         padding: theme.spacing(2),
         margin: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        height: 150,
-        width: 150,
-        fontSize: 12,
+        width: 200,
+        fontSize: 10,
+        background: "#F4F1DE",
     },
     avatar: {
       width: 150,
       height: 150,
       borderRadius: "100%",
+      boxShadow: "1px 1px 3px gray",
+      marginBottom: 15,
     },
     profileImage: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
-        transform: "translateY(-60%)",
+        width: 250,
         height: 180,
+        color: "#3D405B",
+        padding: 0,
     },
     profile: {
         display: "flex",
@@ -53,11 +62,21 @@ const useStyles = makeStyles((theme) => ({
     },
     aboveTechs: {
         display: "flex",
-        justifyContent: "space-around",
+        marginRight: 0,
+        width: 400,
+        padding: 0,
+    },
+    Loading: {
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
     buttonBack: {
-        
-    },
+        fontSize: 10,
+        marginBottom: 50,
+    }
   }));
 
 const UserPage = () => {
@@ -76,34 +95,39 @@ const UserPage = () => {
         console.log(userData.techs)
         return (
             <>
-                <Button 
-                    variant="outlined" 
-                    color="primary" 
-                    className={classes.buttonBack} 
-                    onClick={() => history.push("/users-list")}
-                >
-                    <ArrowBackIosIcon /> Voltar para a página de devs
-                </Button>
+
     
                 <Box component="div"  className={classes.profile}>
-                    
-                    <Container className={classes.profileImage}>
-                        <img alt="..." src={userData.avatar_url ? userData.avatar_url : "https://www.rbsdirect.com.br/imagesrc/25945516.jpg?w=700"} className={classes.avatar}/>
-                        {userData.name}
-                    </Container>
                     <Container className={classes.allDatas}>
                         <Container className={classes.sampleDatas}>
+                            <Container className={classes.profileImage}>
+                                <Button 
+                                    color="primary" 
+                                    className={classes.buttonBack} 
+                                    onClick={() => history.push("/")}
+                                >
+                                    <ArrowBackIosIcon /> Voltar para a página de devs
+                                </Button>
+                                <img alt="..." src={userData.avatar_url ? userData.avatar_url : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"} className={classes.avatar}/>
+                                {userData.name}
+                            </Container>
                             <Paper className={classes.datas}>
-                                Nome: {userData.name} <br />
-                                Email: {userData.email} <br />
-                                Módulo do curso: {userData.course_module} <br />
-                                Contato: {userData.contact} <br />
-                                Sobre: {userData.bio}
+                                <span><span style={{color: "#3D405B"}}>Nome</span >: {userData.name}</span> <br />
+                                <span><span style={{color: "#3D405B"}}>Email</span>: {userData.email}</span> <br />
+                                <span><span style={{color: "#3D405B"}}>Módulo do curso</span>: {userData.course_module}</span> <br />
+                                <span><span style={{color: "#3D405B"}}>Contato</span>: {userData.contact}</span> <br />
+                                <span><span style={{color: "#3D405B"}}>Sobre</span>: {userData.bio}</span>
                             </Paper>
                         </Container>
                         <Container className={classes.aboveTechs}>
-                            <Paper className={classes.hardSkills}>Tecnologias: {userData.techs.map((skill, index) => <p key={index}>{`${skill.title}: ${skill.status}`}</p>)}</Paper>
-                            <Paper className={classes.hardSkills}>Trabalhos: {userData.works.map((job, index) => <p key={index}>{`${job.title}: Descrição ${job.description}. Url: ${job.deploy_url}`}</p>)}</Paper>
+                            <Paper className={classes.hardSkills}>Tecnologias: {userData.techs.map((skill, index) => <p key={index}><span style={{color: "#3D405B", fontSize: 10}}>{skill.title}</span>{`: ${skill.status}`}</p>)}</Paper>
+                            <Paper className={classes.hardSkills}>Trabalhos: {userData.works.map((job, index) => 
+                            <p key={index}>
+                                <p style={{color: "#3D405B", fontSize: 13}}>{job.title}</p>
+                                <p >{`Descrição: ${job.description}`}</p>
+                                <p>{`Url: ${job.deploy_url}`}</p>
+                            </p>)}
+                            </Paper>
                         </Container> 
                     </Container>
     
@@ -111,7 +135,11 @@ const UserPage = () => {
             </>
         )
     } else {
-        return <div>carregando</div>
+        return (
+        <div className={classes.Loading}>
+            <BounceLoader color="#3D405B"/>
+        </div>
+        )
     }
 }
 

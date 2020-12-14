@@ -22,14 +22,14 @@ const Router = () => {
           <Route exact path="/sign-up">
             <SignUp />
           </Route>
+          <Route exact path="/user/:id">
+            <UserPage />
+          </Route>
+          <Route exact path="/">
+            <UserList />
+          </Route>
         </>
       )}
-      <Route exact path="/user/:id">
-        <UserPage />
-      </Route>
-      <Route exact path="/">
-        <UserList />
-      </Route>
     </Switch>
   );
 };

@@ -55,8 +55,8 @@ const KenzieAppBar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <img src={logo} className={classes.logo} />
-        <Typography variant="h6" className={classes.title}>
+        <img alt="" src={logo} className={classes.logo} onClick={() => history.push("/")} style={{cursor: "pointer"}}/>
+        <Typography variant="h6" className={classes.title} onClick={() => history.push("/")} style={{cursor: "pointer"}}>
           Hub
         </Typography>
         <IconButton
