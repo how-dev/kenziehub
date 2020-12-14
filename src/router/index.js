@@ -11,9 +11,23 @@ const Router = () => {
   return (
     <Switch>
       {key ? (
-        <Route exact path="/settings">
-          <Settings />
-        </Route>
+        <>
+          <Route exact path="/settings">
+            <Settings />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route exact path="/user/:id">
+            <UserPage />
+          </Route>
+          <Route exact path="/">
+            <UserList />
+          </Route>
+        </>
       ) : (
         <>
           <Route exact path="/login">
