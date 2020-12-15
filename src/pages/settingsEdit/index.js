@@ -84,8 +84,8 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   avatar: {
-    width: "15vw",
-    heigth: "15vh",
+    width: "200px",
+    heigth: "200px",
     borderRadius: "100%",
     margin: "auto",
     marginTop: "5vh",
@@ -188,34 +188,11 @@ const Settings = () => {
         </Container>
       </Container>
       <div className={classes.formHolder}>
-        <AppBar position="static" color="default" className={classes.tabBar}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            aria-label="Dados para edição"
-          >
-            <Tab label="Dados Principais" {...a11yProps(0)} />
-            <Tab label="Tecnologias" {...a11yProps(1)} />
-            <Tab label="Trabalhos" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <FormProfileUpdate /**user.infos**/ />
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <FormTechsUpdate /**user.infos**/ />
-          </TabPanel>
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <FormWorksUpdate /**user.infos**/ />
-          </TabPanel>
-        </SwipeableViews>
+        <FormProfileUpdate />
+        <FormPasswordUpdate />
+        <FormTechsUpdate />
+        <FormWorksUpdate />
+
         <img alt="settingsLogo" src={settings} className={classes.logo} />
       </div>
     </Container>
