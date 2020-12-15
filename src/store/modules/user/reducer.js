@@ -1,4 +1,7 @@
-const userReducer = (state = {}, action) => {
+const userReducer = (
+  state = JSON.parse(localStorage.getItem("userData")) || "",
+  action
+) => {
   switch (action.type) {
     case "@USER/login":
       return action.user;
