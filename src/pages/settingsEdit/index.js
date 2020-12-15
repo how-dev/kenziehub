@@ -9,6 +9,50 @@ import ImageIcon from "@material-ui/icons/Image";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import axios from "axios";
 import settings from "../../img/settings.svg";
+
+import { useState } from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+};
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+const a11yProps = (index) => {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -70,12 +114,20 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "-10vw",
     marginTop: "-20vh",
   },
+  tabBar: {
+    width: "35vw",
+    display: "flex",
+    flexDirection: "row",
+    margin: "auto",
+  },
 }));
 
 const Settings = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
   const classes = useStyles();
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
 
   const handleAvatarChange = (e) => {
     const data = new FormData();
@@ -97,6 +149,13 @@ const Settings = () => {
       .catch((e) => console.error(e));
   };
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
   return (
     <Container className={classes.root}>
       <Container className={classes.header}>
@@ -127,13 +186,37 @@ const Settings = () => {
           </form>
         </Container>
       </Container>
-      <Container className={classes.formHolder}>
-        <FormProfileUpdate />
-        <FormPasswordUpdate />
-        <FormTechsUpdate />
-        <FormWorksUpdate />
-      </Container>
-      <img alt="settingsLogo" src={settings} className={classes.logo} />
+      <div className={classes.formHolder}>
+        <AppBar position="static" color="default" className={classes.tabBar}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="Dados para edição"
+          >
+            <Tab label="Dados Principais" {...a11yProps(0)} />
+            <Tab label="Tecnologias" {...a11yProps(1)} />
+            <Tab label="Trabalhos" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+        >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <FormProfileUpdate /**user.infos**/ />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <FormTechsUpdate /**user.infos**/ />
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <FormWorksUpdate /**user.infos**/ />
+          </TabPanel>
+        </SwipeableViews>
+        <img alt="settingsLogo" src={settings} className={classes.logo} />
+      </div>
     </Container>
   );
 };
