@@ -3,7 +3,7 @@ import { makeStyles, Container } from "@material-ui/core";
 import FormProfileUpdate from "../../components/form/formProfileUpdate";
 import FormTechsUpdate from "../../components/form/formTechsUpdate";
 import FormWorksUpdate from "../../components/form/formWorksUpdate";
-import FormPasswordUpdate from "../../components/form/formPasswrodUpdate";
+import FormPasswordUpdate from "../../components/form/formPasswordUpdate";
 import { useSelector } from "react-redux";
 import ImageIcon from "@material-ui/icons/Image";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     width: "15vw",
+    heigth: "15vh",
     borderRadius: "100%",
     margin: "auto",
     marginTop: "5vh",

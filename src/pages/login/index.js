@@ -1,4 +1,4 @@
-import { StyledContainer, FormContainer, Form } from "./style";
+import { FormContainer, Form } from "./style";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAutoFillEmail,
-  addAutoFillPswd
+  addAutoFillPswd,
 } from "../../store/modules/autoFill/actions";
 import { useForm } from "react-hook-form";
 import { loginThunk } from "../../store/modules/user/thunk";
@@ -25,7 +25,7 @@ const Login = () => {
     setValue,
     errors,
     handleSubmit,
-    setError
+    setError,
   } = useForm();
 
   useEffect(() => {
@@ -102,8 +102,6 @@ const Login = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            // dispatch(addAutoFill(email))
-            // dispatch(addAutoFill(password))
             history.push("/sign-up");
           }}
         >
@@ -117,7 +115,7 @@ const Login = () => {
           alignItems: "center",
           justifyContent: "center",
           width: "100%",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <h1>KENZIE HUB</h1>
