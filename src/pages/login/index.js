@@ -5,17 +5,20 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {addAutoFillEmail, addAutoFillPswd} from "../../store/modules/autoFill/actions"
+import {
+  addAutoFillEmail,
+  addAutoFillPswd
+} from "../../store/modules/autoFill/actions";
 import { useForm } from "react-hook-form";
 import { loginThunk } from "../../store/modules/user/thunk";
 import { getTokenThunk } from "../../store/modules/token/thunk";
-import LoginLogo from "../../img/user_group_1.svg"
+import LoginLogo from "../../img/user_group_1.svg";
 
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const autoFillPswd = useSelector(state => state.autoFillPswd)
-  const autoFillEmail = useSelector(state => state.autoFillEmail)
+  const autoFillPswd = useSelector((state) => state.autoFillPswd);
+  const autoFillEmail = useSelector((state) => state.autoFillEmail);
   const {
     register,
     unregister,
@@ -50,57 +53,78 @@ const Login = () => {
   };
 
   return (
-    <StyledContainer>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <FormContainer>
-        <form  onSubmit={handleSubmit(tryLogin)} noValidate autoComplete="off">
+        <form
+          onSubmit={handleSubmit(tryLogin)}
+          style={{ width: "60%" }}
+          noValidate
+          autoComplete="off"
+        >
           <Form>
-          <TextField
-            value={autoFillEmail}
-            onChange={(e) => {
-              dispatch(addAutoFillEmail(e.target.value))
-              setValue("email", e.target.value)
-            }}
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-          />
-          <TextField
-            value={autoFillPswd}
-            type="password"
-            onChange={(e) => {
-              dispatch(addAutoFillPswd(e.target.value))
-              setValue("password", e.target.value)
-            }}
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-          />
-          <Button className="loginButton" type="submit" variant="contained" color="primary">
-            Login
-          </Button>
-          {errors.email && <p>{errors.email.message}</p>}
-          {errors.password && <p>{errors.password.message}</p>}
+            <TextField
+              value={autoFillEmail}
+              onChange={(e) => {
+                dispatch(addAutoFillEmail(e.target.value));
+                setValue("email", e.target.value);
+              }}
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+              fullWidth
+            />
+            <TextField
+              value={autoFillPswd}
+              type="password"
+              onChange={(e) => {
+                dispatch(addAutoFillPswd(e.target.value));
+                setValue("password", e.target.value);
+              }}
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              fullWidth
+            />
+            <Button
+              className="loginButton"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Login
+            </Button>
+            {errors.email && <p>{errors.email.message}</p>}
+            {errors.password && <p>{errors.password.message}</p>}
           </Form>
         </form>
-        <Button className="signupButton" variant="contained" color="primary" onClick={() => {
-          // dispatch(addAutoFill(email))
-          // dispatch(addAutoFill(password))
-          history.push("/sign-up")
-          }}>
-            Cadastre-se
-          </Button>
+        <Button
+          className="signupButton"
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            // dispatch(addAutoFill(email))
+            // dispatch(addAutoFill(password))
+            history.push("/sign-up");
+          }}
+        >
+          Cadastre-se
+        </Button>
       </FormContainer>
-      <div style={{display: "flex", flexDirection: "column", alignItems: "center",justifyContent:"center", width: "100%", textAlign: "center"}}>
-      <h1>KENZIE HUB</h1>
-      <img
-        alt="placeholder"
-        src={LoginLogo}
-      />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          textAlign: "center"
+        }}
+      >
+        <h1>KENZIE HUB</h1>
+        <img alt="placeholder" src={LoginLogo} style={{ width: "60%" }} />
       </div>
-    </StyledContainer>
+    </div>
   );
 };
 
 export default Login;
-
-
