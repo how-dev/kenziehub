@@ -5,7 +5,7 @@ import {
   makeStyles,
   InputLabel,
   Select,
-  MenuItem,
+  MenuItem
 } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { worksSchema } from "../../../helper";
@@ -21,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
     width: "40vw",
     display: "flex",
     flexDirection: "column",
-    margin: "auto",
+    margin: "auto"
   },
   input: {
     width: "35vw",
     margin: "auto",
-    marginBottom: "1vh",
+    marginBottom: "1vh"
   },
   subTitle: {
     color: "#3D405B",
     marginLeft: "3vw",
-    marginBottom: "1vh",
+    marginBottom: "1vh"
   },
   button: {
     marginTop: "2vh",
@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#81B29A",
     "&:hover": {
       color: "#F2CC8F",
-      backgroundColor: "#3D405B",
-    },
-  },
+      backgroundColor: "#3D405B"
+    }
+  }
 }));
 
 const FormWorksUpdate = () => {
@@ -59,14 +59,14 @@ const FormWorksUpdate = () => {
   const baseUrl = "https://kenziehub.me/";
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(worksSchema),
+    resolver: yupResolver(worksSchema)
   });
 
   const handleWorksUpdate = (data) => {
     const headers = {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     axios.post(`${baseUrl}users/works`, data, headers).then((res) => {
       console.log(res);
@@ -88,8 +88,8 @@ const FormWorksUpdate = () => {
     const id = actualWork[0].id;
     const headers = {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     axios.delete(`${baseUrl}users/works/${id}`, headers).then((res) => {
       axios.get(`${baseUrl}users/${user.id}`).then((res) => {
@@ -104,15 +104,15 @@ const FormWorksUpdate = () => {
     const data = {
       title: workTitle,
       description: workDescription,
-      deploy_url: workUrl,
+      deploy_url: workUrl
     };
 
     const actualWork = user.works.filter((actual) => actual.title === attWork);
     const id = actualWork[0].id;
     const headers = {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     axios.put(`${baseUrl}users/works/${id}`, data, headers).then((res) => {
       axios.get(`${baseUrl}users/${user.id}`).then((res) => {
@@ -180,7 +180,9 @@ const FormWorksUpdate = () => {
               onChange={(e) => setAttWork(e.target.value)}
               value={attWork}
               fullWidth
-              style={{ background: "#F4F1DE", borderRadius: "4px" }}
+              style={{ borderRadius: "4px" }}
+              margin="dense"
+              variant="outlined"
             >
               {user.works.map((actual, index) => {
                 return (
@@ -242,7 +244,9 @@ const FormWorksUpdate = () => {
               onChange={(e) => setWork(e.target.value)}
               value={work}
               fullWidth
-              style={{ background: "#F4F1DE", borderRadius: "4px" }}
+              style={{ borderRadius: "4px" }}
+              margin="dense"
+              variant="outlined"
             >
               {user.works.map((actual, index) => {
                 return (
