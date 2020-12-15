@@ -66,8 +66,14 @@ const UsersList = () => {
             </div>
           }
           endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>that's all folks!</b>
+            <p
+              style={{
+                textAlign: "center",
+                color: "#bbb",
+                marginBottom: "5em"
+              }}
+            >
+              Não há mais devs para mostrar.
             </p>
           }
         >
@@ -75,7 +81,8 @@ const UsersList = () => {
             style={{
               display: "flex",
               flexWrap: "wrap",
-              justifyContent: "center"
+              justifyContent: "center",
+              marginBottom: "2em"
             }}
           >
             {searchInput
