@@ -115,30 +115,26 @@ const FormTechsUpdate = () => {
         title: attTech,
         status: attTechStatus,
       };
-
-    const data = {
-      title: attTech,
-      status: attTechStatus
+      const actualTech = user.techs.filter((actual) => actual.title === attTech);
+      console.log(actualTech);
+      const id = actualTech[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+      axios.put(`${baseUrl}users/techs/${id}`, data, headers).then((res) => {
+        axios
+          .get(`${baseUrl}users/${user.id}`)
+          .then((res) => {
+            dispatch(loginThunk(res.data));
+          })
+          .then((res) => {
+            window.location.reload();
+          });
+      });
     };
 
-    const actualTech = user.techs.filter((actual) => actual.title === attTech);
-    console.log(actualTech);
-    const id = actualTech[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-    axios.put(`${baseUrl}users/techs/${id}`, data, headers).then((res) => {
-      axios
-        .get(`${baseUrl}users/${user.id}`)
-        .then((res) => {
-          dispatch(loginThunk(res.data));
-        })
-        .then((res) => {
-          window.location.reload();
-        });
-    });
   };
 
   return (
