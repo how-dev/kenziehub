@@ -1,10 +1,28 @@
+import { useState, useEffect } from "react"
+
 import FormSignUp from "../../components/form/formSignUp/index";
 import signUpLogo from "../../img/signUpLogo.svg";
 import styled from "styled-components";
 
 const SignUp = () => {
+  const [width, setWidth] = useState()
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+    }, [width]);
+
+
+
   return (
     <StyledContainer>
+      {width > 800 && 
       <div
         style={{
           display: "flex",
@@ -16,7 +34,7 @@ const SignUp = () => {
       >
         <h1>KENZIE HUB</h1>
         <img alt="signUpLogo" src={signUpLogo} style={{ width: "400px" }} />
-      </div>
+      </div>}
       <FormContainer>
         <FormSignUp />
       </FormContainer>
@@ -49,6 +67,9 @@ const FormContainer = styled.div`
   background-color: #f2cc8f;
   margin-bottom: -150px;
   overflow: hidden;
+  @media (max-width: 800px) {
+    width: 100vw;
+  }
 
   .signInButton {
     width: 15vw;
