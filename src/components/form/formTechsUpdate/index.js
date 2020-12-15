@@ -92,23 +92,29 @@ const FormTechsUpdate = () => {
 
   const handleRemoveTech = (e) => {
     e.preventDefault();
-
-    const actualTech = user.techs.filter((actual) => actual.title === tech);
-    const id = actualTech[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-    axios.delete(`${baseUrl}users/techs/${id}`, headers).then((res) => {
-      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
-        dispatch(loginThunk(res.data));
+    if (tech) {
+      const actualTech = user.techs.filter((actual) => actual.title === tech);
+      const id = actualTech[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.delete(`${baseUrl}users/techs/${id}`, headers).then((res) => {
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+        });
       });
-    });
+    }
   };
 
   const handleUpdateTech = (e) => {
     e.preventDefault();
+    if (attTech) {
+      const data = {
+        title: attTech,
+        status: attTechStatus,
+      };
 
     const data = {
       title: attTech,
@@ -186,7 +192,6 @@ const FormTechsUpdate = () => {
           Enviar
         </Button>
       </form>
-
       {user.techs.length !== 0 && (
         <>
           <form onSubmit={handleUpdateTech} className={classes.form}>

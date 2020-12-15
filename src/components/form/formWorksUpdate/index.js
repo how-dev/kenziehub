@@ -83,23 +83,30 @@ const FormWorksUpdate = () => {
 
   const handleRemoveWork = (e) => {
     e.preventDefault();
-
-    const actualWork = user.works.filter((actual) => actual.title === work);
-    const id = actualWork[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-    axios.delete(`${baseUrl}users/works/${id}`, headers).then((res) => {
-      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
-        dispatch(loginThunk(res.data));
+    if (work) {
+      const actualWork = user.works.filter((actual) => actual.title === work);
+      const id = actualWork[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.delete(`${baseUrl}users/works/${id}`, headers).then((res) => {
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+        });
       });
-    });
+    }
   };
 
   const handleUpdateWork = (e) => {
     e.preventDefault();
+    if (attWork) {
+      const data = {
+        title: workTitle,
+        description: workDescription,
+        deploy_url: workUrl,
+      };
 
     const data = {
       title: workTitle,
@@ -118,7 +125,7 @@ const FormWorksUpdate = () => {
       axios.get(`${baseUrl}users/${user.id}`).then((res) => {
         dispatch(loginThunk(res.data));
       });
-    });
+    }
   };
 
   return (
