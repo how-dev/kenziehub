@@ -5,7 +5,7 @@ import {
   Select,
   MenuItem,
   Typography,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,17 +19,17 @@ const useStyles = makeStyles((theme) => ({
     width: "40vw",
     display: "flex",
     flexDirection: "column",
-    margin: "auto",
+    margin: "auto"
   },
   input: {
     width: "35vw",
     margin: "auto",
-    marginBottom: "1vh",
+    marginBottom: "1vh"
   },
   subTitle: {
     color: "#3D405B",
     marginLeft: "3vw",
-    marginBottom: "1vh",
+    marginBottom: "1vh"
   },
   button: {
     marginTop: "2vh",
@@ -52,7 +52,7 @@ const FormUpdateProfile = () => {
   const [moduleRegister, setModuleRegister] = useState({});
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(settingsSchema),
+    resolver: yupResolver(settingsSchema)
   });
 
   const handleModuleChange = (event) => {
@@ -81,8 +81,8 @@ const FormUpdateProfile = () => {
     console.log(data);
     const headers = {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     };
     axios
       .put("https://kenziehub.me/profile", data, headers)
@@ -127,7 +127,9 @@ const FormUpdateProfile = () => {
         onChange={handleModuleChange}
         value={module}
         fullWidth
-        style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        style={{ borderRadius: "4px" }}
+        variant="outlined"
+        margin="dense"
       >
         <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
           Primeiro módulo (Introdução ao Frontend)
