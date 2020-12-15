@@ -1,12 +1,10 @@
-const theToken = {
-  key: localStorage.getItem("token") || ""
-};
+const theToken = localStorage.getItem("token") || "";
 
 const tokenReducer = (state = theToken, action) => {
   switch (action.type) {
     case "@TOKEN/newToken":
       const { token } = action;
-      return { key: token };
+      return token;
     case "@TOKEN/logout":
       return "";
     default:
