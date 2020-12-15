@@ -1,30 +1,34 @@
 import {
+  FormControl,
   Button,
   TextField,
   InputLabel,
   Select,
-  MenuItem,
+  MenuItem
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { signUpSchema } from "../../../helper";
 import { signUpRequest } from "../../../requests/";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { withStyles } from "@material-ui/core/styles";
+import {addAutoFillEmail, addAutoFillPswd} from "../../../store/modules/autoFill/actions"
 
 const LoginButton = withStyles({
   root: {
     boxShadow: "none",
     textTransform: "none",
     fontSize: 13,
-    padding: "6px 12px",
+    padding: "1.5em",
     border: "1px solid",
     lineHeight: 1.5,
     backgroundColor: "#E07A5F",
     borderColor: "#E07A5F",
     height: 25,
     color: "white",
+    textTransform: "uppercase",
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",
@@ -35,35 +39,36 @@ const LoginButton = withStyles({
       "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      '"Segoe UI Symbol"'
     ].join(","),
     "&:hover": {
       backgroundColor: "#D27860",
       borderColor: "#E07A5F",
-      boxShadow: "none",
+      boxShadow: "none"
     },
     "&:active": {
       boxShadow: "none",
       backgroundColor: "#E07A5F",
-      borderColor: "#E07A5F",
+      borderColor: "#E07A5F"
     },
     "&:focus": {
-      boxShadow: "0 0 0 0.2rem #F3967E",
-    },
-  },
+      boxShadow: "0 0 0 0.2rem #F3967E"
+    }
+  }
 })(Button);
 const SignUpButton = withStyles({
   root: {
     boxShadow: "none",
     textTransform: "none",
     fontSize: 13,
-    padding: "6px 12px",
+    padding: "1.5em",
     border: "1px solid",
     lineHeight: 1.5,
     backgroundColor: "#3d405b",
     borderColor: "#3d405b",
     height: 25,
     color: "white",
+    textTransform: "uppercase",
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",
@@ -74,25 +79,28 @@ const SignUpButton = withStyles({
       "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      '"Segoe UI Symbol"'
     ].join(","),
     "&:hover": {
       backgroundColor: "#22243c",
       borderColor: "#22243c",
-      boxShadow: "none",
+      boxShadow: "none"
     },
     "&:active": {
       boxShadow: "none",
       backgroundColor: "#22243c",
-      borderColor: "#333556",
+      borderColor: "#333556"
     },
     "&:focus": {
-      boxShadow: "0 0 0 0.2rem #333556",
-    },
-  },
+      boxShadow: "0 0 0 0.2rem #333556"
+    }
+  }
 })(Button);
 
 const FormSignUp = () => {
+  const dispatch = useDispatch()
+  const autoFillEmail = useSelector((state) => state.autoFillEmail)
+  const autoFillPswd = useSelector((state) => state.autoFillPswd)
   const history = useHistory();
 
   const [, setResponse] = useState("");
@@ -101,7 +109,7 @@ const FormSignUp = () => {
   const [moduleRegister, setModuleRegister] = useState({});
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(signUpSchema),
+    resolver: yupResolver(signUpSchema)
   });
 
   const handleSignUp = (data) => {
@@ -126,7 +134,7 @@ const FormSignUp = () => {
         height: "90%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       <form
@@ -136,7 +144,7 @@ const FormSignUp = () => {
           width: "100%",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "space-around"
         }}
         onSubmit={handleSubmit(handleSignUp)}
       >
@@ -154,6 +162,8 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
+          onChange={(e) => dispatch(addAutoFillEmail(e.target.value))}
+          value={autoFillEmail}
           id="outlined-basic"
           label="Email"
           name="email"
@@ -166,6 +176,8 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
+          onChange={(e) => dispatch(addAutoFillPswd(e.target.value))}
+          value={autoFillPswd}
           id="outlined-basic"
           label="Senha"
           type="password"
@@ -180,7 +192,7 @@ const FormSignUp = () => {
         />
         <TextField
           id="outlined-basic"
-          label="bio"
+          label="Sobre você"
           name="bio"
           variant="outlined"
           size="small"
@@ -202,30 +214,36 @@ const FormSignUp = () => {
           inputRef={register}
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
-        <InputLabel id="demo-simple-select-outlined-label">
-          Selecione o seu módulo:
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          onChange={handleChange}
-          value={module}
+        <FormControl
+          variant="outlined"
           fullWidth
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         >
-          <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
-            Primeiro módulo (Introdução ao Frontend)
-          </MenuItem>
-          <MenuItem value={"Segundo módulo (Frontend Avançado)"}>
-            Segundo módulo (Frontend Avançado)
-          </MenuItem>
-          <MenuItem value={"Terceiro módulo (Introdução ao Backend)"}>
-            Terceiro módulo (Introdução ao Backend)
-          </MenuItem>
-          <MenuItem value={"Quarto módulo (Backend Avançado)"}>
-            Quarto módulo (Backend Avançado)
-          </MenuItem>
-        </Select>
+          <InputLabel id="module-select-label">
+            Selecione o seu módulo
+          </InputLabel>
+          <Select
+            labelId="module-select-label"
+            id="madule-select"
+            onChange={handleChange}
+            value={module}
+            style={{ borderRadius: "4px" }}
+            label="Selecione o seu módulo"
+          >
+            <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
+              Primeiro módulo (Introdução ao Frontend)
+            </MenuItem>
+            <MenuItem value={"Segundo módulo (Frontend Avançado)"}>
+              Segundo módulo (Frontend Avançado)
+            </MenuItem>
+            <MenuItem value={"Terceiro módulo (Introdução ao Backend)"}>
+              Terceiro módulo (Introdução ao Backend)
+            </MenuItem>
+            <MenuItem value={"Quarto módulo (Backend Avançado)"}>
+              Quarto módulo (Backend Avançado)
+            </MenuItem>
+          </Select>
+        </FormControl>
         <SignUpButton type="submit">Cadastrar</SignUpButton>
         <LoginButton onClick={() => history.push("/login")}>
           Já tem uma conta? Faça o Login
