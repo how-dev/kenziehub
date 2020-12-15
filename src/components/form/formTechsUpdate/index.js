@@ -36,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: "2vh",
     marginBottom: "3vh",
+    margin: "auto",
+    width: "35vw",
+    backgroundColor: "#81B29A",
+    "&:hover": {
+      color: "#F2CC8F",
+      backgroundColor: "#3D405B",
+    },
   },
 }));
 
@@ -49,7 +56,6 @@ const FormTechsUpdate = () => {
   const [error, setError] = useState("");
   const [attTech, setAttTech] = useState("");
   const [attTechStatus, setAttTechStatus] = useState("");
-  const techUpdateStatus = ["Iniciante", "Intermediário", "Avançado"];
 
   const baseUrl = "https://kenziehub.me/";
 
