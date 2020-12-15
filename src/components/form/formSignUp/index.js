@@ -147,7 +147,7 @@ const FormSignUp = () => {
       >
         {responseError}
         <TextField
-          id="outlined-basic"
+          
           label="Nome"
           name="name"
           variant="outlined"
@@ -161,7 +161,7 @@ const FormSignUp = () => {
         <TextField
           onChange={(e) => dispatch(addAutoFillEmail(e.target.value))}
           value={autoFillEmail}
-          id="outlined-basic"
+          
           label="Email"
           name="email"
           variant="outlined"
@@ -175,7 +175,7 @@ const FormSignUp = () => {
         <TextField
           onChange={(e) => dispatch(addAutoFillPswd(e.target.value))}
           value={autoFillPswd}
-          id="outlined-basic"
+          
           label="Senha"
           type="password"
           name="password"
@@ -188,7 +188,7 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          id="outlined-basic"
+          
           label="Sobre você"
           name="bio"
           variant="outlined"
@@ -200,7 +200,7 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          id="outlined-basic"
+          
           label="Contato"
           name="contact"
           variant="outlined"

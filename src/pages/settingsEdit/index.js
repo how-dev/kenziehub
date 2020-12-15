@@ -10,13 +10,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import axios from "axios";
 import settings from "../../img/settings.svg";
 
-import { useState } from "react";
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
@@ -44,13 +38,6 @@ TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
-};
-
-const a11yProps = (index) => {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -104,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
   avatarChangeLabel: {
     backgroundColor: "#81B291",
     borderRadius: "5px",
+    width: "100%",
     color: "#fff",
     cursor: "pointer",
     padding: "6px 20px",
@@ -127,8 +115,6 @@ const Settings = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
   const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
 
   const handleAvatarChange = (e) => {
     const data = new FormData();
@@ -149,14 +135,6 @@ const Settings = () => {
       })
       .catch((e) => console.error(e));
   };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
   return (
     <Container className={classes.root}>
       <Container className={classes.header}>
@@ -175,7 +153,7 @@ const Settings = () => {
             className={classes.avatar}
           />
           <form>
-            <label for="avatar" className={classes.avatarChangeLabel}>
+            <label htmlFor="avatar" className={classes.avatarChangeLabel}>
               Selecione um arquivo <ImageIcon color="primary" />
             </label>
             <input

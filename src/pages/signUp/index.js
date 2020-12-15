@@ -62,23 +62,14 @@ const FormContainer = styled.div`
   width: 600px;
   padding-left: 20px;
   padding-right: 20px;
-<<<<<<< HEAD
-  padding-bottom: 5%;
-  height: 100%;
-=======
   padding-bottom: 10vh;
   height: 85vh;
->>>>>>> Develop
   background-color: #f2cc8f;
   margin-bottom: -150px;
   overflow: hidden;
-<<<<<<< HEAD
-  /* transform: translateY(10%); */
-=======
   @media (max-width: 800px) {
     width: 100vw;
   }
->>>>>>> Develop
 
   .signInButton {
     width: 15vw;

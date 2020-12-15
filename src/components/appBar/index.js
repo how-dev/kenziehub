@@ -131,7 +131,7 @@ const KenzieAppBar = () => {
           aria-label="simple tabs example"
           className={classes.tabs}
         >
-          <Tab value={location.pathname} label="Lista de Devs" />
+          <Tab value={location.pathname} onClick={() => history.push("/")} label="Lista de Devs" />
           {key && <Tab value="/my-account" label="Minha conta" />}
           {key && <Tab onClick={handleLogout} label="Logout" />}
           {!key && <Tab value="/login" label="Login" />}

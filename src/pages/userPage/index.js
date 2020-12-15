@@ -111,11 +111,11 @@ const UserPage = () => {
                         <Container className={classes.aboveTechs}>
                             <Paper className={classes.hardSkills}>Tecnologias: {userData.techs.map((skill, index) => <p key={index}><span style={{color: "#3D405B", fontSize: 10}}>{skill.title}</span>{`: ${skill.status}`}</p>)}</Paper>
                             <Paper className={classes.hardSkills}>Trabalhos: {userData.works.map((job, index) => 
-                            <p key={index}>
+                            <div key={index}>
                                 <p style={{color: "#3D405B", fontSize: 13}}>{job.title}</p>
                                 <p >{`Descrição: ${job.description}`}</p>
                                 <p>{`Url: ${job.deploy_url}`}</p>
-                            </p>)}
+                            </div>)}
                             </Paper>
                         </Container> 
                     </Container>
