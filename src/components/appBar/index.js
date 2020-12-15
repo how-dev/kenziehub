@@ -16,27 +16,27 @@ import { removeToken } from "../../store/modules/token/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: theme.spacing(2),
     [theme.breakpoints.up("lg")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   tabs: {
     [theme.breakpoints.down("lg")]: { display: "none" },
-    [theme.breakpoints.up("lg")]: { display: "block" }
+    [theme.breakpoints.up("lg")]: { display: "block" },
   },
   title: {
     flexGrow: 1,
     fontSize: "1.5em",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   logo: {
     height: "2em",
-    margin: "1em"
-  }
+    margin: "1em",
+  },
 }));
 
 const KenzieAppBar = () => {
@@ -46,7 +46,7 @@ const KenzieAppBar = () => {
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tabValue, setTabValue] = useState("");
-  const key = useSelector((state) => state.key.key);
+  const key = useSelector((state) => state.key);
 
   useEffect(() => {
     setTabValue(location.pathname);
@@ -131,7 +131,7 @@ const KenzieAppBar = () => {
           aria-label="simple tabs example"
           className={classes.tabs}
         >
-          <Tab value="/" label="Lista de Devs" />}
+          <Tab value="/" label="Lista de Devs" />
           {key && <Tab value="/my-account" label="Minha conta" />}
           {key && <Tab onClick={handleLogout} label="Logout" />}
           {!key && <Tab value="/login" label="Login" />}
