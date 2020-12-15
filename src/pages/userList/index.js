@@ -24,7 +24,7 @@ const UsersList = () => {
 
   useEffect(() => {
     requestUsers();
-    console.log("ta true? " + haveNext);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   if (list.length !== 0) {

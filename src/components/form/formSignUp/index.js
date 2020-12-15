@@ -19,7 +19,6 @@ import {addAutoFillEmail, addAutoFillPswd} from "../../../store/modules/autoFill
 const LoginButton = withStyles({
   root: {
     boxShadow: "none",
-    textTransform: "none",
     fontSize: 13,
     padding: "1.5em",
     border: "1px solid",
@@ -59,7 +58,6 @@ const LoginButton = withStyles({
 const SignUpButton = withStyles({
   root: {
     boxShadow: "none",
-    textTransform: "none",
     fontSize: 13,
     padding: "1.5em",
     border: "1px solid",
@@ -117,7 +115,6 @@ const FormSignUp = () => {
     if (module) {
       signUpRequest(data, setResponse, setResponseError);
       history.push("/login");
-      console.log(data);
     }
   };
 

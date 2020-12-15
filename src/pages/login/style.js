@@ -24,15 +24,9 @@ export const FormContainer = styled.div`
   background-color: #f2cc8f;
   overflow: hidden;
 
-<<<<<<< HEAD
-  #outlined-basic{
-    background-color: #f4f1de;
-    border-radius: 5px;
-=======
   #outlined-basic {
     background-color: #f4f1de;
     border-radius: 4px;
->>>>>>> Develop
   }
 
   .loginButton {

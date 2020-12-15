@@ -1,4 +1,4 @@
-import { StyledContainer, FormContainer, Form } from "./style";
+import { FormContainer, Form } from "./style";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -39,7 +39,6 @@ const Login = () => {
   }, [register, unregister]);
 
   const tryLogin = (data) => {
-    console.log(data);
     axios
       .post("https://kenziehub.me/sessions", { ...data })
       .then((res) => {
@@ -68,7 +67,6 @@ const Login = () => {
                 dispatch(addAutoFillEmail(e.target.value));
                 setValue("email", e.target.value);
               }}
-              id="outlined-basic"
               label="Email"
               variant="outlined"
               fullWidth
@@ -80,7 +78,6 @@ const Login = () => {
                 dispatch(addAutoFillPswd(e.target.value));
                 setValue("password", e.target.value);
               }}
-              id="outlined-basic"
               label="Password"
               variant="outlined"
               fullWidth

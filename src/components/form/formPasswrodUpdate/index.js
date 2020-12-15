@@ -1,8 +1,8 @@
-import { Typography, TextField, Button, makeStyles } from "@material-ui/core";
+import { Button, TextField, makeStyles, Typography } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { techsSchema } from "../../../helper";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { passwordSchema } from "../../../helper";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,50 +28,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FormTechsUpdate = () => {
+const FormPasswordUpdate = () => {
   const classes = useStyles();
+
+  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(techsSchema),
+    resolver: yupResolver(passwordSchema),
   });
 
-  const handleTechsUpdate = (data) => {
-    console.log(token);
+  const handlePasswordUpdate = (data) => {
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
     axios
-      .post("https://kenziehub.me/users/techs", data, headers)
+      .put("https://kenziehub.me/profile", data, headers)
       .then((res) => console.log(res));
   };
 
   return (
-    <form onSubmit={handleSubmit(handleTechsUpdate)} className={classes.form}>
-      <Typography className={classes.subTitle}>Nova Tecnologia</Typography>
+    <form
+      onSubmit={handleSubmit(handlePasswordUpdate)}
+      className={classes.form}
+    >
+      <Typography className={classes.subTitle}>Alterar senha</Typography>
       <TextField
         className={classes.input}
         id="outlined-basic"
-        label="título"
-        name="title"
+        label="nova senha"
+        name="password"
         variant="outlined"
         size="small"
         inputRef={register}
-        error={!!errors.title}
-        helperText={errors.title?.message}
+        error={!!errors.password}
+        helperText={errors.password?.message}
       />
       <TextField
         className={classes.input}
         id="outlined-basic"
-        label="status"
-        name="status"
+        label="senha antiga"
+        name="old_password"
         variant="outlined"
         size="small"
         inputRef={register}
-        error={!!errors.status}
-        helperText={errors.status?.message}
+        error={!!errors.old_password}
+        helperText={errors.old_password?.message}
       />
       <Button type="submit" className={classes.button} color="primary">
         Enviar
@@ -80,4 +84,4 @@ const FormTechsUpdate = () => {
   );
 };
 
-export default FormTechsUpdate;
+export default FormPasswordUpdate;
