@@ -11,7 +11,7 @@ const SignUp = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          width: "100%"
+          width: "100%",
         }}
       >
         <h1>KENZIE HUB</h1>
@@ -44,8 +44,13 @@ const FormContainer = styled.div`
   width: 600px;
   padding-left: 20px;
   padding-right: 20px;
+<<<<<<< HEAD
   padding-bottom: 5%;
   height: 100%;
+=======
+  padding-bottom: 10vh;
+  height: 85vh;
+>>>>>>> Develop
   background-color: #f2cc8f;
   margin-bottom: -150px;
   overflow: hidden;

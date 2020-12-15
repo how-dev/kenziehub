@@ -83,44 +83,46 @@ const FormWorksUpdate = () => {
 
   const handleRemoveWork = (e) => {
     e.preventDefault();
-
-    const actualWork = user.works.filter((actual) => actual.title === work);
-    const id = actualWork[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios.delete(`${baseUrl}users/works/${id}`, headers).then((res) => {
-      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
-        dispatch(loginThunk(res.data));
+    if (work) {
+      const actualWork = user.works.filter((actual) => actual.title === work);
+      const id = actualWork[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.delete(`${baseUrl}users/works/${id}`, headers).then((res) => {
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+        });
       });
-    });
+    }
   };
 
   const handleUpdateWork = (e) => {
     e.preventDefault();
-
-    const data = {
-      title: workTitle,
-      description: workDescription,
-      deploy_url: workUrl,
-    };
-
-    const actualWork = user.works.filter((actual) => actual.title === attWork);
-    const id = actualWork[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios.put(`${baseUrl}users/works/${id}`, data, headers).then((res) => {
-      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
-        dispatch(loginThunk(res.data));
+    if (attWork) {
+      const data = {
+        title: workTitle,
+        description: workDescription,
+        deploy_url: workUrl,
+      };
+      const actualWork = user.works.filter(
+        (actual) => actual.title === attWork
+      );
+      const id = actualWork[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.put(`${baseUrl}users/works/${id}`, data, headers).then((res) => {
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+        });
       });
-    });
+    }
   };
-
   return (
     <>
       <form onSubmit={handleSubmit(handleWorksUpdate)} className={classes.form}>
@@ -180,7 +182,9 @@ const FormWorksUpdate = () => {
               onChange={(e) => setAttWork(e.target.value)}
               value={attWork}
               fullWidth
-              style={{ background: "#F4F1DE", borderRadius: "4px" }}
+              style={{ borderRadius: "4px" }}
+              margin="dense"
+              variant="outlined"
             >
               {user.works.map((actual, index) => {
                 return (
@@ -242,7 +246,9 @@ const FormWorksUpdate = () => {
               onChange={(e) => setWork(e.target.value)}
               value={work}
               fullWidth
-              style={{ background: "#F4F1DE", borderRadius: "4px" }}
+              style={{ borderRadius: "4px" }}
+              margin="dense"
+              variant="outlined"
             >
               {user.works.map((actual, index) => {
                 return (

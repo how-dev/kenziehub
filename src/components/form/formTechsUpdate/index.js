@@ -92,47 +92,50 @@ const FormTechsUpdate = () => {
 
   const handleRemoveTech = (e) => {
     e.preventDefault();
-
-    const actualTech = user.techs.filter((actual) => actual.title === tech);
-    const id = actualTech[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios.delete(`${baseUrl}users/techs/${id}`, headers).then((res) => {
-      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
-        dispatch(loginThunk(res.data));
+    if (tech) {
+      const actualTech = user.techs.filter((actual) => actual.title === tech);
+      const id = actualTech[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.delete(`${baseUrl}users/techs/${id}`, headers).then((res) => {
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+        });
       });
-    });
+    }
   };
 
   const handleUpdateTech = (e) => {
     e.preventDefault();
-
-    const data = {
-      title: attTech,
-      status: attTechStatus,
-    };
-
-    const actualTech = user.techs.filter((actual) => actual.title === attTech);
-    console.log(actualTech);
-    const id = actualTech[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios.put(`${baseUrl}users/techs/${id}`, data, headers).then((res) => {
-      axios
-        .get(`${baseUrl}users/${user.id}`)
-        .then((res) => {
-          dispatch(loginThunk(res.data));
-        })
-        .then((res) => {
-          window.location.reload();
-        });
-    });
+    if (attTech) {
+      const data = {
+        title: attTech,
+        status: attTechStatus,
+      };
+      const actualTech = user.techs.filter(
+        (actual) => actual.title === attTech
+      );
+      console.log(actualTech);
+      const id = actualTech[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.put(`${baseUrl}users/techs/${id}`, data, headers).then((res) => {
+        axios
+          .get(`${baseUrl}users/${user.id}`)
+          .then((res) => {
+            dispatch(loginThunk(res.data));
+          })
+          .then((res) => {
+            window.location.reload();
+          });
+      });
+    }
   };
 
   return (
@@ -162,7 +165,9 @@ const FormTechsUpdate = () => {
           onChange={(e) => setTechStatus(e.target.value)}
           value={techStatus}
           fullWidth
-          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+          style={{ borderRadius: "4px" }}
+          margin="dense"
+          variant="outlined"
         >
           <MenuItem value="Iniciante">Iniciante</MenuItem>
           <MenuItem value="Intermediário">Intermediário</MenuItem>
@@ -174,7 +179,7 @@ const FormTechsUpdate = () => {
               color: "red",
               fontSize: "x-small",
               margin: "0",
-              marginLeft: "17vw",
+              marginLeft: "16vw",
             }}
           >
             Tecnologia já cadastrada
@@ -184,7 +189,6 @@ const FormTechsUpdate = () => {
           Enviar
         </Button>
       </form>
-
       {user.techs.length !== 0 && (
         <>
           <form onSubmit={handleUpdateTech} className={classes.form}>
@@ -201,7 +205,9 @@ const FormTechsUpdate = () => {
               onChange={(e) => setAttTech(e.target.value)}
               value={attTech}
               fullWidth
-              style={{ background: "#F4F1DE", borderRadius: "4px" }}
+              style={{ borderRadius: "4px" }}
+              margin="dense"
+              variant="outlined"
             >
               {user.techs.map((actual, index) => {
                 return (
@@ -226,7 +232,9 @@ const FormTechsUpdate = () => {
                   onChange={(e) => setAttTechStatus(e.target.value)}
                   value={attTechStatus}
                   fullWidth
-                  style={{ background: "#F4F1DE", borderRadius: "4px" }}
+                  style={{ borderRadius: "4px" }}
+                  margin="dense"
+                  variant="outlined"
                 >
                   <MenuItem value="Iniciante">Iniciante</MenuItem>
                   <MenuItem value="Intermediário">Intermediário</MenuItem>
@@ -252,7 +260,9 @@ const FormTechsUpdate = () => {
               onChange={(e) => setTech(e.target.value)}
               value={tech}
               fullWidth
-              style={{ background: "#F4F1DE", borderRadius: "4px" }}
+              style={{ borderRadius: "4px" }}
+              margin="dense"
+              variant="outlined"
             >
               {user.techs.map((actual, index) => {
                 return (

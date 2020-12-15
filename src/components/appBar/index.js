@@ -46,6 +46,7 @@ const KenzieAppBar = () => {
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
   const key = useSelector((state) => state.key);
+  const user = useSelector((state) => state.user);
 
 
   const handleClick = (event) => {
@@ -104,6 +105,11 @@ const KenzieAppBar = () => {
           <MenuItem onClick={() => handleClose("/")}>
             Lista de alunos
           </MenuItem>
+          {key && (
+            <MenuItem onClick={() => handleClose(`/user/${user.id}`)}>
+              Meu perfil
+            </MenuItem>
+          )}
           {key && (
             <MenuItem onClick={() => handleClose("/my-account")}>
               Minha conta

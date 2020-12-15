@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import { settingsSchema } from "../../../helper";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "../../../store/modules/user/thunk";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FormUpdateProfile = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
   const [module, setModule] = useState("");
@@ -84,9 +87,16 @@ const FormUpdateProfile = () => {
         Authorization: `Bearer ${token}`,
       },
     };
-    axios
-      .put("https://kenziehub.me/profile", data, headers)
-      .then((res) => console.log(res));
+    axios.put("https://kenziehub.me/profile", data, headers).then((res) => {
+      axios
+        .get(`https://kenziehub.me/users/${user.id}`)
+        .then((res) => {
+          dispatch(loginThunk(res.data));
+        })
+        .then((res) => {
+          window.location.reload();
+        });
+    });
   };
 
   return (
@@ -127,7 +137,9 @@ const FormUpdateProfile = () => {
         onChange={handleModuleChange}
         value={module}
         fullWidth
-        style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        style={{ borderRadius: "4px" }}
+        variant="outlined"
+        margin="dense"
       >
         <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
           Primeiro módulo (Introdução ao Frontend)

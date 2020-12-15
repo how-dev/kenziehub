@@ -23,6 +23,9 @@ export const FormContainer = styled.div`
   height: 88vh;
   background-color: #f2cc8f;
   overflow: hidden;
+  @media (max-width: 800px) {
+    width: 100vw;
+  }
 
   #outlined-basic {
     background-color: #f4f1de;
