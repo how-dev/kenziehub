@@ -5,7 +5,7 @@ import {
   makeStyles,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { worksSchema } from "../../../helper";
@@ -21,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
     width: "40vw",
     display: "flex",
     flexDirection: "column",
-    margin: "auto"
+    margin: "auto",
   },
   input: {
     width: "35vw",
     margin: "auto",
-    marginBottom: "1vh"
+    marginBottom: "1vh",
   },
   subTitle: {
     color: "#3D405B",
     marginLeft: "3vw",
-    marginBottom: "1vh"
+    marginBottom: "1vh",
   },
   button: {
     marginTop: "2vh",
@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#81B29A",
     "&:hover": {
       color: "#F2CC8F",
-      backgroundColor: "#3D405B"
-    }
-  }
+      backgroundColor: "#3D405B",
+    },
+  },
 }));
 
 const FormWorksUpdate = () => {
@@ -59,14 +59,14 @@ const FormWorksUpdate = () => {
   const baseUrl = "https://kenziehub.me/";
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(worksSchema)
+    resolver: yupResolver(worksSchema),
   });
 
   const handleWorksUpdate = (data) => {
     const headers = {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     };
     axios.post(`${baseUrl}users/works`, data, headers).then((res) => {
       console.log(res);
@@ -107,27 +107,22 @@ const FormWorksUpdate = () => {
         description: workDescription,
         deploy_url: workUrl,
       };
-
-    const data = {
-      title: workTitle,
-      description: workDescription,
-      deploy_url: workUrl
-    };
-
-    const actualWork = user.works.filter((actual) => actual.title === attWork);
-    const id = actualWork[0].id;
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    };
-    axios.put(`${baseUrl}users/works/${id}`, data, headers).then((res) => {
-      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
-        dispatch(loginThunk(res.data));
+      const actualWork = user.works.filter(
+        (actual) => actual.title === attWork
+      );
+      const id = actualWork[0].id;
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      axios.put(`${baseUrl}users/works/${id}`, data, headers).then((res) => {
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+        });
       });
     }
   };
-
   return (
     <>
       <form onSubmit={handleSubmit(handleWorksUpdate)} className={classes.form}>
