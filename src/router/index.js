@@ -7,7 +7,7 @@ import UserList from "../pages/userList";
 import UserPage from "../pages/userPage";
 
 const Router = () => {
-  const key = useSelector((state) => state.key.key);
+  const key = useSelector((state) => state.key);
   return (
     <Switch>
       {key ? (

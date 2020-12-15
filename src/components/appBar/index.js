@@ -46,7 +46,8 @@ const KenzieAppBar = () => {
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tabValue, setTabValue] = useState("");
-  const key = useSelector((state) => state.key.key);
+  const key = useSelector((state) => state.key);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     setTabValue(location.pathname);
@@ -111,6 +112,11 @@ const KenzieAppBar = () => {
             Lista de alunos
           </MenuItem>
           {key && (
+            <MenuItem onClick={() => handleClose(`/user/${user.id}`)}>
+              Meu perfil
+            </MenuItem>
+          )}
+          {key && (
             <MenuItem onClick={() => handleClose("/my-account")}>
               Minha conta
             </MenuItem>
@@ -131,7 +137,8 @@ const KenzieAppBar = () => {
           aria-label="simple tabs example"
           className={classes.tabs}
         >
-          <Tab value="/" label="Lista de Devs" />}
+          <Tab value="/" label="Lista de Devs" />
+          {key && <Tab value={`/user/${user.id}`} label="Meu perfil" />}
           {key && <Tab value="/my-account" label="Minha conta" />}
           {key && <Tab onClick={handleLogout} label="Logout" />}
           {!key && <Tab value="/login" label="Login" />}

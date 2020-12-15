@@ -1,13 +1,13 @@
-import { StyledContainer, FormContainer, Form } from "./style";
+import { FormContainer, Form } from "./style";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAutoFillEmail,
-  addAutoFillPswd
+  addAutoFillPswd,
 } from "../../store/modules/autoFill/actions";
 import { useForm } from "react-hook-form";
 import { loginThunk } from "../../store/modules/user/thunk";
@@ -19,24 +19,31 @@ const Login = () => {
   const dispatch = useDispatch();
   const autoFillPswd = useSelector((state) => state.autoFillPswd);
   const autoFillEmail = useSelector((state) => state.autoFillEmail);
+  const [width, setWidth] = useState()
   const {
     register,
     unregister,
     setValue,
     errors,
     handleSubmit,
-    setError
+    setError,
   } = useForm();
 
   useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    };
+    window.addEventListener('resize', handleResize);
+
     register("email", { required: "O campo de email não pode estar vazio" });
     register("password", { required: "O campo de senha não pode estar vazio" });
 
     return () => {
       unregister("email");
       unregister("password");
+      window.removeEventListener('resize', handleResize)
     };
-  }, [register, unregister]);
+  }, [register, unregister, width]);
 
   const tryLogin = (data) => {
     console.log(data);
@@ -54,7 +61,7 @@ const Login = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      <FormContainer>
+      <FormContainer >
         <form
           onSubmit={handleSubmit(tryLogin)}
           style={{ width: "60%" }}
@@ -102,27 +109,25 @@ const Login = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            // dispatch(addAutoFill(email))
-            // dispatch(addAutoFill(password))
             history.push("/sign-up");
           }}
         >
           Cadastre-se
         </Button>
       </FormContainer>
-      <div
+      {width > 800 && <div
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           width: "100%",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
-        <h1>KENZIE HUB</h1>
-        <img alt="placeholder" src={LoginLogo} style={{ width: "60%" }} />
-      </div>
+            <h1>KENZIE HUB</h1>
+            <img alt="placeholder" src={LoginLogo} style={{ width: "60%" }} />
+      </div>}
     </div>
   );
 };
