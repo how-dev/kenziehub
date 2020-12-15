@@ -5,13 +5,15 @@ import {
   Select,
   MenuItem,
   Typography,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
 import { settingsSchema } from "../../../helper";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "../../../store/modules/user/thunk";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
     width: "40vw",
     display: "flex",
     flexDirection: "column",
-    margin: "auto"
+    margin: "auto",
   },
   input: {
     width: "35vw",
     margin: "auto",
-    marginBottom: "1vh"
+    marginBottom: "1vh",
   },
   subTitle: {
     color: "#3D405B",
     marginLeft: "3vw",
-    marginBottom: "1vh"
+    marginBottom: "1vh",
   },
   button: {
     marginTop: "2vh",
@@ -46,13 +48,14 @@ const useStyles = makeStyles((theme) => ({
 
 const FormUpdateProfile = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(settingsSchema)
+    resolver: yupResolver(settingsSchema),
   });
 
   const handleModuleChange = (event) => {
@@ -81,12 +84,19 @@ const FormUpdateProfile = () => {
     console.log(data);
     const headers = {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     };
-    axios
-      .put("https://kenziehub.me/profile", data, headers)
-      .then((res) => console.log(res));
+    axios.put("https://kenziehub.me/profile", data, headers).then((res) => {
+      axios
+        .get(`https://kenziehub.me/users/${user.id}`)
+        .then((res) => {
+          dispatch(loginThunk(res.data));
+        })
+        .then((res) => {
+          window.location.reload();
+        });
+    });
   };
 
   return (
