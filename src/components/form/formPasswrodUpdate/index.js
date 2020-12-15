@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 const FormPasswordUpdate = () => {
   const classes = useStyles();
-
-  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
 
   const { register, handleSubmit, errors } = useForm({
@@ -57,7 +55,7 @@ const FormPasswordUpdate = () => {
       <Typography className={classes.subTitle}>Alterar senha</Typography>
       <TextField
         className={classes.input}
-        id="outlined-basic"
+        id="new-password"
         label="nova senha"
         name="password"
         variant="outlined"
@@ -68,7 +66,7 @@ const FormPasswordUpdate = () => {
       />
       <TextField
         className={classes.input}
-        id="outlined-basic"
+        id="old-password"
         label="senha antiga"
         name="old_password"
         variant="outlined"

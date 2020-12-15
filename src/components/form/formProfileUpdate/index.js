@@ -33,20 +33,16 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: "2vh",
-    marginBottom: "8vh",
+    marginBottom: "3vh",
   },
 }));
 
 const FormUpdateProfile = () => {
   const classes = useStyles();
-
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
-
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
-  const [edit, setEdit] = useState(false);
-  const [input, setInput] = useState(user);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(settingsSchema),
@@ -60,6 +56,21 @@ const FormUpdateProfile = () => {
 
   const handleProfileUpdate = (data) => {
     data.course_module = module;
+    if (data.name === "") {
+      data.name = user.name;
+    }
+    if (data.email === "") {
+      data.email = user.email;
+    }
+    if (data.contact === "") {
+      data.contact = user.contact;
+    }
+    if (data.bio === "") {
+      data.bio = user.bio;
+    }
+    if (data.course_module === "") {
+      data.course_module = user.course_module;
+    }
     console.log(data);
     const headers = {
       headers: {
@@ -73,7 +84,7 @@ const FormUpdateProfile = () => {
 
   return (
     <form onSubmit={handleSubmit(handleProfileUpdate)} className={classes.form}>
-      <Typography className={classes.subTitle}>Alterar dados</Typography>
+      <Typography className={classes.subTitle}>Alterar perfil</Typography>
       <TextField
         className={classes.input}
         id="outlined-basic"

@@ -5,8 +5,10 @@ import FormTechsUpdate from "../../components/form/formTechsUpdate";
 import FormWorksUpdate from "../../components/form/formWorksUpdate";
 import FormPasswordUpdate from "../../components/form/formPasswrodUpdate";
 import { useSelector } from "react-redux";
+import ImageIcon from "@material-ui/icons/Image";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import axios from "axios";
-
+import settings from "../../img/settings.svg";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -15,25 +17,33 @@ const useStyles = makeStyles((theme) => ({
   header: {
     width: "100%",
     display: "flex",
+    marginBottom: "10vh",
   },
   link: {
-    width: "10vw",
+    width: "20vw",
     heigth: "5vw",
+    marginTop: "5vh",
+    textDecoration: "none",
+    color: "#3D405B",
   },
   name: {
-    width: "20vw",
-    marginLeft: "23vw",
+    width: "25vw",
+    marginLeft: "10vw",
     marginTop: "25vh",
     color: "#3D405B",
+    fontWeight: "100",
   },
   avatarHolder: {
     display: "flex",
     flexDirection: "column",
+    width: "25vw",
+    margin: 0,
   },
   avatar: {
-    width: "20vw",
+    width: "15vw",
     borderRadius: "100%",
-    marginLeft: "auto",
+    margin: "auto",
+    marginTop: "5vh",
   },
   avatarButton: {
     marginLeft: "5vw",
@@ -41,6 +51,24 @@ const useStyles = makeStyles((theme) => ({
   formHolder: {
     display: "flex",
     flexDirection: "column",
+  },
+  avatarChange: {
+    marginLeft: "10vw",
+    display: "none",
+  },
+  avatarChangeLabel: {
+    backgroundColor: "#81B291",
+    borderRadius: "5px",
+    color: "#fff",
+    cursor: "pointer",
+    padding: "6px 20px",
+    marginLeft: "2vw",
+  },
+  logo: {
+    width: "20vw",
+    heigth: "20vh",
+    marginLeft: "-10vw",
+    marginTop: "-20vh",
   },
 }));
 
@@ -72,8 +100,8 @@ const Settings = () => {
   return (
     <Container className={classes.root}>
       <Container className={classes.header}>
-        <Link to="/" style={{ height: "5vh", marginTop: "5vh" }}>
-          Voltar
+        <Link to="/" className={classes.link}>
+          <ArrowBackIcon color="primary" /> Voltar a lista de Devs
         </Link>
         <h1 className={classes.name}>{user.name}</h1>
         <Container className={classes.avatarHolder}>
@@ -87,7 +115,15 @@ const Settings = () => {
             className={classes.avatar}
           />
           <form>
-            <input type="file" id="avatar" onChange={handleAvatarChange} />
+            <label for="avatar" className={classes.avatarChangeLabel}>
+              Selecione um arquivo <ImageIcon color="primary" />
+            </label>
+            <input
+              type="file"
+              id="avatar"
+              onChange={handleAvatarChange}
+              className={classes.avatarChange}
+            />
           </form>
         </Container>
       </Container>
@@ -97,6 +133,7 @@ const Settings = () => {
         <FormTechsUpdate />
         <FormWorksUpdate />
       </Container>
+      <img alt="settingsLogo" src={settings} className={classes.logo} />
     </Container>
   );
 };
