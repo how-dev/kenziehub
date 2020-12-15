@@ -5,7 +5,7 @@ import signUpLogo from "../../img/signUpLogo.svg";
 import styled from "styled-components";
 
 const SignUp = () => {
-  const [width, setWidth] = useState()
+  const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
     const handleResize = () => {
