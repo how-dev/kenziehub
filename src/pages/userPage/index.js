@@ -8,26 +8,34 @@ import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-    allData: {
+    allDatas: {
         display: "flex",
         flexDirection: "column",
         // alignItems: "flex-end",
         width: "100%",
+        
     },
     datas: {
       padding: theme.spacing(2),
       color: theme.palette.text.secondary,
-      width: 400,
       lineHeight: 1.5,
       background: "#F4F1DE",
       display: "flex",
       flexDirection: "column",
+      maxWidth: "400px",
       margin: 0,
+      [theme.breakpoints.down(750)]: {
+        marginTop: "100px"
+      }
+      
     },
     sampleDatas: {
         display: "flex",
         marginTop: 30,
         padding: 0,
+        [theme.breakpoints.down(750)]: {
+            flexDirection: "column"
+          }
     },
     hardSkills: {
         padding: theme.spacing(2),
@@ -36,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         width: 200,
         fontSize: 10,
-        background: "#F4F1DE",
+        background: "#F4F1DE",  
     },
     avatar: {
       width: 150,
@@ -62,9 +70,15 @@ const useStyles = makeStyles((theme) => ({
     },
     aboveTechs: {
         display: "flex",
-        marginRight: 0,
-        width: 400,
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginBottom: "50px",
+        width: "100%",
         padding: 0,
+        [theme.breakpoints.down(400)]: {
+            flexDirection: "column",
+            justifyContent: "center"
+          }
     },
     buttonBack: {
         fontSize: 10,
@@ -86,41 +100,40 @@ const UserPage = () => {
     
     if (userData) {
         return (
-            <>
-                <Box component="div"  className={classes.profile}>
-                    <Container className={classes.allDatas}>
-                        <Container className={classes.sampleDatas}>
-                            <Container className={classes.profileImage}>
-                                <Button 
-                                    className={classes.buttonBack} 
-                                    onClick={() => history.push("/")}
-                                >
-                                    <ArrowBackIosIcon /> Voltar para a página de devs
-                                </Button>
-                                <img alt="..." src={userData.avatar_url ? userData.avatar_url : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"} className={classes.avatar}/>
-                                {userData.name}
-                            </Container>
-                            <Paper className={classes.datas}>
-                                <span><span style={{color: "#3D405B"}}>Nome</span >: {userData.name}</span> <br />
-                                <span><span style={{color: "#3D405B"}}>Email</span>: {userData.email}</span> <br />
-                                <span><span style={{color: "#3D405B"}}>Módulo do curso</span>: {userData.course_module}</span> <br />
-                                <span><span style={{color: "#3D405B"}}>Contato</span>: {userData.contact}</span> <br />
-                                <span><span style={{color: "#3D405B"}}>Sobre</span>: {userData.bio}</span>
-                            </Paper>
+            <Box component="div"  className={classes.profile}>
+                <Container className={classes.allDatas}>
+                    <Container className={classes.sampleDatas}>
+                        <Container className={classes.profileImage}>
+                            <Button 
+                                className={classes.buttonBack} 
+                                onClick={() => history.push("/")}
+                            >
+                                <ArrowBackIosIcon /> Voltar para a página de devs
+                            </Button>
+                            <img alt="..." src={userData.avatar_url ? userData.avatar_url : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"} className={classes.avatar}/>
+                            {userData.name}
                         </Container>
-                        <Container className={classes.aboveTechs}>
-                            <Paper className={classes.hardSkills}>Tecnologias: {userData.techs.map((skill, index) => <p key={index}><span style={{color: "#3D405B", fontSize: 10}}>{skill.title}</span>{`: ${skill.status}`}</p>)}</Paper>
-                            <Paper className={classes.hardSkills}>Trabalhos: {userData.works.map((job, index) => 
-                            <div key={index}>
-                                <p style={{color: "#3D405B", fontSize: 13}}>{job.title}</p>
-                                <p >{`Descrição: ${job.description}`}</p>
-                                <p>{`Url: ${job.deploy_url}`}</p>
-                            </div>)}
-                            </Paper>
-                        </Container> 
+                        <Paper className={classes.datas}>
+                            <span><span style={{color: "#3D405B"}}>Nome</span >: {userData.name}</span> <br />
+                            <span><span style={{color: "#3D405B"}}>Email</span>: {userData.email}</span> <br />
+                            <span><span style={{color: "#3D405B"}}>Módulo do curso</span>: {userData.course_module}</span> <br />
+                            <span><span style={{color: "#3D405B"}}>Contato</span>: {userData.contact}</span> <br />
+                            <span><span style={{color: "#3D405B"}}>Sobre</span>: {userData.bio}</span>
+                        </Paper>
                     </Container>
-                </Box>
-            </>
+                    <Container className={classes.aboveTechs}>
+                        <Paper className={classes.hardSkills}>Tecnologias: {userData.techs.map((skill, index) => <p key={index}><span style={{color: "#3D405B", fontSize: 10}}>{skill.title}</span>{`: ${skill.status}`}</p>)}</Paper>
+                        <Paper className={classes.hardSkills}>Trabalhos: {userData.works.map((job, index) => 
+                        <div key={index}>
+                            <p style={{color: "#3D405B", fontSize: 13}}>{job.title}</p>
+                            <p >{`Descrição: ${job.description}`}</p>
+                            <p>{`Url: ${job.deploy_url}`}</p>
+                        </div>)}
+                        </Paper>
+                    </Container> 
+                </Container>
+            </Box>
+            
         )
     } else {
         return (
