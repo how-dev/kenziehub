@@ -19,7 +19,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const autoFillPswd = useSelector((state) => state.autoFillPswd);
   const autoFillEmail = useSelector((state) => state.autoFillEmail);
-  const [width, setWidth] = useState()
+  const [width, setWidth] = useState(window.innerWidth)
   const {
     register,
     unregister,
