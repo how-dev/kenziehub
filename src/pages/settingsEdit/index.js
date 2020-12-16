@@ -1,19 +1,18 @@
+import { makeStyles, Container, Typography, Box } from "@material-ui/core";
+import { Image, ArrowBack } from "@material-ui/icons/"
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { makeStyles, Container } from "@material-ui/core";
+import PropTypes from "prop-types";
+import axios from "axios";
+
 import FormProfileUpdate from "../../components/form/formProfileUpdate";
 import FormTechsUpdate from "../../components/form/formTechsUpdate";
 import FormWorksUpdate from "../../components/form/formWorksUpdate";
 import FormPasswordUpdate from "../../components/form/formPasswordUpdate";
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import ImageIcon from "@material-ui/icons/Image";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import axios from "axios";
+
 import settings from "../../img/settings.svg";
-import { motion } from "framer-motion";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -149,7 +148,6 @@ const Settings = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         localStorage.removeItem("userData");
         localStorage.setItem("userData", JSON.stringify(response.data));
         window.location.reload();
@@ -158,9 +156,11 @@ const Settings = () => {
   };
   return (
     <Container className={classes.root}>
+
       <Link to="/" className={classes.link}>
-        <ArrowBackIcon color="primary" /> Voltar a lista de Devs
+        <ArrowBack color="primary" /> Voltar a lista de Devs
       </Link>
+
       <Container className={classes.header}>
         <h1 className={classes.name}>{user.name}</h1>
         <Container className={classes.avatarHolder}>
@@ -169,7 +169,7 @@ const Settings = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 2 }}
-          >
+            >
             <div
               className={classes.avatar}
               style={{
@@ -179,7 +179,7 @@ const Settings = () => {
                 alignItems: "center",
                 boxShadow: "1px 1px 3px gray",
               }}
-            >
+              >
               <img
                 style={{ height: "100%" }}
                 alt="Avatar"
@@ -193,7 +193,7 @@ const Settings = () => {
           </motion.div>
           <form>
             <label htmlFor="avatar" className={classes.avatarChangeLabel}>
-              Selecione um arquivo <ImageIcon color="primary" />
+              Selecione um arquivo <Image color="primary" />
             </label>
             <input
               type="file"
@@ -205,6 +205,7 @@ const Settings = () => {
         </Container>
       </Container>
       <div className={classes.formHolder}>
+
         <FormProfileUpdate />
         <FormPasswordUpdate />
         <FormTechsUpdate />
@@ -213,6 +214,7 @@ const Settings = () => {
         {width > 1000 && (
           <img alt="settingsLogo" src={settings} className={classes.logo} />
         )}
+
       </div>
     </Container>
   );

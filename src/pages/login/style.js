@@ -21,7 +21,6 @@ export const FormContainer = styled.div`
   align-items: center;
   min-width: 40vw;
   height: 90vh;
-  // padding-bottom: 50px;
   background-color: #f2cc8f;
   overflow: hidden;
   margin-bottom: -70px;

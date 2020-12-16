@@ -1,11 +1,12 @@
+import { AnimatePresence } from "framer-motion";
 import { Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Login from "../pages/login";
-import SignUp from "../pages/signUp";
+
+import UserPage from "../pages/userPage";
 import Settings from "../pages/settingsEdit";
 import UserList from "../pages/userList";
-import UserPage from "../pages/userPage";
-import { AnimatePresence } from "framer-motion";
+import SignUp from "../pages/signUp";
+import Login from "../pages/login";
 
 const Router = () => {
   const key = useSelector((state) => state.key);

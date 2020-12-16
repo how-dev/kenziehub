@@ -1,18 +1,22 @@
-import { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import 
+{ makeStyles,
+  AppBar,
+  Toolbar,
+  Typography,
+  Tabs,
+  Tab,
+  IconButton,
+  Menu,
+  MenuItem
+} from "@material-ui/core/";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import IconButton from "@material-ui/core/IconButton";
+import { useState } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import logo from "../../img/logo.png";
+
 import { removeToken } from "../../store/modules/token/actions";
+
+import logo from "../../img/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,12 +1,13 @@
-import UserCard from "../../components/userCard/index";
-import { useState, useEffect } from "react";
-import { TextField } from "@material-ui/core";
-import { BounceLoader } from "react-spinners";
-import InfiniteScroll from "react-infinite-scroll-component";
-import SearchIcon from "@material-ui/icons/Search";
-import { motion } from "framer-motion";
-import { getUsersThunk } from "../../store/modules/users/thunk";
 import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { BounceLoader } from "react-spinners";
+import { TextField } from "@material-ui/core";
+import { motion } from "framer-motion";
+import SearchIcon from "@material-ui/icons/Search";
+
+import UserCard from "../../components/userCard/index";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { getUsersThunk } from "../../store/modules/users/thunk";
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const UsersList = () => {
 
   useEffect(() => {
     dispatch(getUsersThunk(pageCount, haveNext, setHaveNext));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageCount]);
 
   if (users.length !== 0) {
@@ -76,6 +78,7 @@ const UsersList = () => {
                         animate={{ marginTop: 0 }}
                         exit={{ marginTop: 300 }}
                         transition={{ duration: 0.5 }}
+                        key={index}
                       >
                         <motion.div
                           initial={{ opacity: 0 }}
@@ -83,10 +86,11 @@ const UsersList = () => {
                           exit={{ opacity: 0 }}
                           transition={{ duration: 1 }}
                         >
-                          <UserCard key={index} user={user} />
+                          <UserCard  user={user} />
                         </motion.div>
                       </motion.div>
                     );
+                    
                   })
               : users.map((user, index) => {
                   return (
@@ -95,6 +99,7 @@ const UsersList = () => {
                       animate={{ marginTop: 0 }}
                       exit={{ marginTop: 300 }}
                       transition={{ duration: 0.5 }}
+                      key={index}
                     >
                       <motion.div
                         initial={{ opacity: 0 }}
@@ -102,7 +107,7 @@ const UsersList = () => {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 1 }}
                       >
-                        <UserCard key={index} user={user} />
+                        <UserCard user={user} />
                       </motion.div>
                     </motion.div>
                   );
