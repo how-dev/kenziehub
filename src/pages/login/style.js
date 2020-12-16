@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 75vh;
+  height: 95vh;
   overflow: hidden;
   h1 {
     margin-right: 15%;
@@ -20,7 +20,7 @@ export const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-width: 40vw;
-  height: 90vh;
+  height: 97vh;
   background-color: #f2cc8f;
   overflow: hidden;
   margin-bottom: -70px;
