@@ -89,7 +89,6 @@ const FormTechsUpdate = () => {
     axios
       .post(`${baseUrl}users/techs`, data, headers)
       .then((res) => {
-        console.log(res);
         axios.get(`${baseUrl}users/${user.id}`).then((res) => {
           dispatch(loginThunk(res.data));
           setAttTechFeedback(false);
@@ -98,7 +97,6 @@ const FormTechsUpdate = () => {
         });
       })
       .catch((err) => {
-        console.log(err.response);
         setError(true);
       });
   };
@@ -134,7 +132,6 @@ const FormTechsUpdate = () => {
       const actualTech = user.techs.filter(
         (actual) => actual.title === attTech
       );
-      console.log(actualTech);
       const id = actualTech[0].id;
       const headers = {
         headers: {

@@ -85,7 +85,6 @@ const FormWorksUpdate = () => {
       },
     };
     axios.post(`${baseUrl}users/works`, data, headers).then((res) => {
-      console.log(res);
       axios.get(`${baseUrl}users/${user.id}`).then((res) => {
         dispatch(loginThunk(res.data));
         setAttWorkFeedback(false);

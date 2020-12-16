@@ -1,6 +1,4 @@
 import { Paper, Button, Typography } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { getUser } from "../../store/modules/users/actions";
 import { useHistory } from "react-router-dom";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
@@ -73,7 +71,6 @@ const UserPageButton = withStyles({
 })(Button);
 
 const UserCard = ({ user }) => {
-  const dispatch = useDispatch();
   const classes = useStyles();
 
   const { name, avatar_url } = user;
@@ -81,7 +78,6 @@ const UserCard = ({ user }) => {
   const history = useHistory();
 
   const GoPageUser = () => {
-    dispatch(getUser([]));
     history.push(`/user/${user.id}`);
   };
 

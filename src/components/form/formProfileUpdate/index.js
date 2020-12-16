@@ -92,7 +92,6 @@ const FormUpdateProfile = () => {
     if (data.course_module === "") {
       data.course_module = user.course_module;
     }
-    console.log(data);
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
