@@ -6,7 +6,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Snackbar,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { worksSchema } from "../../../helper";
 import { useForm } from "react-hook-form";
@@ -26,9 +28,11 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "35vw",
-    minWidth: "250px",
     margin: "auto",
     marginBottom: "1vh",
+    [theme.breakpoints.down(400)]: {
+      width: "250px",
+    },
   },
   subTitle: {
     color: "#3D405B",
@@ -44,8 +48,15 @@ const useStyles = makeStyles((theme) => ({
       color: "#F2CC8F",
       backgroundColor: "#3D405B",
     },
+    [theme.breakpoints.down(400)]: {
+      width: "250px",
+    },
   },
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const FormWorksUpdate = () => {
   const classes = useStyles();
@@ -57,6 +68,10 @@ const FormWorksUpdate = () => {
   const [workTitle, setWorkTitle] = useState("");
   const [workDescription, setWorkDescription] = useState("");
   const [workUrl, setWorkUrl] = useState("");
+  const [addWorkFeedback, setAddWorkFeedback] = useState(false);
+  const [attWorkFeedback, setAttWorkFeedback] = useState(false);
+  const [removeWorkFeedback, setRemoveWorkFeedback] = useState(false);
+
   const baseUrl = "https://kenziehub.me/";
 
   const { register, handleSubmit, errors } = useForm({
@@ -71,15 +86,20 @@ const FormWorksUpdate = () => {
     };
     axios.post(`${baseUrl}users/works`, data, headers).then((res) => {
       console.log(res);
-      axios
-        .get(`${baseUrl}users/${user.id}`)
-        .then((res) => {
-          dispatch(loginThunk(res.data));
-        })
-        .then((res) => {
-          window.location.reload();
-        });
+      axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+        dispatch(loginThunk(res.data));
+        setAttWorkFeedback(false);
+        setRemoveWorkFeedback(false);
+        setAddWorkFeedback(true);
+        resetWork();
+      });
     });
+  };
+
+  const resetWork = () => {
+    setWorkTitle("");
+    setWorkDescription("");
+    setWorkUrl("");
   };
 
   const handleRemoveWork = (e) => {
@@ -95,6 +115,10 @@ const FormWorksUpdate = () => {
       axios.delete(`${baseUrl}users/works/${id}`, headers).then((res) => {
         axios.get(`${baseUrl}users/${user.id}`).then((res) => {
           dispatch(loginThunk(res.data));
+          setAddWorkFeedback(false);
+          setAttWorkFeedback(false);
+          setRemoveWorkFeedback(true);
+          resetWork();
         });
       });
     }
@@ -120,10 +144,24 @@ const FormWorksUpdate = () => {
       axios.put(`${baseUrl}users/works/${id}`, data, headers).then((res) => {
         axios.get(`${baseUrl}users/${user.id}`).then((res) => {
           dispatch(loginThunk(res.data));
+          setAddWorkFeedback(false);
+          setRemoveWorkFeedback(false);
+          setAttWorkFeedback(true);
+          resetWork();
         });
       });
     }
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAddWorkFeedback(false);
+    setAttWorkFeedback(false);
+    setRemoveWorkFeedback(false);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit(handleWorksUpdate)} className={classes.form}>
@@ -163,6 +201,15 @@ const FormWorksUpdate = () => {
           error={!!errors.deploy_url}
           helperText={errors.deploy_url?.message}
         />
+        <Snackbar
+          open={addWorkFeedback}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            Trabalho adicionado!
+          </Alert>
+        </Snackbar>
         <Button type="submit" className={classes.button} color="primary">
           Enviar
         </Button>
@@ -229,6 +276,15 @@ const FormWorksUpdate = () => {
                 />
               </>
             )}
+            <Snackbar
+              open={attWorkFeedback}
+              autoHideDuration={3000}
+              onClose={handleClose}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Trabalho atualizado!
+              </Alert>
+            </Snackbar>
             <Button type="submit" className={classes.button} color="primary">
               Atualizar
             </Button>
@@ -259,6 +315,15 @@ const FormWorksUpdate = () => {
                 );
               })}
             </Select>
+            <Snackbar
+              open={removeWorkFeedback}
+              autoHideDuration={3000}
+              onClose={handleClose}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Trabalho removido!
+              </Alert>
+            </Snackbar>
             <Button
               type="submit"
               className={classes.button}

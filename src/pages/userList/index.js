@@ -103,6 +103,7 @@ const UsersList = () => {
                         animate={{ marginTop: 0 }}
                         exit={{ marginTop: 300 }}
                         transition={{ duration: 0.5 }}
+                        key={index}
                       >
                         <motion.div
                           initial={{ opacity: 0 }}
@@ -122,6 +123,7 @@ const UsersList = () => {
                       animate={{ marginTop: 0 }}
                       exit={{ marginTop: 300 }}
                       transition={{ duration: 0.5 }}
+                      key={index}
                     >
                       <motion.div
                         initial={{ opacity: 0 }}
