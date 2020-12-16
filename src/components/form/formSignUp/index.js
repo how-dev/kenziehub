@@ -1,216 +1,246 @@
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  FormControl,
+  Button,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
 import { useForm } from "react-hook-form";
-import { FormData, theme, schema_Signup } from "../../../helper";
 import { useState } from "react";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
+import { useHistory } from "react-router-dom";
+import { signUpSchema } from "../../../helper";
+import { SignUpRequest } from "../../../requests/";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { withStyles } from "@material-ui/core/styles";
 
-import { signUpRequest } from "../../../requests/"
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+const LoginButton = withStyles({
+  root: {
+    boxShadow: "none",
+    fontSize: 13,
+    padding: "1.5em",
+    border: "1px solid",
+    lineHeight: 1.5,
+    backgroundColor: "#E07A5F",
+    borderColor: "#E07A5F",
+    height: 25,
+    color: "white",
+    textTransform: "uppercase",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "#D27860",
+      borderColor: "#E07A5F",
+      boxShadow: "none",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "#E07A5F",
+      borderColor: "#E07A5F",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem #F3967E",
+    },
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+})(Button);
+const SignUpButton = withStyles({
+  root: {
+    boxShadow: "none",
+    fontSize: 13,
+    padding: "1.5em",
+    border: "1px solid",
+    lineHeight: 1.5,
+    backgroundColor: "#3d405b",
+    borderColor: "#3d405b",
+    height: 25,
+    color: "white",
+    textTransform: "uppercase",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "#22243c",
+      borderColor: "#22243c",
+      boxShadow: "none",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "#22243c",
+      borderColor: "#333556",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem #333556",
+    },
   },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+})(Button);
 
-export default function SignUp() {
-  const classes = useStyles();
+const FormSignUp = () => {
+  const history = useHistory();
 
-  const [modules, setModules] = useState({
-    moduleOne: false,
-    moduleTwo: false,
-    moduleThree: false,
-    moduleFour: false,
-  });
-  const [response, setResponse] = useState("teste");
-  const [responseError, setError] = useState("teste");
+  const [, setResponse] = useState("");
+  const [responseError, setResponseError] = useState("");
+  const [module, setModule] = useState("");
+  const [moduleRegister, setModuleRegister] = useState({});
+  const [moduleError, setModuleError] = useState("");
 
-  const { moduleOne, moduleTwo, moduleThree, moduleFour } = modules;
-
-  const error =
-    [moduleOne, moduleTwo, moduleThree, moduleFour].filter((v) => v).length !==
-    1;
-  const [moduleValue, setModuleValue] = useState("");
   const { register, handleSubmit, errors } = useForm({
-    //resolver: yupResolver(schema_Signup),
+    resolver: yupResolver(signUpSchema),
   });
 
   const handleSignUp = (data) => {
-    data.course_module = moduleValue;
-    signUpRequest(data, setResponse, setError)
+    data.course_module = module;
+    if (module) {
+      SignUpRequest(data, setResponse, setResponseError);
+      history.push("/login");
+    } else {
+      setModuleError("Informe seu módulo");
+    }
   };
 
   const handleChange = (event) => {
-    setModules({ [event.target.name]: event.target.checked });
-    register({ modules: event.target.value });
-    setModuleValue(event.target.value);
+    setModuleRegister({ course_module: event.target.value });
+    register(moduleRegister.course_module);
+    setModule(event.target.value);
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form onSubmit={handleSubmit(handleSignUp)}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}></Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                //required
-                fullWidth
-                id="email"
-                label="Endereço de E-mail"
-                name="email"
-                autoComplete="email"
-                inputRef={register}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                //required
-                fullWidth
-                name="password"
-                label="Senha"
-                type="password"
-                id="password"
-                inputRef={register}
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="fname"
-                name="name"
-                variant="outlined"
-                //required
-                fullWidth
-                id="name"
-                inputRef={register}
-                label="Nome Completo"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                //required
-                fullWidth
-                id="bio"
-                inputRef={register}
-                label="Descrição breve"
-                name="bio"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                //required
-                fullWidth
-                id="contact"
-                inputRef={register}
-                label="Contato"
-                name="contact"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl required error={error} component="fieldset">
-                <FormLabel component="legend">Selecione seu Quarter</FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        id="module"
-                        checked={moduleOne}
-                        onChange={handleChange}
-                        name="moduleOne"
-                        value="Primeiro módulo (Introdução ao Frontend)"
-                      />
-                    }
-                    label="Primeiro módulo (Introdução ao Frontend)"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        id="module"
-                        checked={moduleTwo}
-                        onChange={handleChange}
-                        name="moduleTwo"
-                        value="Segundo módulo (Frontend Avançado)"
-                      />
-                    }
-                    label="Segundo módulo (Frontend Avançado)"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        id="module"
-                        checked={moduleThree}
-                        onChange={handleChange}
-                        name="moduleThree"
-                        value="Terceiro módulo (Introdução ao Backend)"
-                      />
-                    }
-                    label="Terceiro módulo (Introdução ao Backend)"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        id="module"
-                        checked={moduleFour}
-                        onChange={handleChange}
-                        name="moduleFour"
-                        value="Quarto módulo (Backend Avançado)"
-                      />
-                    }
-                    label="Quarto módulo (Backend Avançado)"
-                  />
-                  <FormHelperText>Selecione uma opção</FormHelperText>
-                </FormGroup>
-              </FormControl>
-            </Grid>
-          </Grid>
-
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item xs={12}>
-              <Link href="#" variant="paginadologin">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+    <div
+      style={{
+        width: "90%",
+        height: "90%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <form
+        style={{
+          display: "flex",
+          height: "100%",
+          width: "100%",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+        onSubmit={handleSubmit(handleSignUp)}
+      >
+        {responseError}
+        <TextField
+          label="Nome"
+          name="name"
+          variant="outlined"
+          error={!!errors.name}
+          size="small"
+          fullWidth
+          inputRef={register}
+          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        />
+        <TextField
+          label="Email"
+          name="email"
+          variant="outlined"
+          size="small"
+          fullWidth
+          error={!!errors.email}
+          inputRef={register}
+          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        />
+        <TextField
+          label="Senha"
+          type="password"
+          name="password"
+          variant="outlined"
+          size="small"
+          fullWidth
+          error={!!errors.password}
+          inputRef={register}
+          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        />
+        <TextField
+          label="Sobre você"
+          name="bio"
+          variant="outlined"
+          size="small"
+          fullWidth
+          error={!!errors.bio}
+          inputRef={register}
+          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        />
+        <TextField
+          label="Contato"
+          name="contact"
+          variant="outlined"
+          size="small"
+          fullWidth
+          error={!!errors.contact}
+          inputRef={register}
+          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        />
+        <FormControl
+          variant="outlined"
+          fullWidth
+          style={{ background: "#F4F1DE", borderRadius: "4px" }}
+        >
+          <InputLabel id="module-select-label">
+            Selecione o seu módulo
+          </InputLabel>
+          <Select
+            labelId="module-select-label"
+            id="madule-select"
+            onChange={handleChange}
+            value={module}
+            style={{ borderRadius: "4px" }}
+            label="Selecione o seu módulo"
+            error={!!moduleError}
+          >
+            <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
+              Primeiro módulo (Introdução ao Frontend)
+            </MenuItem>
+            <MenuItem value={"Segundo módulo (Frontend Avançado)"}>
+              Segundo módulo (Frontend Avançado)
+            </MenuItem>
+            <MenuItem value={"Terceiro módulo (Introdução ao Backend)"}>
+              Terceiro módulo (Introdução ao Backend)
+            </MenuItem>
+            <MenuItem value={"Quarto módulo (Backend Avançado)"}>
+              Quarto módulo (Backend Avançado)
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <p style={{ fontSize: "xx-small", color: "red" }}>
+          {errors.name?.message ||
+            errors.email?.message ||
+            errors.password?.message ||
+            errors.bio?.message ||
+            errors.contact?.message ||
+            moduleError}
+        </p>
+        <SignUpButton type="submit">Cadastrar</SignUpButton>
+        <LoginButton onClick={() => history.push("/login")}>
+          Já tem uma conta? Faça o Login
+        </LoginButton>
+      </form>
+    </div>
   );
-}
+};
+
+export default FormSignUp;

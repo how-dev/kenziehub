@@ -3,52 +3,33 @@ import styled from "styled-components";
 export const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 95vh;
-  overflow: hidden;
-  h1 {
-    margin-right: 15%;
-  }
+  height: 88vh;
   img {
     width: 30vw;
-    margin-right: 15%;
   }
 `;
 
 export const FormContainer = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 40vw;
-  height: 97vh;
+  width: 600px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 100px;
+  height: 98vh;
   background-color: #f2cc8f;
+  margin-bottom: -150px;
   overflow: hidden;
-  margin-bottom: -70px;
   @media (max-width: 800px) {
     width: 100vw;
   }
 
-  .outlined-basic {
-    background-color: #f4f1de;
-    border-radius: 4px;
-  }
-
-  .loginButton {
+  .signInButton {
     width: 15vw;
     height: 5vh;
     background-color: #e07a5f;
   }
-  .signupButton {
-    width: 150px;
-    height: 5vh;
-  }
-`;
-
-export const Form = styled.div`
-  display: flex;
-  height: 250px;
-  width: 100%;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
 `;
