@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   input: {
-    width: "250px",
+    width: "35vw",
+    minWidth: "250px",
     margin: "auto",
     marginBottom: "1vh",
   },
