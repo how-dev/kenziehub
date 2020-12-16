@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%",
     padding: 0,
-    margin: 0,
+    margin: 0
   },
   datas: {
     padding: theme.spacing(2),
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 0,
     [theme.breakpoints.down(800)]: {
       width: "90%",
-      marginTop: "100px",
-    },
+      marginTop: "100px"
+    }
   },
   sampleDatas: {
     display: "flex",
@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     [theme.breakpoints.down(800)]: {
       flexDirection: "column",
-      alignItems:"center",
-    },
+      alignItems: "center"
+    }
   },
   hardSkills: {
     padding: theme.spacing(2),
@@ -54,12 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
     fontSize: 10,
     background: "#F4F1DE",
-    margin: "10px 0 0 0px",
-    
-  },
-  avatar: {
-    boxShadow: "1px 1px 3px gray",
-    marginBottom: 15,
+    margin: "10px 0 0 0px"
   },
   profileImage: {
     display: "flex",
@@ -71,13 +66,14 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     [theme.breakpoints.down(800)]: {
       flexDirection: "column"
-    },
+    }
   },
   profile: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
+    minHeight: "85vh"
   },
   aboveTechs: {
     display: "flex",
@@ -91,25 +87,24 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center"
     },
     [theme.breakpoints.down(800)]: {
-        justifyContent: "center",
-      },
-    
+      justifyContent: "center"
+    }
   },
   buttonBack: {
     fontSize: 10,
-    marginBottom: 50,
+    marginBottom: 50
   },
   profileBox: {
     width: "520px",
     [theme.breakpoints.down(800)]: {
-      width: "90%",
-    },
+      width: "90%"
+    }
   },
   dataBox: {
     maxWidth: 500,
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "center"
   }
 }));
 
@@ -142,35 +137,34 @@ const UserPage = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              >
+            >
               <div
                 style={{
                   width: "200px",
                   height: "200px",
                   overflow: "hidden",
                   display: "flex",
-                  
                   borderRadius: "50%",
                   justifyContent: "center",
                   alignItems: "center",
-                }}>
+                  boxShadow: "1px 1px 3px gray"
+                }}
+              >
                 <img
-                alt="..."
-                style={{height: "100%"}}
-                src={
+                  alt="..."
+                  style={{ height: "100%" }}
+                  src={
                     userData.avatar_url
-                    ? userData.avatar_url
-                    : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
-                }
-                className={classes.avatar}
+                      ? userData.avatar_url
+                      : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
+                  }
+                  className={classes.avatar}
                 />
               </div>
             </motion.div>
-            <p className={classes.sampleDatas}>
-              {userData.name}
-            </p>
+            <p className={classes.sampleDatas}>{userData.name}</p>
           </div>
-              
+
           <div className={classes.profileBox}>
             <Container className={classes.allDatas}>
               <motion.div
@@ -178,7 +172,6 @@ const UserPage = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}
-                
               >
                 <Paper className={classes.datas}>
                   <span>
@@ -214,8 +207,8 @@ const UserPage = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1 }}
-                style={{width: "100%"}}
-                >
+                style={{ width: "100%" }}
+              >
                 <Paper className={classes.hardSkills}>
                   Tecnologias:{" "}
                   {userData.techs.map((skill, index) => (
@@ -233,8 +226,8 @@ const UserPage = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.3 }}
-                style={{width: "100%"}}
-                >
+                style={{ width: "100%" }}
+              >
                 <Paper className={classes.hardSkills}>
                   Trabalhos:{" "}
                   {userData.works.map((job, index) => (
