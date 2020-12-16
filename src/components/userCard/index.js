@@ -81,7 +81,7 @@ const UserCard = ({ user }) => {
   const history = useHistory();
 
   const GoPageUser = () => {
-    dispatch(getUser(user.id));
+    dispatch(getUser([]));
     history.push(`/user/${user.id}`);
   };
 
@@ -99,7 +99,7 @@ const UserCard = ({ user }) => {
         variant="h6"
         className={classes.name}
       >
-      {name}
+      {`${name.split(" ")[0]} ${name.split(" ")[1]}`}
       </Typography>
 
       <UserPageButton onClick={GoPageUser} variant="contained" color="primary" disableRipple>

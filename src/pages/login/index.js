@@ -1,15 +1,16 @@
-import { FormContainer, Form } from "./style";
-import { useHistory } from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { TextField, Button } from "@material-ui/core/";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { loginThunk } from "../../store/modules/user/thunk";
-import { getTokenThunk } from "../../store/modules/token/thunk";
-import LoginLogo from "../../img/user_group_1.svg";
 import { motion } from "framer-motion";
+import axios from "axios";
+
+import { FormContainer, Form } from "./style";
+
+import { getTokenThunk } from "../../store/modules/token/thunk";
+import { loginThunk } from "../../store/modules/user/thunk";
+import LoginLogo from "../../img/user_group_1.svg";
 
 const Login = () => {
   const history = useHistory();
@@ -48,7 +49,7 @@ const Login = () => {
         dispatch(getTokenThunk(res.data.token));
         history.push("/");
       })
-      .catch((err) =>
+      .catch(() =>
         setError("password", { message: "Email ou senha inválido" })
       );
   };
@@ -58,22 +59,22 @@ const Login = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 2 }}
-    >
+      transition={{ duration: 0.6 }}
+      >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <motion.div
           initial={{ marginRight: 500 }}
           animate={{ marginRight: 0 }}
           exit={{ marginRight: 0 }}
-          transition={{ duration: 3 }}
-        >
+          transition={{ duration: 1 }}
+          >
           <FormContainer>
             <form
               onSubmit={handleSubmit(tryLogin)}
               style={{ width: "60%" }}
               noValidate
               autoComplete="off"
-            >
+              >
               <Form>
                 <TextField
                   onChange={(e) => {
@@ -106,7 +107,7 @@ const Login = () => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                >
+                  >
                   Login
                 </Button>
               </Form>
@@ -118,7 +119,7 @@ const Login = () => {
               onClick={() => {
                 history.push("/sign-up");
               }}
-            >
+              >
               Cadastre-se
             </Button>
           </FormContainer>
@@ -133,10 +134,12 @@ const Login = () => {
               width: "100%",
               textAlign: "center",
             }}
-          >
+            >
+
             <h1 style={{ fontWeight: "200", letterSpacing: "5px" }}>
               KENZIE HUB
             </h1>
+
             <img alt="placeholder" src={LoginLogo} style={{ width: "60%" }} />
           </div>
         )}

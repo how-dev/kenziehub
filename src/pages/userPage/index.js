@@ -1,10 +1,10 @@
-import { Box, Container, makeStyles, Button } from "@material-ui/core";
-import { BounceLoader } from "react-spinners";
-import Paper from "@material-ui/core/Paper";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { Box, Container, makeStyles, Button, Paper } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BounceLoader } from "react-spinners";
+import { motion } from "framer-motion";
+
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     width: "500px",
     margin: "auto",
+    overflow: "hidden",
     paddingRight: 0,
     [theme.breakpoints.down(800)]: {
       width: "90%",
@@ -46,9 +47,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
     width: "218px",
+    overflow: "hidden",
     [theme.breakpoints.down(800)]: {
       width: "90%"
     },
+
     fontSize: 10,
     background: "#F4F1DE",
     margin: "10px 0 0 0px",
@@ -138,7 +141,7 @@ const UserPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.3 }}
               >
               <div
                 style={{
@@ -174,7 +177,7 @@ const UserPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 2 }}
+                transition={{ duration: 0.8 }}
                 
               >
                 <Paper className={classes.datas}>
@@ -210,7 +213,7 @@ const UserPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 3 }}
+                transition={{ duration: 1 }}
                 style={{width: "100%"}}
                 >
                 <Paper className={classes.hardSkills}>
@@ -229,7 +232,7 @@ const UserPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 4 }}
+                transition={{ duration: 1.3 }}
                 style={{width: "100%"}}
                 >
                 <Paper className={classes.hardSkills}>

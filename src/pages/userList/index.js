@@ -1,12 +1,13 @@
-import UserCard from "../../components/userCard/index";
-import { useState, useEffect } from "react";
-import { TextField } from "@material-ui/core";
-import { BounceLoader } from "react-spinners";
-import InfiniteScroll from "react-infinite-scroll-component";
-import SearchIcon from "@material-ui/icons/Search";
-import { motion } from "framer-motion";
-import { getUsersThunk } from "../../store/modules/users/thunk";
 import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { BounceLoader } from "react-spinners";
+import { TextField } from "@material-ui/core";
+import { motion } from "framer-motion";
+import SearchIcon from "@material-ui/icons/Search";
+
+import UserCard from "../../components/userCard/index";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { getUsersThunk } from "../../store/modules/users/thunk";
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -29,44 +30,18 @@ const UsersList = () => {
 
   if (users.length !== 0) {
     return (
-      <>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 3 }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            <TextField
-              id="search"
-              variant="outlined"
-              type="search"
-              onChange={handleSearch}
-              value={searchInput}
-              margin="dense"
-              label={
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <SearchIcon />
-                  Buscar
-                </span>
-              }
-              style={{ minWidth: "30vw", margin: "1.5em" }}
-            />
-          </div>
-        </motion.div>
+      <div style={{ marginTop: "7vh" }}>
         <InfiniteScroll
           dataLength={users.length}
           next={handlePage}
           hasMore={haveNext}
           loader={
             <div
-              style={{ margin: 50, display: "flex", justifyContent: "center" }}
+              style={{
+                margin: 50,
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <BounceLoader color="#E07A5F" />
             </div>
@@ -76,7 +51,7 @@ const UsersList = () => {
               style={{
                 textAlign: "center",
                 color: "#bbb",
-                marginBottom: "5em"
+                marginBottom: "5em",
               }}
             >
               Não há mais devs para mostrar.
@@ -88,7 +63,7 @@ const UsersList = () => {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              marginBottom: "2em"
+              marginBottom: "2em",
             }}
           >
             {searchInput
@@ -115,6 +90,7 @@ const UsersList = () => {
                         </motion.div>
                       </motion.div>
                     );
+                    
                   })
               : users.map((user, index) => {
                   return (
@@ -171,7 +147,7 @@ const UsersList = () => {
             </div>
           </motion.div>
         )}
-      </>
+      </div>
     );
   } else {
     return (
