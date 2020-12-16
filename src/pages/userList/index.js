@@ -1,20 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 import { BounceLoader } from "react-spinners";
 import { TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import SearchIcon from "@material-ui/icons/Search";
-
 import UserCard from "../../components/userCard/index";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getUsersThunk } from "../../store/modules/users/thunk";
 
-const UsersList = () => {
-  const dispatch = useDispatch();
+const UsersList = ({ pageCount, haveNext, setPageCount }) => {
   const users = useSelector((state) => state.users);
   const [searchInput, setSearchInput] = useState("");
-  const [pageCount, setPageCount] = useState(1);
-  const [haveNext, setHaveNext] = useState(true);
+
   const handleSearch = (e) => {
     setSearchInput(e.target.value.toLowerCase());
   };
@@ -22,11 +18,6 @@ const UsersList = () => {
   const handlePage = () => {
     setPageCount(pageCount + 1);
   };
-
-  useEffect(() => {
-    dispatch(getUsersThunk(pageCount, haveNext, setHaveNext));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageCount]);
 
   if (users.length !== 0) {
     return (
@@ -86,11 +77,10 @@ const UsersList = () => {
                           exit={{ opacity: 0 }}
                           transition={{ duration: 1 }}
                         >
-                          <UserCard  user={user} />
+                          <UserCard user={user} />
                         </motion.div>
                       </motion.div>
                     );
-                    
                   })
               : users.map((user, index) => {
                   return (
