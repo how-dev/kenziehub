@@ -20,9 +20,11 @@ export const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-width: 40vw;
-  height: 88vh;
+  height: 90vh;
+  // padding-bottom: 50px;
   background-color: #f2cc8f;
   overflow: hidden;
+  margin-bottom: -70px;
   @media (max-width: 800px) {
     width: 100vw;
   }
