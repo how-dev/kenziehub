@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 88vh;
+  height: 90vh;
   img {
     width: 30vw;
   }
@@ -18,8 +18,8 @@ export const FormContainer = styled.div`
   width: 600px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 10vh;
-  height: 85vh;
+  padding-bottom: 100px;
+  height: 100vh;
   background-color: #f2cc8f;
   margin-bottom: -150px;
   overflow: hidden;
