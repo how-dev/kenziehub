@@ -11,15 +11,15 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { signUpSchema } from "../../../helper";
-import { signUpRequest } from "../../../requests/";
+import { SignUpRequest } from "../../../requests/";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { withStyles } from "@material-ui/core/styles";
 import {addAutoFillEmail, addAutoFillPswd} from "../../../store/modules/autoFill/actions"
 
+
 const LoginButton = withStyles({
   root: {
     boxShadow: "none",
-    textTransform: "none",
     fontSize: 13,
     padding: "1.5em",
     border: "1px solid",
@@ -59,7 +59,6 @@ const LoginButton = withStyles({
 const SignUpButton = withStyles({
   root: {
     boxShadow: "none",
-    textTransform: "none",
     fontSize: 13,
     padding: "1.5em",
     border: "1px solid",
@@ -103,35 +102,34 @@ const FormSignUp = () => {
   const autoFillPswd = useSelector((state) => state.autoFillPswd)
   const history = useHistory();
 
-  const [response, setResponse] = useState("");
+  const [, setResponse] = useState("");
   const [responseError, setResponseError] = useState("");
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
-
+  
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(signUpSchema)
   });
 
-  const handleSignUp = (data) => {
-    data.course_module = module;
-    if (module) {
-      signUpRequest(data, setResponse, setResponseError);
-      history.push("/login");
-      console.log(data);
-    }
-  };
-
-  const handleChange = (event) => {
-    setModuleRegister({ course_module: event.target.value });
-    register(moduleRegister.course_module);
-    setModule(event.target.value);
-  };
+      const handleSignUp = (data) => {
+        data.course_module = module;
+        if (module) {
+          SignUpRequest(data, setResponse, setResponseError);
+          history.push("/login");
+        }
+      };
+    
+      const handleChange = (event) => {
+        setModuleRegister({ course_module: event.target.value });
+        register(moduleRegister.course_module);
+        setModule(event.target.value);
+      };
 
   return (
     <div
       style={{
         width: "90%",
-        height: "80%",
+        height: "90%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
@@ -148,8 +146,9 @@ const FormSignUp = () => {
         }}
         onSubmit={handleSubmit(handleSignUp)}
       >
+        {responseError}
         <TextField
-          id="outlined-basic"
+          
           label="Nome"
           name="name"
           variant="outlined"
@@ -163,7 +162,7 @@ const FormSignUp = () => {
         <TextField
           onChange={(e) => dispatch(addAutoFillEmail(e.target.value))}
           value={autoFillEmail}
-          id="outlined-basic"
+          
           label="Email"
           name="email"
           variant="outlined"
@@ -177,7 +176,7 @@ const FormSignUp = () => {
         <TextField
           onChange={(e) => dispatch(addAutoFillPswd(e.target.value))}
           value={autoFillPswd}
-          id="outlined-basic"
+          
           label="Senha"
           type="password"
           name="password"
@@ -190,7 +189,7 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          id="outlined-basic"
+          
           label="Sobre você"
           name="bio"
           variant="outlined"
@@ -202,7 +201,7 @@ const FormSignUp = () => {
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          id="outlined-basic"
+          
           label="Contato"
           name="contact"
           variant="outlined"
@@ -247,6 +246,7 @@ const FormSignUp = () => {
         <LoginButton onClick={() => history.push("/login")}>
           Já tem uma conta? Faça o Login
         </LoginButton>
+        
       </form>
     </div>
   );

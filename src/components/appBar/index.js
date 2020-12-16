@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -45,13 +45,9 @@ const KenzieAppBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [tabValue, setTabValue] = useState("");
   const key = useSelector((state) => state.key);
   const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    setTabValue(location.pathname);
-  }, [location.pathname]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,9 +65,7 @@ const KenzieAppBar = () => {
   };
 
   const handleTabChange = (e, value) => {
-    setTabValue(value);
     history.push(value);
-    console.log(location.pathname);
   };
 
   return (
@@ -108,7 +102,7 @@ const KenzieAppBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleClose("/users-list")}>
+          <MenuItem onClick={() => handleClose("/")}>
             Lista de alunos
           </MenuItem>
           {key && (
@@ -132,13 +126,12 @@ const KenzieAppBar = () => {
           )}
         </Menu>
         <Tabs
-          value={tabValue}
+          value={location.pathname}
           onChange={handleTabChange}
           aria-label="simple tabs example"
           className={classes.tabs}
         >
-          <Tab value="/" label="Lista de Devs" />
-          {key && <Tab value={`/user/${user.id}`} label="Meu perfil" />}
+          <Tab value={location.pathname} onClick={() => history.push("/")} label="Lista de Devs" />
           {key && <Tab value="/my-account" label="Minha conta" />}
           {key && <Tab onClick={handleLogout} label="Logout" />}
           {!key && <Tab value="/login" label="Login" />}

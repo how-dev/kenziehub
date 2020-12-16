@@ -26,7 +26,10 @@ const useStyles = makeStyles({
   name: {
     textAlign: "center",
     marginBottom: 10,
-    color: "#3D405B"
+    color: "#3D405B",
+    textOverflow: "ellipsis",
+    height: "30px",
+    fontSize: "2vh"
   },
 });
 
@@ -96,7 +99,7 @@ const UserCard = ({ user }) => {
         variant="h6"
         className={classes.name}
       >
-        {name}
+      {name}
       </Typography>
 
       <UserPageButton onClick={GoPageUser} variant="contained" color="primary" disableRipple>

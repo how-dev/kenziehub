@@ -10,13 +10,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import axios from "axios";
 import settings from "../../img/settings.svg";
 
-import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
@@ -44,13 +38,6 @@ TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
   value: PropTypes.any.isRequired,
-};
-
-const a11yProps = (index) => {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -113,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     backgroundColor: "#81B291",
     borderRadius: "5px",
+    width: "100%",
     color: "#fff",
     cursor: "pointer",
     padding: "6px 20px",
@@ -135,8 +123,6 @@ const Settings = () => {
   const token = useSelector((state) => state.key);
   const [width, setWidth] = useState(window.innerWidth)
   const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -169,14 +155,6 @@ const Settings = () => {
       })
       .catch((e) => console.error(e));
   };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
   return (
     <Container className={classes.root}>
       <Link to="/" className={classes.link}>
@@ -195,8 +173,8 @@ const Settings = () => {
             }
             className={classes.avatar}
           />
-          <form style={{width: "200px"}}>
-            <label for="avatar" className={classes.avatarChangeLabel}>
+          <form>
+            <label htmlFor="avatar" className={classes.avatarChangeLabel}>
               Selecione um arquivo <ImageIcon color="primary" />
             </label>
             <input

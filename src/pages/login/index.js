@@ -29,10 +29,10 @@ const Login = () => {
     setError,
   } = useForm();
 
+  const handleResize = () => {
+    setWidth(window.innerWidth)
+  };
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    };
     window.addEventListener('resize', handleResize);
 
     register("email", { required: "O campo de email não pode estar vazio" });
@@ -46,7 +46,6 @@ const Login = () => {
   }, [register, unregister, width]);
 
   const tryLogin = (data) => {
-    console.log(data);
     axios
       .post("https://kenziehub.me/sessions", { ...data })
       .then((res) => {
@@ -75,10 +74,13 @@ const Login = () => {
                 dispatch(addAutoFillEmail(e.target.value));
                 setValue("email", e.target.value);
               }}
-              id="outlined-basic"
               label="Email"
+              name="email"
               variant="outlined"
+              className="outlined-basic"
               fullWidth
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
             <TextField
               value={autoFillPswd}
@@ -87,10 +89,13 @@ const Login = () => {
                 dispatch(addAutoFillPswd(e.target.value));
                 setValue("password", e.target.value);
               }}
-              id="outlined-basic"
               label="Password"
+              name="password"
               variant="outlined"
+              className="outlined-basic"
               fullWidth
+              error={!!errors.password}
+              helperText={errors.password?.message}
             />
             <Button
               className="loginButton"
@@ -100,8 +105,6 @@ const Login = () => {
             >
               Login
             </Button>
-            {errors.email && <p>{errors.email.message}</p>}
-            {errors.password && <p>{errors.password.message}</p>}
           </Form>
         </form>
         <Button
