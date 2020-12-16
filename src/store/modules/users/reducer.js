@@ -6,7 +6,7 @@ const usersReducer = (state = [], action) => {
     case "@ID/getUsers":
       const { users } = action;
 
-      return [...state, users];
+      return [...state, ...users];
     default:
       return state;
   }
