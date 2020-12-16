@@ -5,6 +5,7 @@ import FormTechsUpdate from "../../components/form/formTechsUpdate";
 import FormWorksUpdate from "../../components/form/formWorksUpdate";
 import FormPasswordUpdate from "../../components/form/formPasswordUpdate";
 import { useSelector } from "react-redux";
+import { useState, useEffect} from "react";
 import ImageIcon from "@material-ui/icons/Image";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import axios from "axios";
@@ -44,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    height: "2200px",
+    height: "1700px",
   },
   header: {
     width: "100%",
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     width: "200px",
-    heigth: "200px",
+    height: "200px",
     borderRadius: "50%",
     marginTop: "5vh",
   },
@@ -100,7 +101,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     backgroundColor: "#81B291",
     borderRadius: "5px",
-    width: "100%",
     color: "#fff",
     cursor: "pointer",
     padding: "6px 20px",
@@ -164,15 +164,17 @@ const Settings = () => {
         
         <h1 className={classes.name}>{user.name}</h1>
         <Container className={classes.avatarHolder}>
+          <div className={classes.avatar} style={{overflow: "hidden", display:"flex", justifyContent:"center", alignItems:"center", boxShadow:"1px 1px 3px gray"}}>
           <img
+          style={{height: "100%"}}
             alt="Avatar"
             src={
               user.avatar_url
                 ? user.avatar_url
                 : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
             }
-            className={classes.avatar}
           />
+          </div>
           <form>
             <label htmlFor="avatar" className={classes.avatarChangeLabel}>
               Selecione um arquivo <ImageIcon color="primary" />
