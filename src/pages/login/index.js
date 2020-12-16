@@ -85,7 +85,6 @@ const Login = () => {
                   className="outlined-basic"
                   fullWidth
                   error={!!errors.email}
-                  helperText={errors.email?.message}
                 />
                 <TextField
                   type="password"
@@ -98,8 +97,10 @@ const Login = () => {
                   className="outlined-basic"
                   fullWidth
                   error={!!errors.password}
-                  helperText={errors.password?.message}
                 />
+                <p style={{ fontSize: "xx-small", color: "red" }}>
+                  {errors.email?.message || errors.password?.message}
+                </p>
                 <Button
                   className="loginButton"
                   type="submit"
