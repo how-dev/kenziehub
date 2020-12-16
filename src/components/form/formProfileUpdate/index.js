@@ -6,7 +6,9 @@ import {
   MenuItem,
   Typography,
   makeStyles,
+  Snackbar,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
@@ -44,8 +46,15 @@ const useStyles = makeStyles((theme) => ({
       color: "#F2CC8F",
       backgroundColor: "#3D405B",
     },
+    [theme.breakpoints.down(400)]: {
+      width: "250px",
+    },
   },
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const FormUpdateProfile = () => {
   const classes = useStyles();
@@ -54,6 +63,7 @@ const FormUpdateProfile = () => {
   const token = useSelector((state) => state.key);
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
+  const [positiveFeedback, setPositiveFeedback] = useState(false);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(settingsSchema),
@@ -89,15 +99,18 @@ const FormUpdateProfile = () => {
       },
     };
     axios.put("https://kenziehub.me/profile", data, headers).then((res) => {
-      axios
-        .get(`https://kenziehub.me/users/${user.id}`)
-        .then((res) => {
-          dispatch(loginThunk(res.data));
-        })
-        .then((res) => {
-          window.location.reload();
-        });
+      axios.get(`https://kenziehub.me/users/${user.id}`).then((res) => {
+        dispatch(loginThunk(res.data));
+        setPositiveFeedback(true);
+      });
     });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setPositiveFeedback(false);
   };
 
   return (
@@ -177,6 +190,15 @@ const FormUpdateProfile = () => {
         error={!!errors.contact}
         helperText={errors.contact?.message}
       />
+      <Snackbar
+        open={Boolean(positiveFeedback)}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Dados alterados!
+        </Alert>
+      </Snackbar>
       <Button type="submit" className={classes.button}>
         Enviar
       </Button>

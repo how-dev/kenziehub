@@ -38,7 +38,12 @@ export const settingsSchema = yup.object().shape({
   email: yup
     .string("O formato do e-mail é inválido")
     .email("O formato do e-mail é inválido"),
-  name: yup.string("O formato do nome é inválido"),
+  name: yup
+    .string("O formato do nome é inválido")
+    .matches(
+      /\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi,
+      "Seu nome e sobrenome devem conter apenas letras"
+    ),
   bio: yup.string("O formato da bio é inválido"),
   contact: yup.string("O formato do contato é inválido"),
   course_module: yup.string("formato inválido"),

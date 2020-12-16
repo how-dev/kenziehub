@@ -6,7 +6,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Snackbar,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { techsSchema } from "../../../helper";
 import { useForm } from "react-hook-form";
@@ -26,9 +28,11 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "35vw",
-    minWidth: "250px",
     margin: "auto",
     marginBottom: "1vh",
+    [theme.breakpoints.down(400)]: {
+      width: "250px",
+    },
   },
   subTitle: {
     color: "#3D405B",
@@ -44,8 +48,15 @@ const useStyles = makeStyles((theme) => ({
       color: "#F2CC8F",
       backgroundColor: "#3D405B",
     },
+    [theme.breakpoints.down(400)]: {
+      width: "250px",
+    },
   },
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const FormTechsUpdate = () => {
   const dispatch = useDispatch();
@@ -54,9 +65,12 @@ const FormTechsUpdate = () => {
   const user = useSelector((state) => state.user);
   const [tech, setTech] = useState("");
   const [techStatus, setTechStatus] = useState("");
-  const [error, setError] = useState("");
   const [attTech, setAttTech] = useState("");
   const [attTechStatus, setAttTechStatus] = useState("");
+  const [error, setError] = useState(false);
+  const [addTechFeedback, setAddTechFeedback] = useState(false);
+  const [attTechFeedback, setAttTechFeedback] = useState(false);
+  const [removeTechFeedback, setRemoveTechFeedback] = useState(false);
 
   const baseUrl = "https://kenziehub.me/";
 
@@ -76,18 +90,16 @@ const FormTechsUpdate = () => {
       .post(`${baseUrl}users/techs`, data, headers)
       .then((res) => {
         console.log(res);
-        axios
-          .get(`${baseUrl}users/${user.id}`)
-          .then((res) => {
-            dispatch(loginThunk(res.data));
-          })
-          .then((res) => {
-            window.location.reload();
-          });
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+          setAttTechFeedback(false);
+          setRemoveTechFeedback(false);
+          setAddTechFeedback(true);
+        });
       })
       .catch((err) => {
         console.log(err.response);
-        setError(err.response.data.status);
+        setError(true);
       });
   };
 
@@ -104,6 +116,9 @@ const FormTechsUpdate = () => {
       axios.delete(`${baseUrl}users/techs/${id}`, headers).then((res) => {
         axios.get(`${baseUrl}users/${user.id}`).then((res) => {
           dispatch(loginThunk(res.data));
+          setAttTechFeedback(false);
+          setAddTechFeedback(false);
+          setRemoveTechFeedback(true);
         });
       });
     }
@@ -127,16 +142,24 @@ const FormTechsUpdate = () => {
         },
       };
       axios.put(`${baseUrl}users/techs/${id}`, data, headers).then((res) => {
-        axios
-          .get(`${baseUrl}users/${user.id}`)
-          .then((res) => {
-            dispatch(loginThunk(res.data));
-          })
-          .then((res) => {
-            window.location.reload();
-          });
+        axios.get(`${baseUrl}users/${user.id}`).then((res) => {
+          dispatch(loginThunk(res.data));
+          setAddTechFeedback(false);
+          setRemoveTechFeedback(false);
+          setAttTechFeedback(true);
+        });
       });
     }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAddTechFeedback(false);
+    setAttTechFeedback(false);
+    setRemoveTechFeedback(false);
+    setError(false);
   };
 
   return (
@@ -174,18 +197,24 @@ const FormTechsUpdate = () => {
           <MenuItem value="Intermediário">Intermediário</MenuItem>
           <MenuItem value="Avançado">Avançado</MenuItem>
         </Select>
-        {error && (
-          <p
-            style={{
-              color: "red",
-              fontSize: "x-small",
-              margin: "0",
-              marginLeft: "16vw",
-            }}
-          >
-            Tecnologia já cadastrada
-          </p>
-        )}
+        <Snackbar
+          open={Boolean(error)}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="error">
+            Tecnologia já cadastrada!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={Boolean(addTechFeedback)}
+          autoHideDuration={3000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            Tecnologia adicionada!
+          </Alert>
+        </Snackbar>
         <Button type="submit" className={classes.button} color="primary">
           Enviar
         </Button>
@@ -243,6 +272,15 @@ const FormTechsUpdate = () => {
                 </Select>
               </>
             )}
+            <Snackbar
+              open={Boolean(attTechFeedback)}
+              autoHideDuration={3000}
+              onClose={handleClose}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Tecnologia atualizada!
+              </Alert>
+            </Snackbar>
             <Button type="submit" className={classes.button} color="primary">
               Atualizar
             </Button>
@@ -273,6 +311,15 @@ const FormTechsUpdate = () => {
                 );
               })}
             </Select>
+            <Snackbar
+              open={Boolean(removeTechFeedback)}
+              autoHideDuration={3000}
+              onClose={handleClose}
+            >
+              <Alert onClose={handleClose} severity="success">
+                Tecnologia removida!
+              </Alert>
+            </Snackbar>
             <Button type="submit" className={classes.button} color="primary">
               Remover
             </Button>

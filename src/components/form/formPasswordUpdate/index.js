@@ -1,8 +1,15 @@
-import { Button, TextField, makeStyles, Typography } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  makeStyles,
+  Typography,
+  Snackbar,
+} from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { passwordSchema } from "../../../helper";
+import MuiAlert from "@material-ui/lab/Alert";
 import axios from "axios";
 
 import { useState } from "react";
@@ -35,14 +42,21 @@ const useStyles = makeStyles((theme) => ({
       color: "#F2CC8F",
       backgroundColor: "#3D405B",
     },
+    [theme.breakpoints.down(400)]: {
+      width: "250px",
+    },
   },
 }));
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const FormPasswordUpdate = () => {
   const classes = useStyles();
   const token = useSelector((state) => state.key);
-  const [res, setRes] = useState({});
-  const [color, setColor] = useState("green");
+  const [positiveFeedback, setPositiveFeedback] = useState(false);
+  const [negativeFeedback, setNegativeFeedback] = useState(false);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(passwordSchema),
@@ -56,13 +70,20 @@ const FormPasswordUpdate = () => {
     };
     axios
       .put("https://kenziehub.me/profile", data, headers)
-      .then(res => {
-        setRes(res.status);
-        setColor("green");
-      }).catch(error => {
-        setColor("red");
-        setRes(error.response.status);
+      .then((res) => {
+        setPositiveFeedback(true);
       })
+      .catch((error) => {
+        setNegativeFeedback(true);
+      });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setPositiveFeedback(false);
+    setNegativeFeedback(false);
   };
 
   return (
@@ -78,7 +99,6 @@ const FormPasswordUpdate = () => {
         name="password"
         variant="outlined"
         size="small"
-        onChange={() => setRes({})}
         inputRef={register}
         error={!!errors.password}
         helperText={errors.password?.message}
@@ -94,12 +114,27 @@ const FormPasswordUpdate = () => {
         error={!!errors.old_password}
         helperText={errors.old_password?.message}
       />
-      {res === 200 && <span style={{ color }}>Senha alterada!</span> }
-      {res === 400 && <span style={{ color }}>Dados incorretos!</span> }
+      <Snackbar
+        open={Boolean(negativeFeedback)}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error">
+          Dados incorretos!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={Boolean(positiveFeedback)}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Senha alterada!
+        </Alert>
+      </Snackbar>
       <Button type="submit" className={classes.button} color="primary">
         Enviar
       </Button>
-      
     </form>
   );
 };
