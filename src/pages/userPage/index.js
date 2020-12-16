@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     allDatas: {
         display: "flex",
         flexDirection: "column",
+        
         // alignItems: "flex-end",
         width: "100%",
         
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
       maxWidth: "400px",
       margin: 0,
-      [theme.breakpoints.down(750)]: {
+      [theme.breakpoints.down(800)]: {
+          
         marginTop: "100px"
       }
       
@@ -33,13 +35,15 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         marginTop: 30,
         padding: 0,
-        [theme.breakpoints.down(750)]: {
-            flexDirection: "column"
+        [theme.breakpoints.down(800)]: {
+            flexDirection: "column",
+            justifyContent: "center",
+          alignItems: "center",
           }
     },
     hardSkills: {
         padding: theme.spacing(2),
-        margin: theme.spacing(2),
+        margin: "10px 0 0 10px",
         textAlign: 'center',
         color: theme.palette.text.secondary,
         width: 200,
@@ -72,9 +76,12 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "center",
-        marginBottom: "50px",
+        marginBottom: "60px",
         width: "100%",
         padding: 0,
+        [theme.breakpoints.down(800)]: {
+            justifyContent: "center"
+          },
         [theme.breakpoints.down(400)]: {
             flexDirection: "column",
             justifyContent: "center"
