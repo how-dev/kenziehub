@@ -4,18 +4,16 @@ import {
   TextField,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUpSchema } from "../../../helper";
 import { SignUpRequest } from "../../../requests/";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { withStyles } from "@material-ui/core/styles";
-import {addAutoFillEmail, addAutoFillPswd} from "../../../store/modules/autoFill/actions"
-
 
 const LoginButton = withStyles({
   root: {
@@ -39,22 +37,22 @@ const LoginButton = withStyles({
       "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
+      '"Segoe UI Symbol"',
     ].join(","),
     "&:hover": {
       backgroundColor: "#D27860",
       borderColor: "#E07A5F",
-      boxShadow: "none"
+      boxShadow: "none",
     },
     "&:active": {
       boxShadow: "none",
       backgroundColor: "#E07A5F",
-      borderColor: "#E07A5F"
+      borderColor: "#E07A5F",
     },
     "&:focus": {
-      boxShadow: "0 0 0 0.2rem #F3967E"
-    }
-  }
+      boxShadow: "0 0 0 0.2rem #F3967E",
+    },
+  },
 })(Button);
 const SignUpButton = withStyles({
   root: {
@@ -78,52 +76,50 @@ const SignUpButton = withStyles({
       "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
+      '"Segoe UI Symbol"',
     ].join(","),
     "&:hover": {
       backgroundColor: "#22243c",
       borderColor: "#22243c",
-      boxShadow: "none"
+      boxShadow: "none",
     },
     "&:active": {
       boxShadow: "none",
       backgroundColor: "#22243c",
-      borderColor: "#333556"
+      borderColor: "#333556",
     },
     "&:focus": {
-      boxShadow: "0 0 0 0.2rem #333556"
-    }
-  }
+      boxShadow: "0 0 0 0.2rem #333556",
+    },
+  },
 })(Button);
 
 const FormSignUp = () => {
-  const dispatch = useDispatch()
-  const autoFillEmail = useSelector((state) => state.autoFillEmail)
-  const autoFillPswd = useSelector((state) => state.autoFillPswd)
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const [, setResponse] = useState("");
   const [responseError, setResponseError] = useState("");
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
-  
+
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(signUpSchema)
+    resolver: yupResolver(signUpSchema),
   });
 
-      const handleSignUp = (data) => {
-        data.course_module = module;
-        if (module) {
-          SignUpRequest(data, setResponse, setResponseError);
-          history.push("/login");
-        }
-      };
-    
-      const handleChange = (event) => {
-        setModuleRegister({ course_module: event.target.value });
-        register(moduleRegister.course_module);
-        setModule(event.target.value);
-      };
+  const handleSignUp = (data) => {
+    data.course_module = module;
+    if (module) {
+      SignUpRequest(data, setResponse, setResponseError);
+      history.push("/login");
+    }
+  };
+
+  const handleChange = (event) => {
+    setModuleRegister({ course_module: event.target.value });
+    register(moduleRegister.course_module);
+    setModule(event.target.value);
+  };
 
   return (
     <div
@@ -132,7 +128,7 @@ const FormSignUp = () => {
         height: "90%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <form
@@ -142,41 +138,32 @@ const FormSignUp = () => {
           width: "100%",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "space-around"
+          justifyContent: "space-around",
         }}
         onSubmit={handleSubmit(handleSignUp)}
       >
         {responseError}
         <TextField
-          
           label="Nome"
           name="name"
           variant="outlined"
           error={!!errors.name}
-          helperText={errors.name?.message}
           size="small"
           fullWidth
           inputRef={register}
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          onChange={(e) => dispatch(addAutoFillEmail(e.target.value))}
-          value={autoFillEmail}
-          
           label="Email"
           name="email"
           variant="outlined"
           size="small"
           fullWidth
           error={!!errors.email}
-          helperText={errors.email?.message}
           inputRef={register}
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          onChange={(e) => dispatch(addAutoFillPswd(e.target.value))}
-          value={autoFillPswd}
-          
           label="Senha"
           type="password"
           name="password"
@@ -184,31 +171,26 @@ const FormSignUp = () => {
           size="small"
           fullWidth
           error={!!errors.password}
-          helperText={errors.password?.message}
           inputRef={register}
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          
           label="Sobre você"
           name="bio"
           variant="outlined"
           size="small"
           fullWidth
           error={!!errors.bio}
-          helperText={errors.bio?.message}
           inputRef={register}
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
         <TextField
-          
           label="Contato"
           name="contact"
           variant="outlined"
           size="small"
           fullWidth
           error={!!errors.contact}
-          helperText={errors.contact?.message}
           inputRef={register}
           style={{ background: "#F4F1DE", borderRadius: "4px" }}
         />
@@ -246,7 +228,13 @@ const FormSignUp = () => {
         <LoginButton onClick={() => history.push("/login")}>
           Já tem uma conta? Faça o Login
         </LoginButton>
-        
+        <p style={{ fontSize: "xx-small", color: "red" }}>
+          {errors.name?.message ||
+            errors.email?.message ||
+            errors.password?.message ||
+            errors.bio?.message ||
+            errors.contact?.message}
+        </p>
       </form>
     </div>
   );

@@ -5,12 +5,12 @@ import FormTechsUpdate from "../../components/form/formTechsUpdate";
 import FormWorksUpdate from "../../components/form/formWorksUpdate";
 import FormPasswordUpdate from "../../components/form/formPasswordUpdate";
 import { useSelector } from "react-redux";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import ImageIcon from "@material-ui/icons/Image";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import axios from "axios";
 import settings from "../../img/settings.svg";
-
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "1700px",
-    marginBottom: "50px"
+    marginBottom: "50px",
   },
   header: {
     width: "100%",
@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     height: "200px",
     borderRadius: "50%",
     marginTop: "5vh",
+    marginBottom: "2vh",
   },
   avatarButton: {
     width: "200px",
@@ -122,20 +123,19 @@ const useStyles = makeStyles((theme) => ({
 const Settings = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(window.innerWidth);
   const classes = useStyles();
 
   useEffect(() => {
     const handleResize = () => {
-      setWidth(window.innerWidth)
+      setWidth(window.innerWidth);
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-    }, [width]);
-
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [width]);
 
   const handleAvatarChange = (e) => {
     const data = new FormData();
@@ -159,23 +159,38 @@ const Settings = () => {
   return (
     <Container className={classes.root}>
       <Link to="/" className={classes.link}>
-          <ArrowBackIcon color="primary" /> Voltar a lista de Devs
-        </Link>
+        <ArrowBackIcon color="primary" /> Voltar a lista de Devs
+      </Link>
       <Container className={classes.header}>
-        
         <h1 className={classes.name}>{user.name}</h1>
         <Container className={classes.avatarHolder}>
-          <div className={classes.avatar} style={{overflow: "hidden", display:"flex", justifyContent:"center", alignItems:"center", boxShadow:"1px 1px 3px gray"}}>
-          <img
-          style={{height: "100%"}}
-            alt="Avatar"
-            src={
-              user.avatar_url
-                ? user.avatar_url
-                : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
-            }
-          />
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2 }}
+          >
+            <div
+              className={classes.avatar}
+              style={{
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: "1px 1px 3px gray",
+              }}
+            >
+              <img
+                style={{ height: "100%" }}
+                alt="Avatar"
+                src={
+                  user.avatar_url
+                    ? user.avatar_url
+                    : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
+                }
+              />
+            </div>
+          </motion.div>
           <form>
             <label htmlFor="avatar" className={classes.avatarChangeLabel}>
               Selecione um arquivo <ImageIcon color="primary" />
@@ -195,7 +210,9 @@ const Settings = () => {
         <FormTechsUpdate />
         <FormWorksUpdate />
 
-        {width > 1000 && <img alt="settingsLogo" src={settings} className={classes.logo} />}
+        {width > 1000 && (
+          <img alt="settingsLogo" src={settings} className={classes.logo} />
+        )}
       </div>
     </Container>
   );
