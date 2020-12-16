@@ -28,44 +28,18 @@ const UsersList = () => {
 
   if (users.length !== 0) {
     return (
-      <>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 3 }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            <TextField
-              id="search"
-              variant="outlined"
-              type="search"
-              onChange={handleSearch}
-              value={searchInput}
-              margin="dense"
-              label={
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <SearchIcon />
-                  Buscar
-                </span>
-              }
-              style={{ minWidth: "30vw", margin: "1.5em" }}
-            />
-          </div>
-        </motion.div>
+      <div style={{ marginTop: "7vh" }}>
         <InfiniteScroll
           dataLength={users.length}
           next={handlePage}
           hasMore={haveNext}
           loader={
             <div
-              style={{ margin: 50, display: "flex", justifyContent: "center" }}
+              style={{
+                margin: 50,
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <BounceLoader color="#E07A5F" />
             </div>
@@ -75,7 +49,7 @@ const UsersList = () => {
               style={{
                 textAlign: "center",
                 color: "#bbb",
-                marginBottom: "5em"
+                marginBottom: "5em",
               }}
             >
               Não há mais devs para mostrar.
@@ -87,7 +61,7 @@ const UsersList = () => {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              marginBottom: "2em"
+              marginBottom: "2em",
             }}
           >
             {searchInput
@@ -168,7 +142,7 @@ const UsersList = () => {
             </div>
           </motion.div>
         )}
-      </>
+      </div>
     );
   } else {
     return (
