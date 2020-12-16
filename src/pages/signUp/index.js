@@ -8,18 +8,23 @@ const SignUp = () => {
   const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
-    const handleResize = async () => {
-      setWidth(await window.innerWidth)
+    const handleResize = () => {
+      setWidth(window.innerWidth)
     };
-    window.addEventListener('resize', handleResize);
+    // window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize) 
     }
   }, []);
 
+  useEffect(() => {
+    //logica
+    return () => {
+      // clean up
+    }
+  }, []) //array vazio
 
-  if (width) {
     return (
       <StyledContainer>
         {width > 800 && 
@@ -40,9 +45,6 @@ const SignUp = () => {
         </FormContainer>
       </StyledContainer>
     );
-  } else {
-    return <h1>ooi</h1>
-  }
 };
 
 export default SignUp;
