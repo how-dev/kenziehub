@@ -1,34 +1,32 @@
 import UserCard from "../../components/userCard/index";
 import { useState, useEffect } from "react";
-import { usersRequest } from "../../requests";
 import { TextField } from "@material-ui/core";
 import { BounceLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchIcon from "@material-ui/icons/Search";
 import { motion } from "framer-motion";
+import { getUsersThunk } from "../../store/modules/users/thunk";
+import { useDispatch, useSelector } from "react-redux";
 
 const UsersList = () => {
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
   const [searchInput, setSearchInput] = useState("");
-  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(1);
   const [haveNext, setHaveNext] = useState(true);
   const handleSearch = (e) => {
     setSearchInput(e.target.value.toLowerCase());
   };
 
-  const requestUsers = () => {
-    usersRequest(list, setList, page, haveNext, setHaveNext);
-  };
   const handlePage = () => {
-    setPage(page + 1);
+    setPageCount(pageCount + 1);
   };
 
   useEffect(() => {
-    requestUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+    dispatch(getUsersThunk(pageCount, haveNext, setHaveNext));
+  }, [pageCount]);
 
-  if (list.length !== 0) {
+  if (users.length !== 0) {
     return (
       <>
         <motion.div
@@ -41,7 +39,7 @@ const UsersList = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "center"
             }}
           >
             <TextField
@@ -62,7 +60,7 @@ const UsersList = () => {
           </div>
         </motion.div>
         <InfiniteScroll
-          dataLength={list.length}
+          dataLength={users.length}
           next={handlePage}
           hasMore={haveNext}
           loader={
@@ -77,7 +75,7 @@ const UsersList = () => {
               style={{
                 textAlign: "center",
                 color: "#bbb",
-                marginBottom: "5em",
+                marginBottom: "5em"
               }}
             >
               Não há mais devs para mostrar.
@@ -89,11 +87,11 @@ const UsersList = () => {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              marginBottom: "2em",
+              marginBottom: "2em"
             }}
           >
             {searchInput
-              ? list
+              ? users
                   .filter((user) =>
                     user.name?.toLowerCase().includes(searchInput)
                   )
@@ -103,32 +101,32 @@ const UsersList = () => {
                         initial={{ marginTop: 300 }}
                         animate={{ marginTop: 0 }}
                         exit={{ marginTop: 300 }}
-                        transition={{ duration: 1.5 }}
+                        transition={{ duration: 0.5 }}
                       >
                         <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 2 }}
+                          transition={{ duration: 1 }}
                         >
                           <UserCard key={index} user={user} />
                         </motion.div>
                       </motion.div>
                     );
                   })
-              : list.map((user, index) => {
+              : users.map((user, index) => {
                   return (
                     <motion.div
                       initial={{ marginTop: 300 }}
                       animate={{ marginTop: 0 }}
                       exit={{ marginTop: 300 }}
-                      transition={{ duration: 1.5 }}
+                      transition={{ duration: 0.5 }}
                     >
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 2 }}
+                        transition={{ duration: 1 }}
                       >
                         <UserCard key={index} user={user} />
                       </motion.div>
@@ -137,6 +135,39 @@ const UsersList = () => {
                 })}
           </div>
         </InfiniteScroll>
+        {!haveNext && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 3 }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "7vh",
+              }}
+            >
+              <TextField
+                id="search"
+                variant="outlined"
+                type="search"
+                onChange={handleSearch}
+                value={searchInput}
+                margin="dense"
+                label={
+                  <span style={{ display: "flex", alignItems: "center" }}>
+                    <SearchIcon />
+                    Não encontrou o dev que procurava? Busque aqui!
+                  </span>
+                }
+                style={{ minWidth: "30vw", margin: "1.5em" }}
+              />
+            </div>
+          </motion.div>
+        )}
       </>
     );
   } else {
