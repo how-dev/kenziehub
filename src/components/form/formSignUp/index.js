@@ -11,10 +11,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom";
 import { signUpSchema } from "../../../helper";
-import { signUpRequest } from "../../../requests/";
+import { SignUpRequest } from "../../../requests/";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { withStyles } from "@material-ui/core/styles";
 import {addAutoFillEmail, addAutoFillPswd} from "../../../store/modules/autoFill/actions"
+
 
 const LoginButton = withStyles({
   root: {
@@ -105,24 +106,24 @@ const FormSignUp = () => {
   const [responseError, setResponseError] = useState("");
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
-
+  
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(signUpSchema)
   });
 
-  const handleSignUp = (data) => {
-    data.course_module = module;
-    if (module) {
-      signUpRequest(data, setResponse, setResponseError);
-      history.push("/login");
-    }
-  };
-
-  const handleChange = (event) => {
-    setModuleRegister({ course_module: event.target.value });
-    register(moduleRegister.course_module);
-    setModule(event.target.value);
-  };
+      const handleSignUp = (data) => {
+        data.course_module = module;
+        if (module) {
+          SignUpRequest(data, setResponse, setResponseError);
+          history.push("/login");
+        }
+      };
+    
+      const handleChange = (event) => {
+        setModuleRegister({ course_module: event.target.value });
+        register(moduleRegister.course_module);
+        setModule(event.target.value);
+      };
 
   return (
     <div

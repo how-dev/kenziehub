@@ -19,7 +19,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const autoFillPswd = useSelector((state) => state.autoFillPswd);
   const autoFillEmail = useSelector((state) => state.autoFillEmail);
-  const [width, setWidth] = useState()
+  const [width, setWidth] = useState(window.innerWidth)
   const {
     register,
     unregister,
@@ -29,10 +29,10 @@ const Login = () => {
     setError,
   } = useForm();
 
+  const handleResize = () => {
+    setWidth(window.innerWidth)
+  };
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    };
     window.addEventListener('resize', handleResize);
 
     register("email", { required: "O campo de email não pode estar vazio" });
@@ -75,8 +75,12 @@ const Login = () => {
                 setValue("email", e.target.value);
               }}
               label="Email"
+              name="email"
               variant="outlined"
+              className="outlined-basic"
               fullWidth
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
             <TextField
               value={autoFillPswd}
@@ -86,8 +90,12 @@ const Login = () => {
                 setValue("password", e.target.value);
               }}
               label="Password"
+              name="password"
               variant="outlined"
+              className="outlined-basic"
               fullWidth
+              error={!!errors.password}
+              helperText={errors.password?.message}
             />
             <Button
               className="loginButton"
@@ -97,8 +105,6 @@ const Login = () => {
             >
               Login
             </Button>
-            {errors.email && <p>{errors.email.message}</p>}
-            {errors.password && <p>{errors.password.message}</p>}
           </Form>
         </form>
         <Button
