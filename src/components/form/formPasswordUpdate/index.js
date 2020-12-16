@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { passwordSchema } from "../../../helper";
 import axios from "axios";
 
+import { useState } from "react";
+
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%",
@@ -39,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 const FormPasswordUpdate = () => {
   const classes = useStyles();
   const token = useSelector((state) => state.key);
+  const [res, setRes] = useState({});
+  const [color, setColor] = useState("green");
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(passwordSchema),
@@ -52,7 +56,13 @@ const FormPasswordUpdate = () => {
     };
     axios
       .put("https://kenziehub.me/profile", data, headers)
-      .then((res) => console.log(res));
+      .then(res => {
+        setRes(res.status);
+        setColor("green");
+      }).catch(error => {
+        setColor("red");
+        setRes(error.response.status);
+      })
   };
 
   return (
@@ -68,6 +78,7 @@ const FormPasswordUpdate = () => {
         name="password"
         variant="outlined"
         size="small"
+        onChange={() => setRes({})}
         inputRef={register}
         error={!!errors.password}
         helperText={errors.password?.message}
@@ -83,9 +94,12 @@ const FormPasswordUpdate = () => {
         error={!!errors.old_password}
         helperText={errors.old_password?.message}
       />
+      {res === 200 && <span style={{ color }}>Senha alterada!</span> }
+      {res === 400 && <span style={{ color }}>Dados incorretos!</span> }
       <Button type="submit" className={classes.button} color="primary">
         Enviar
       </Button>
+      
     </form>
   );
 };

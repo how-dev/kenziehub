@@ -133,6 +133,7 @@ const KenzieAppBar = () => {
         >
           <Tab value={location.pathname} onClick={() => history.push("/")} label="Lista de Devs" />
           {key && <Tab value="/my-account" label="Minha conta" />}
+          {key && <Tab value={`/user/${user.id}`} label="Meu perfil" />}
           {key && <Tab onClick={handleLogout} label="Logout" />}
           {!key && <Tab value="/login" label="Login" />}
           {!key && <Tab value="/sign-up" label="Cadastro" />}
