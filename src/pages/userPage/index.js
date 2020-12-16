@@ -124,7 +124,7 @@ const UserPage = () => {
         )
     } else {
         return (
-        <div style={{position: "absolute", top: "50%", left: "50%"}}>
+        <div style={{position: "absolute", top: "50%", left: "45%"}}>
             <BounceLoader color="#E07A5F"/>
         </div>
         )
