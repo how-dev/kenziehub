@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUpSchema } from "../../../helper";
 import { SignUpRequest } from "../../../requests/";
@@ -95,13 +94,13 @@ const SignUpButton = withStyles({
 })(Button);
 
 const FormSignUp = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const [, setResponse] = useState("");
   const [responseError, setResponseError] = useState("");
   const [module, setModule] = useState("");
   const [moduleRegister, setModuleRegister] = useState({});
+  const [moduleError, setModuleError] = useState("");
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(signUpSchema),
@@ -112,6 +111,8 @@ const FormSignUp = () => {
     if (module) {
       SignUpRequest(data, setResponse, setResponseError);
       history.push("/login");
+    } else {
+      setModuleError("Informe seu módulo");
     }
   };
 
@@ -209,6 +210,7 @@ const FormSignUp = () => {
             value={module}
             style={{ borderRadius: "4px" }}
             label="Selecione o seu módulo"
+            error={!!moduleError}
           >
             <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
               Primeiro módulo (Introdução ao Frontend)
@@ -224,17 +226,18 @@ const FormSignUp = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <SignUpButton type="submit">Cadastrar</SignUpButton>
-        <LoginButton onClick={() => history.push("/login")}>
-          Já tem uma conta? Faça o Login
-        </LoginButton>
         <p style={{ fontSize: "xx-small", color: "red" }}>
           {errors.name?.message ||
             errors.email?.message ||
             errors.password?.message ||
             errors.bio?.message ||
-            errors.contact?.message}
+            errors.contact?.message ||
+            moduleError}
         </p>
+        <SignUpButton type="submit">Cadastrar</SignUpButton>
+        <LoginButton onClick={() => history.push("/login")}>
+          Já tem uma conta? Faça o Login
+        </LoginButton>
       </form>
     </div>
   );

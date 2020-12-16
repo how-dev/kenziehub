@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     maxWidth: "400px",
     margin: 0,
-    [theme.breakpoints.down(750)]: {
+    [theme.breakpoints.down(800)]: {
       marginTop: "100px",
     },
   },
@@ -30,23 +30,22 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginTop: 30,
     padding: 0,
-    [theme.breakpoints.down(750)]: {
+    [theme.breakpoints.down(800)]: {
       flexDirection: "column",
+      alignItems:"center",
     },
   },
   hardSkills: {
     padding: theme.spacing(2),
-    margin: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    width: 200,
+    width: "178px",
     fontSize: 10,
     background: "#F4F1DE",
+    margin: "10px 0 0 10px",
+    
   },
   avatar: {
-    width: 150,
-    height: 150,
-    borderRadius: "100%",
     boxShadow: "1px 1px 3px gray",
     marginBottom: 15,
   },
@@ -55,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    width: 250,
-    height: 180,
+    // width: 250,
+    // height: 180,
     color: "#3D405B",
     padding: 0,
   },
@@ -68,14 +67,18 @@ const useStyles = makeStyles((theme) => ({
   aboveTechs: {
     display: "flex",
     justifyContent: "flex-end",
-    alignItems: "center",
-    marginBottom: "50px",
+    marginBottom: "80px",
     width: "100%",
     padding: 0,
-    [theme.breakpoints.down(400)]: {
+    [theme.breakpoints.down(450)]: {
       flexDirection: "column",
       justifyContent: "center",
+      alignItems: "center"
     },
+    [theme.breakpoints.down(800)]: {
+        justifyContent: "center",
+      },
+    
   },
   buttonBack: {
     fontSize: 10,
@@ -114,15 +117,28 @@ const UserPage = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1 }}
               >
-                <img
-                  alt="..."
-                  src={
-                    userData.avatar_url
-                      ? userData.avatar_url
-                      : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
-                  }
-                  className={classes.avatar}
-                />
+                <div
+                style={{
+                    width: "200px",
+                    height: "200px",
+                    overflow: "hidden",
+                    display: "flex",
+                    
+                    borderRadius: "50%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}>
+                    <img
+                    alt="..."
+                    style={{height: "100%"}}
+                    src={
+                        userData.avatar_url
+                        ? userData.avatar_url
+                        : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
+                    }
+                    className={classes.avatar}
+                    />
+                </div>
               </motion.div>
               {userData.name}
             </Container>
