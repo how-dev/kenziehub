@@ -5,6 +5,7 @@ import { TextField } from "@material-ui/core";
 import { BounceLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchIcon from "@material-ui/icons/Search";
+import { motion } from "framer-motion";
 
 const UsersList = () => {
   const [list, setList] = useState([]);
@@ -24,36 +25,42 @@ const UsersList = () => {
 
   useEffect(() => {
     requestUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   if (list.length !== 0) {
     return (
       <>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 3 }}
         >
-          <TextField
-            id="search"
-            variant="outlined"
-            type="search"
-            onChange={handleSearch}
-            value={searchInput}
-            margin="dense"
-            label={
-              <span style={{ display: "flex", alignItems: "center" }}>
-                <SearchIcon />
-                Buscar
-              </span>
-            }
-            style={{ minWidth: "30vw", margin: "1.5em" }}
-          />
-        </div>
-
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <TextField
+              id="search"
+              variant="outlined"
+              type="search"
+              onChange={handleSearch}
+              value={searchInput}
+              margin="dense"
+              label={
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <SearchIcon />
+                  Buscar
+                </span>
+              }
+              style={{ minWidth: "30vw", margin: "1.5em" }}
+            />
+          </div>
+        </motion.div>
         <InfiniteScroll
           dataLength={list.length}
           next={handlePage}
@@ -70,7 +77,7 @@ const UsersList = () => {
               style={{
                 textAlign: "center",
                 color: "#bbb",
-                marginBottom: "5em"
+                marginBottom: "5em",
               }}
             >
               Não há mais devs para mostrar.
@@ -82,7 +89,7 @@ const UsersList = () => {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              marginBottom: "2em"
+              marginBottom: "2em",
             }}
           >
             {searchInput
@@ -90,8 +97,46 @@ const UsersList = () => {
                   .filter((user) =>
                     user.name?.toLowerCase().includes(searchInput)
                   )
-                  .map((user, index) => <UserCard key={index} user={user} />)
-              : list.map((user, index) => <UserCard key={index} user={user} />)}
+                  .map((user, index) => {
+                    return (
+                      <motion.div
+                        initial={{ marginTop: 300 }}
+                        animate={{ marginTop: 0 }}
+                        exit={{ marginTop: 300 }}
+                        transition={{ duration: 1.5 }}
+                        key={index}
+                      >
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 2 }}
+                        >
+                          <UserCard  user={user} />
+                        </motion.div>
+                      </motion.div>
+                    );
+                  })
+              : list.map((user, index) => {
+                  return (
+                    <motion.div
+                      initial={{ marginTop: 300 }}
+                      animate={{ marginTop: 0 }}
+                      exit={{ marginTop: 300 }}
+                      transition={{ duration: 1.5 }}
+                      key={index}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 2 }}
+                      >
+                        <UserCard user={user} />
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
           </div>
         </InfiniteScroll>
       </>
