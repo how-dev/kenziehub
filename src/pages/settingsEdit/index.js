@@ -44,63 +44,70 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
+    height: "2200px",
   },
   header: {
     width: "100%",
     display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    alignItems: "center",
     marginBottom: "10vh",
   },
   link: {
-    width: "20vw",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    minWidth: "150px",
     heigth: "5vw",
     marginTop: "5vh",
     textDecoration: "none",
     color: "#3D405B",
   },
   name: {
-    width: "25vw",
-    marginLeft: "10vw",
-    marginTop: "25vh",
+    width: "300px",
     color: "#3D405B",
     fontWeight: "100",
   },
   avatarHolder: {
     display: "flex",
     flexDirection: "column",
-    width: "25vw",
+    alignItems: "center",
+    width: "250px",
     margin: 0,
   },
   avatar: {
     width: "200px",
     heigth: "200px",
-    borderRadius: "100%",
-    margin: "auto",
+    borderRadius: "50%",
     marginTop: "5vh",
   },
   avatarButton: {
-    marginLeft: "5vw",
+    width: "200px",
   },
   formHolder: {
     display: "flex",
     flexDirection: "column",
   },
   avatarChange: {
-    marginLeft: "10vw",
     display: "none",
   },
   avatarChangeLabel: {
+    display: "flex",
+    width: "180px",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#81B291",
     borderRadius: "5px",
     width: "100%",
     color: "#fff",
     cursor: "pointer",
     padding: "6px 20px",
-    marginLeft: "2vw",
   },
   logo: {
     width: "20vw",
     heigth: "20vh",
-    marginLeft: "-10vw",
     marginTop: "-20vh",
   },
   tabBar: {
@@ -114,7 +121,20 @@ const useStyles = makeStyles((theme) => ({
 const Settings = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.key);
+  const [width, setWidth] = useState(window.innerWidth)
   const classes = useStyles();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+    }, [width]);
+
 
   const handleAvatarChange = (e) => {
     const data = new FormData();
@@ -137,10 +157,11 @@ const Settings = () => {
   };
   return (
     <Container className={classes.root}>
-      <Container className={classes.header}>
-        <Link to="/" className={classes.link}>
+      <Link to="/" className={classes.link}>
           <ArrowBackIcon color="primary" /> Voltar a lista de Devs
         </Link>
+      <Container className={classes.header}>
+        
         <h1 className={classes.name}>{user.name}</h1>
         <Container className={classes.avatarHolder}>
           <img
@@ -171,7 +192,7 @@ const Settings = () => {
         <FormTechsUpdate />
         <FormWorksUpdate />
 
-        <img alt="settingsLogo" src={settings} className={classes.logo} />
+        {width > 1000 && <img alt="settingsLogo" src={settings} className={classes.logo} />}
       </div>
     </Container>
   );

@@ -18,19 +18,19 @@ import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: "40vw",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     margin: "auto",
+    textAlign: "center",
   },
   input: {
-    width: "35vw",
+    width: "250px",
     margin: "auto",
     marginBottom: "1vh",
   },
   subTitle: {
     color: "#3D405B",
-    marginLeft: "3vw",
     marginBottom: "1vh",
   },
   button: {
