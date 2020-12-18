@@ -127,7 +127,13 @@ const UsersList = ({ pageCount, haveNext, setPageCount }) => {
                 value={searchInput}
                 margin="dense"
                 label={
-                  <span style={{ display: "flex", alignItems: "center" }}>
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      fontSize: "small",
+                    }}
+                  >
                     <SearchIcon />
                     Não encontrou o dev que procurava? Busque aqui!
                   </span>

@@ -1,6 +1,6 @@
 import { Paper, Button, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -27,45 +27,45 @@ const useStyles = makeStyles({
     color: "#3D405B",
     textOverflow: "ellipsis",
     height: "30px",
-    fontSize: "2vh"
+    fontSize: "2vh",
   },
 });
 
 const UserPageButton = withStyles({
   root: {
-    boxShadow: 'none',
-    textTransform: 'none',
+    boxShadow: "none",
+    textTransform: "none",
     fontSize: 13,
-    padding: '6px 12px',
-    border: '1px solid',
+    padding: "6px 12px",
+    border: "1px solid",
     lineHeight: 1.5,
-    backgroundColor: '#E07A5F',
-    borderColor: '#E07A5F',
+    backgroundColor: "#E07A5F",
+    borderColor: "#E07A5F",
     height: 25,
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Arial",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
-    '&:hover': {
-      backgroundColor: '#D27860',
-      borderColor: '#E07A5F',
-      boxShadow: 'none',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "#D27860",
+      borderColor: "#E07A5F",
+      boxShadow: "none",
     },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#E07A5F',
-      borderColor: '#E07A5F',
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "#E07A5F",
+      borderColor: "#E07A5F",
     },
-    '&:focus': {
-      boxShadow: '0 0 0 0.2rem #F3967E',
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem #F3967E",
     },
   },
 })(Button);
@@ -85,20 +85,27 @@ const UserCard = ({ user }) => {
     <Paper className={classes.root} elevation={3}>
       <img
         alt={name}
-        src={avatar_url ? avatar_url : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"}
+        src={
+          avatar_url
+            ? avatar_url
+            : "https://i1.wp.com/static.teamtreehouse.com/assets/content/default_avatar-ea7cf6abde4eec089a4e03cc925d0e893e428b2b6971b12405a9b118c837eaa2.png?ssl=1"
+        }
         title="Tomate Radical"
         className={classes.avatar}
       />
 
-      <Typography
-        gutterBottom
-        variant="h6"
-        className={classes.name}
-      >
-      {`${name.split(" ")[0]} ${name.split(" ")[1]}`}
+      <Typography gutterBottom variant="h6" className={classes.name}>
+        {name.split(" ").length === 1
+          ? `${name.split(" ")[0]}`
+          : `${name.split(" ")[0]} ${name.split(" ")[1]}`}
       </Typography>
 
-      <UserPageButton onClick={GoPageUser} variant="contained" color="primary" disableRipple>
+      <UserPageButton
+        onClick={GoPageUser}
+        variant="contained"
+        color="primary"
+        disableRipple
+      >
         Ver Página
       </UserPageButton>
     </Paper>
